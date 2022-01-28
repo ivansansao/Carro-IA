@@ -1,0 +1,5 @@
+node_modules/
+testes*.js
+.env
+.nuxt
+dist
