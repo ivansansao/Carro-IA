@@ -8,6 +8,7 @@ class Ray {
     lookAt(x, y) {
       this.dir.x = x - this.pos.x;
       this.dir.y = y - this.pos.y;
+
       this.dir.normalize(); // Coloca os valores entre 0 e 1
     }
   
@@ -47,7 +48,7 @@ class Ray {
         const pt = createVector();
         pt.x = x1 + t * (x2 - x1);
         pt.y = y1 + t * (y2 - y1);
-        
+
         return pt;
 
       } else {

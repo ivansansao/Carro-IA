@@ -3,13 +3,13 @@ class Car {
     constructor() {
 
         this.pos = createVector(width * 0.5, height * 0.5);
-        this.heading = random(0, PI * 2);
+        this.heading = 0; // random(0, PI * 2);
         this.rotation = 0;
         this.marcha = 0;
         this.cor = 'hsla(' + Math.floor(Math.random() * 360) + ',100%,50%,0.3)'
         this.volanteAngle = '';
         this.demoLado = '';
-
+ 
     }
 
     vaiPraFrente() {
@@ -36,13 +36,15 @@ class Car {
         this.volanteAngle = 'l';
     }
 
-    update() {
+    update() {     
 
         this.heading += this.rotation * 0.3; // 0.3 é o quanto o veiculo esterce
 
         let irPara = p5.Vector.fromAngle(this.heading).mult(3).mult(this.marcha);
 
         this.pos.add(irPara);
+        
+
 
         this.marcha = 0;
         this.rotation = 0;
@@ -56,8 +58,9 @@ class Car {
         rotate(this.heading);
         this.drawCar();
         pop();
-        this.volanteAngle = '';
 
+        this.volanteAngle = '';
+        
     }
 
     drawCar() {
@@ -79,12 +82,12 @@ class Car {
         translate(23, 12);
         if (this.volanteAngle == 'l') rotate(-0.3);
         if (this.volanteAngle == 'r') rotate(0.3);
-        rect(-3, -2, 6, 4, 1); // Roda dianteira
+        rect(-3, -2, 6, 4, 1); // Roda dianteira        
         pop();
         
         fill(this.cor);
         rect(-8, -10, 40, 20, 5);
-  
+
         strokeWeight(6);
         stroke(255);
         point(28, -6);
