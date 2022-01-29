@@ -11,7 +11,7 @@ class Car {
         this.demoLado = '';
         this.rays = [];
 
-        for (let i = -1.4;i<=1.4;i+=0.2) {
+        for (let i = -1.2;i<=1.4;i+=0.4) { // i<= 1.4
             this.rays.push(new Ray(this.pos.copy(), 20, i));
         }
 
@@ -74,20 +74,9 @@ class Car {
             ray.pos.y = this.pos.y;
 
             const dirRaio = this.getPontoAfrente(ray.defAngle);
-
-            // if (ray.defAngle != 0) {
-            //     const dirRaio2 = this.pos.copy();
-            //     const lat2 = p5.Vector.fromAngle(this.heading-0.2).mult(50);
-            //     dirRaio2.add(lat2);
-
-            //     stroke(0,200,0);
-            //     circle(dirRaio2.x, dirRaio2.y, 4);    
-            //     ray.lookAt(dirRaio2.x, dirRaio2.y);
-
-            // } else {
+ 
             circle(dirRaio.x, dirRaio.y, 4);
             ray.lookAt(dirRaio.x, dirRaio.y);
-            // }
 
         }
 
@@ -130,7 +119,8 @@ class Car {
             ray.show()
 
             if (menorHit) {
-
+                
+                stroke(140);
                 line(ray.pos.x, ray.pos.y, menorHit.x, menorHit.y);
                 fill(255, 0, 0);
                 circle(menorHit.x, menorHit.y, 10);
@@ -175,7 +165,9 @@ class Car {
         point(28, 6);
     }
 
-    demo() {
+    demo(run) {
+
+        if (!run) return
 
         let movimento = Number((Math.random() * (100 - 1)).toFixed(0));
         this.marcha = 1

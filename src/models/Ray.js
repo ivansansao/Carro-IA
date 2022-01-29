@@ -1,8 +1,8 @@
 
 class Ray {
     constructor(pos, angle, defAngle) {
-        this.pos = pos;
-        this.dir = p5.Vector.fromAngle(angle);
+        this.pos = pos; // Talvez não precisa mais de valor inicial.
+        this.dir = p5.Vector.fromAngle(angle); // Talvez não precisa mais de valor inicial.
         this.savedDistance = Infinity;
         this.defAngle = defAngle; // p5.Vector.fromAngle(radians(defAngle));
     }

@@ -11,6 +11,7 @@
 
 */
 
+let runDemo = true;
 let cars = [];
 let walls = [];
 let ray;
@@ -19,15 +20,12 @@ function setup() {
 
     createCanvas(windowWidth *0.98, windowHeight * 0.98);
 
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 8; i++) {
         walls.push(new Wall());
     }
-    for (let i = 0; i < 1; i++) {
+    for (let i = 0; i < (runDemo == true ? 4 :1); i++) {
         cars.push(new Car());
     }
-
-    // ray = new Ray(createVector(width / 2, height / 2), 20);
-
 
 }
 
@@ -39,7 +37,7 @@ function draw() {
 
         car.update();
         car.look(walls);
-        // car.demo();
+        car.demo(runDemo);
         car.show();
         // ray.pos.x = car.pos.x;
         // ray.pos.y = car.pos.y;
