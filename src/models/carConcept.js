@@ -1,3 +1,8 @@
+/*
+Esse arquivo não faz parte do projeto mas está aqui pois é um projeto base para saber como construir o carrinho
+sem complicações no projeto maior.
+*/
+
 
 function mousePressed() {
 }
