@@ -10,6 +10,7 @@ class Car {
         this.volanteAngle = '';
         this.demoLado = '';
         this.rays = [];
+        this.showSensorPoint = false;
 
         for (let i = -1.2;i<=1.4;i+=0.4) { // i<= 1.4
             this.rays.push(new Ray(this.pos.copy(), 20, i));
@@ -75,7 +76,7 @@ class Car {
 
             const dirRaio = this.getPontoAfrente(ray.defAngle);
  
-            circle(dirRaio.x, dirRaio.y, 4);
+            if (this.showSensorPoint) circle(dirRaio.x, dirRaio.y, 4);
             ray.lookAt(dirRaio.x, dirRaio.y);
 
         }
@@ -120,8 +121,7 @@ class Car {
 
             if (menorHit) {
                 
-                stroke(140);
-                line(ray.pos.x, ray.pos.y, menorHit.x, menorHit.y);
+                lineX(ray.pos.x, ray.pos.y, menorHit.x, menorHit.y, 'hsl(270, 100%, 70%)');
                 fill(255, 0, 0);
                 circle(menorHit.x, menorHit.y, 10);
             }

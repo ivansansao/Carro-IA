@@ -1,7 +1,7 @@
 class Wall {
-    constructor() {
-        this.a = createVector(random(width), random(height));
-        this.b = createVector(random(width), random(height));
+    constructor(a, b) {
+        this.a = a || createVector(random(width), random(height));
+        this.b = b || createVector(random(width), random(height));
     }
 
     update() {

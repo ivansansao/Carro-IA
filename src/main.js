@@ -9,76 +9,51 @@
     cars.demo();
     car.show();   
 
+    https://www.base64-image.de/
+
 */
 
-let runDemo = true;
+let runDemo = false;
 let cars = [];
 let walls = [];
 let ray;
+let pista;
+let spritesheet;
 
 function setup() {
 
-    createCanvas(windowWidth *0.98, windowHeight * 0.98);
+    createCanvas(windowWidth * 0.98, windowHeight * 0.98);
+
+    pista = new Pista();
 
     for (let i = 0; i < 8; i++) {
         walls.push(new Wall());
     }
-    for (let i = 0; i < (runDemo == true ? 4 :1); i++) {
+    for (let i = 0; i < (runDemo == true ? 4 : 1); i++) {
         cars.push(new Car());
     }
 
 }
+function preload() {
+    // spritesheet = loadImage('https://i.imgur.com/1G0VVKZ.png');
+    spritesheet = getSpriteFundo();
+}
+
 
 function draw() {
 
     start();
 
+    image(spritesheet, 0, 0);
+
     for (const car of cars) {
 
         car.update();
-        car.look(walls);
+        car.look(pista.walls);
         car.demo(runDemo);
         car.show();
-        // ray.pos.x = car.pos.x;
-        // ray.pos.y = car.pos.y;
-
-        // let dirRaio = car.pos.copy();
-        // let lat = p5.Vector.fromAngle(car.heading).mult(100);
-        // dirRaio.add(lat);
-
-        // ray.lookAt(dirRaio.x, dirRaio.y);
 
     }
-
-    for (const wall of walls) {
-        wall.update();
-        wall.show();
-    }
-
-    // // Percorre todas as paredes para achar a parece mais perto.
-
-    // let maisPerto = Infinity;
-    // let menorHit = null;
-    // for (const wall of walls) {
-
-    //     const hit = ray.cast(wall);
-
-    //     if (hit) {
-    //         const d = p5.Vector.dist(ray.pos, hit);
-
-    //         if (d < maisPerto) {
-    //             maisPerto = d;
-    //             menorHit = hit;
-
-    //         }
-    //     }
-    // }
-    // ray.show()
-
-    // if (menorHit) {
-
-    //     line(ray.pos.x, ray.pos.y, menorHit.x, menorHit.y);
-    //     circle(menorHit.x, menorHit.y, 10);
-    // }
+    pista.show();
 
 }
