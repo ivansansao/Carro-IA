@@ -2,7 +2,7 @@
 
 function start() {
 
-    background(255);
+    background(68, 170, 0);
     handleKeyIsDown();
 
 }

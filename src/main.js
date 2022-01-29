@@ -22,20 +22,19 @@ let spritesheet;
 
 function setup() {
 
-    createCanvas(windowWidth * 0.98, windowHeight * 0.98);
+    createCanvas(windowWidth, windowHeight-4);
 
     pista = new Pista();
 
     for (let i = 0; i < 8; i++) {
         walls.push(new Wall());
     }
-    for (let i = 0; i < (runDemo == true ? 4 : 1); i++) {
+    for (let i = 0; i < (runDemo == true ? 4 : 20); i++) {
         cars.push(new Car());
     }
 
 }
 function preload() {
-    // spritesheet = loadImage('https://i.imgur.com/1G0VVKZ.png');
     spritesheet = getSpriteFundo();
 }
 
@@ -48,8 +47,20 @@ function draw() {
 
     for (const car of cars) {
 
+        const carInputs = [];
+
         car.update();
         car.look(pista.walls);
+
+        carInputs.push(car.rays[0].savedDistance);
+        carInputs.push(car.rays[1].savedDistance);
+        carInputs.push(car.rays[2].savedDistance);
+        carInputs.push(car.rays[3].savedDistance);
+        carInputs.push(car.rays[4].savedDistance);
+        carInputs.push(car.rays[5].savedDistance);
+        carInputs.push(car.rays[6].savedDistance);
+
+        car.raciocinar(carInputs);
         car.demo(runDemo);
         car.show();
 

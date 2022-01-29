@@ -11,11 +11,44 @@ class Car {
         this.demoLado = '';
         this.rays = [];
         this.showSensorPoint = false;
+        this.ia = new RedeNeural();
+        this.inteligente = true;
 
         for (let i = -1.2;i<=1.4;i+=0.4) { // i<= 1.4
             this.rays.push(new Ray(this.pos.copy(), 20, i));
         }
 
+    }
+
+    raciocinar(inputs) {
+
+        if (this.inteligente) {
+
+            let resposta = this.ia.pensar(inputs);
+            let maiorI = 0;
+            let maiorR = 0;
+
+            for (let i = 0; i < 4; i++) {
+                if (resposta[i] > maiorR) {
+                    maiorR = resposta[i];
+                    maiorI = i
+                }
+            }
+            this.marcha = 1
+            // if (resposta[0] > resposta[1]) {
+            //     this.marcha = 1; // Frente
+            // } else {
+            //     this.marcha = -1; // Trás
+            // }
+            if (resposta[0] > resposta[1] ) {
+                this.vaiPraDireita();
+            }else {
+                this.vaiPraEsquerda();
+            }
+
+            this.ia.selectedOutput = maiorI;
+
+        }
     }
 
     vaiPraFrente() {
@@ -207,5 +240,6 @@ class Car {
         if (this.pos.y < 0)
             this.pos.y = height;
     }
+
 
 }
