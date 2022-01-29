@@ -17,7 +17,7 @@ let ray;
 
 function setup() {
 
-    createCanvas(windowWidth, windowHeight * 0.98);
+    createCanvas(windowWidth *0.98, windowHeight * 0.98);
 
     for (let i = 0; i < 10; i++) {
         walls.push(new Wall());
@@ -26,7 +26,7 @@ function setup() {
         cars.push(new Car());
     }
 
-    ray = new Ray(createVector(width / 2, height / 2), 20);
+    // ray = new Ray(createVector(width / 2, height / 2), 20);
 
 
 }
@@ -38,16 +38,17 @@ function draw() {
     for (const car of cars) {
 
         car.update();
+        car.look(walls);
+        // car.demo();
         car.show();
-        ray.pos.x = car.pos.x;
-        ray.pos.y = car.pos.y;
+        // ray.pos.x = car.pos.x;
+        // ray.pos.y = car.pos.y;
 
-        let newPos = car.pos.copy();
-        let lat = p5.Vector.fromAngle(car.heading).mult(100);
-        newPos.add(lat);
+        // let dirRaio = car.pos.copy();
+        // let lat = p5.Vector.fromAngle(car.heading).mult(100);
+        // dirRaio.add(lat);
 
-        ray.lookAt(newPos.x, newPos.y);
-
+        // ray.lookAt(dirRaio.x, dirRaio.y);
 
     }
 
@@ -56,41 +57,30 @@ function draw() {
         wall.show();
     }
 
+    // // Percorre todas as paredes para achar a parece mais perto.
 
-    const mx = mouseX.toFixed(0);
-    const my = mouseY.toFixed(0);
+    // let maisPerto = Infinity;
+    // let menorHit = null;
+    // for (const wall of walls) {
 
-    // ray.lookAt(mx, my);
+    //     const hit = ray.cast(wall);
 
-    text(`${mx}, ${my} (mouse)`, mx, my);
+    //     if (hit) {
+    //         const d = p5.Vector.dist(ray.pos, hit);
 
-    // Percorre todas as paredes para achar a parece mais perto.
+    //         if (d < maisPerto) {
+    //             maisPerto = d;
+    //             menorHit = hit;
 
+    //         }
+    //     }
+    // }
+    // ray.show()
 
-    let maisPerto = Infinity;
-    let menorHit = null;
-    for (const wall of walls) {
+    // if (menorHit) {
 
-
-        const hit = ray.cast(wall);
-
-        if (hit) {
-            const d = p5.Vector.dist(ray.pos, hit);
-
-            if (d < maisPerto) {
-                maisPerto = d;
-                menorHit = hit;
-
-            }
-        }
-    }
-    ray.show()
-
-    if (menorHit) {
-
-        // text(`${maisPerto}`,ray.pos.x,ray.pos.y);
-        line(ray.pos.x, ray.pos.y, menorHit.x, menorHit.y);
-        circle(menorHit.x, menorHit.y, 10);
-    }
+    //     line(ray.pos.x, ray.pos.y, menorHit.x, menorHit.y);
+    //     circle(menorHit.x, menorHit.y, 10);
+    // }
 
 }

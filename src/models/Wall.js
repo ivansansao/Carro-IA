@@ -10,6 +10,7 @@ class Wall {
 
     show() {
         stroke(200, 40, 100);
+        strokeWeight(1);
         line(this.a.x, this.a.y, this.b.x, this.b.y)
     }
 }
