@@ -19,6 +19,10 @@ let walls = [];
 let ray;
 let pista;
 let spritesheet;
+let colocacao = [];
+let evolucao = [];
+let vivos = 0;
+let nGeracao = 0;
 
 function setup() {
 
@@ -29,9 +33,8 @@ function setup() {
     for (let i = 0; i < 8; i++) {
         walls.push(new Wall());
     }
-    for (let i = 0; i < (runDemo == true ? 4 : 20); i++) {
-        cars.push(new Car());
-    }
+
+    firstGeneration();
 
 }
 function preload() {
@@ -66,5 +69,12 @@ function draw() {
 
     }
     pista.show();
+
+    if (vivos == 0) {
+        
+        nextGeneration();
+    }
+
+    text(`Vivos: ${vivos}`,100,100);
 
 }

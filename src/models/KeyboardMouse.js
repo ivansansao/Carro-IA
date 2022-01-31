@@ -5,6 +5,10 @@ function keyPressed() {
     if (key == 'p') {
         console.log('Parei! Clique para continuar!');
         noLoop();
+    } else if (key == 's') {
+        for (const car of cars) {
+            car.showRays = !car.showRays;
+        }
     }
 }
 

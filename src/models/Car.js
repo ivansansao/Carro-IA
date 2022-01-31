@@ -1,9 +1,10 @@
 class Car {
 
-    constructor() {
+    constructor(marca = '?') {
 
-        this.pos = createVector(width * 0.5, height * 0.5);
-        this.heading = random(0, PI * 2);
+        // this.pos = createVector(width * 0.5, height * 0.5);
+        this.pos = createVector(1600, random(110, 170));
+        this.heading = 110; random(0, PI * 2);
         this.rotation = 0;
         this.marcha = 0;
         this.cor = 'hsla(' + Math.floor(Math.random() * 360) + ',100%,50%,0.3)'
@@ -13,16 +14,20 @@ class Car {
         this.showSensorPoint = false;
         this.ia = new RedeNeural();
         this.inteligente = true;
+        this.batido = false;
+        this.showRays = false;
+        this.km = 0;
+        this.marca = marca;
 
-        for (let i = -1.2;i<=1.4;i+=0.4) { // i<= 1.4
-            this.rays.push(new Ray(this.pos.copy(), 20, i));
+        for (let i = -1.2; i <= 1.4; i += 0.4) { // i<= 1.4
+            this.rays.push(new Ray(this.pos.copy(), 20, i, this.showRays));
         }
 
     }
 
     raciocinar(inputs) {
 
-        if (this.inteligente) {
+        if (!this.batido && this.inteligente) {
 
             let resposta = this.ia.pensar(inputs);
             let maiorI = 0;
@@ -40,9 +45,9 @@ class Car {
             // } else {
             //     this.marcha = -1; // Trás
             // }
-            if (resposta[0] > resposta[1] ) {
+            if (resposta[0] > resposta[1]) {
                 this.vaiPraDireita();
-            }else {
+            } else {
                 this.vaiPraEsquerda();
             }
 
@@ -77,14 +82,20 @@ class Car {
 
     update() {
 
+        if (this.batido) {
+            return false;
+        }
+
         this.heading += this.rotation * 0.3; // 0.3 é o quanto o veiculo esterce
 
         let irPara = p5.Vector.fromAngle(this.heading).mult(3).mult(this.marcha);
 
         this.pos.add(irPara);
 
+        this.km += this.marcha;
         this.marcha = 0;
         this.rotation = 0;
+         
 
         // Raios.
         this.updateRays();
@@ -108,12 +119,18 @@ class Car {
             ray.pos.y = this.pos.y;
 
             const dirRaio = this.getPontoAfrente(ray.defAngle);
- 
+
             if (this.showSensorPoint) circle(dirRaio.x, dirRaio.y, 4);
+
             ray.lookAt(dirRaio.x, dirRaio.y);
 
         }
 
+    }
+
+    aposentar() {
+        vivos--;
+        this.batido = true;
     }
 
     show() {
@@ -129,6 +146,10 @@ class Car {
     }
 
     look(walls) {
+
+        if (this.batido) {
+            return false;
+        }
 
         // Percorre todas as paredes para achar a parece mais perto.
 
@@ -149,28 +170,42 @@ class Car {
                     }
                 }
             }
+
             ray.savedDistance = maisPerto;
             ray.show()
 
-            if (menorHit) {
-                
+            if (menorHit && this.showRays) {
+
                 lineX(ray.pos.x, ray.pos.y, menorHit.x, menorHit.y, 'hsl(270, 100%, 70%)');
                 fill(255, 0, 0);
                 circle(menorHit.x, menorHit.y, 10);
-            }
 
-            if (menorHit) {
                 noStroke();
                 fill(0, 0, 255);
                 text(`${maisPerto.toFixed(0)}`, menorHit.x + 6, menorHit.y + 2);
+
+            }
+
+            if (ray.savedDistance < 10) {
+                this.aposentar();
+                break;
             }
         }
     }
 
     drawCar() {
-        strokeWeight(2);
         stroke(0);
+        
+        push()
+        strokeWeight(0);
+        rotate(radians(90));
+        textSize(8);
+        text(`${this.km}`,-8,-8);
+        text(`${this.marca}`,-3,-18);
+        pop();
 
+        strokeWeight(2);
+        
         fill(0);
         rect(-6, -15, 6, 4, 1); // Roda traseira
         rect(-6, 11, 6, 4, 1); // Roda traseira
@@ -241,5 +276,15 @@ class Car {
             this.pos.y = height;
     }
 
+
+}
+function calcColocacao() {
+    colocacao = [];
+    for (let car of cars) {
+        colocacao.push(car);
+    }
+    if (colocacao.length > 0) {
+        colocacao.sort(function (a, b) { return b.km - a.km });
+    }
 
 }

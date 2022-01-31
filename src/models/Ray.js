@@ -1,10 +1,11 @@
 
 class Ray {
-    constructor(pos, angle, defAngle) {
+    constructor(pos, angle, defAngle, showRay = true) {
         this.pos = pos; // Talvez não precisa mais de valor inicial.
         this.dir = p5.Vector.fromAngle(angle); // Talvez não precisa mais de valor inicial.
         this.savedDistance = Infinity;
         this.defAngle = defAngle; // p5.Vector.fromAngle(radians(defAngle));
+        this.showRay = showRay;
     }
 
     lookAt(x, y) {
@@ -15,6 +16,10 @@ class Ray {
     }
 
     show() {
+
+        if (!this.showRay) {
+            return;
+        }
 
         stroke(100);
         strokeWeight(1);
