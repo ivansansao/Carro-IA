@@ -5,10 +5,6 @@ function firstGeneration() {
 }
 
 function nextGeneration() {
-
-    
-    console.clear();
-    console.log('aas');
     
     vivos = 12;
 
@@ -37,9 +33,9 @@ function nextGeneration() {
     }
 
     // Novo.
-    for (let i = 0; i < 1; i++) {
-        cars.push(new Car('n'));
-    }
+    // for (let i = 0; i < 1; i++) {
+    //     cars.push(new Car('n'));
+    // }
 
     // Clonado (elitismo).
     for (let i = 0; i < 1; i++) {
@@ -64,7 +60,9 @@ function nextGeneration() {
 
 
 function showStatistics() {
-    for (let i = 0; i < evolucao.length;i++) {
-        console.log(`Geração ${i} km (max): ${evolucao[i].km}`);        
-    }
+    // for (let i = 0; i < evolucao.length;i++) {
+    //     console.log(`Geração ${i} km (max): ${evolucao[i].km}`);        
+    // }
+    const i = evolucao.length -1;
+    console.log(`Geração ${i} km (max): ${evolucao[i].km}`);        
 }

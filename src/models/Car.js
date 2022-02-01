@@ -3,7 +3,8 @@ class Car {
     constructor(marca = '?') {
 
         // this.pos = createVector(width * 0.5, height * 0.5);
-        this.pos = createVector(1600, random(110, 170));
+        // this.pos = createVector(1600, random(110, 170));
+        this.pos = createVector(1600, 140);
         this.heading = 110; random(0, PI * 2);
         this.rotation = 0;
         this.marcha = 0;
@@ -17,11 +18,22 @@ class Car {
         this.batido = false;
         this.showRays = false;
         this.km = 0;
+        this.kmMax = 0;
+        this.kmMin = 0;
+        this.kmMMCount = 0;
         this.marca = marca;
+        this.updates = 0;
+        this.showSensorValue = false;
 
+        // Sensores dianteiros.
         for (let i = -1.2; i <= 1.4; i += 0.4) { // i<= 1.4
             this.rays.push(new Ray(this.pos.copy(), 20, i, this.showRays));
         }
+
+        // Sensorea traseiros.
+        this.rays.push(new Ray(this.pos.copy(), 20, 3.15, this.showRays)); // Central.
+        this.rays.push(new Ray(this.pos.copy(), 20, 2.6, this.showRays)); 
+        this.rays.push(new Ray(this.pos.copy(), 20, 3.65, this.showRays));
 
     }
 
@@ -40,12 +52,12 @@ class Car {
                 }
             }
             this.marcha = 1
-            // if (resposta[0] > resposta[1]) {
-            //     this.marcha = 1; // Frente
-            // } else {
-            //     this.marcha = -1; // Trás
-            // }
             if (resposta[0] > resposta[1]) {
+                this.marcha = 1; // Frente
+            } else {
+                this.marcha = -1; // Trás
+            }
+            if (resposta[2] > resposta[3]) {
                 this.vaiPraDireita();
             } else {
                 this.vaiPraEsquerda();
@@ -95,11 +107,32 @@ class Car {
         this.km += this.marcha;
         this.marcha = 0;
         this.rotation = 0;
-         
 
+        this.verificaEstagnacao();
+                
         // Raios.
         this.updateRays();
 
+    }
+
+    verificaEstagnacao() {
+
+        if (this.km > this.kmMax) {
+            this.kmMax = this.km;
+            this.kmMMCount = 0;
+        }
+
+        if (this.km < this.kmMin) {
+            this.kmMin = this.km;
+            this.kmMMCount = 0;
+        }
+
+        this.kmMMCount++;
+        
+        if (this.kmMMCount % 600 == 0) {
+            console.log(this, 'Eliminado por falta de evolução de km!');
+            this.aposentar();
+        }
     }
 
     getPontoAfrente(offset = 0) {
@@ -129,8 +162,10 @@ class Car {
     }
 
     aposentar() {
-        vivos--;
-        this.batido = true;
+        if (!this.batido) {
+            vivos--;
+            this.batido = true;
+        }
     }
 
     show() {
@@ -180,9 +215,11 @@ class Car {
                 fill(255, 0, 0);
                 circle(menorHit.x, menorHit.y, 10);
 
-                noStroke();
-                fill(0, 0, 255);
-                text(`${maisPerto.toFixed(0)}`, menorHit.x + 6, menorHit.y + 2);
+                if (this.showSensorValue) {
+                    noStroke();
+                    fill(0, 0, 255);
+                    text(`${maisPerto.toFixed(0)}`, menorHit.x + 6, menorHit.y + 2);
+                }
 
             }
 
@@ -287,4 +324,12 @@ function calcColocacao() {
         colocacao.sort(function (a, b) { return b.km - a.km });
     }
 
+}
+
+
+function eliminarTodosCars() {
+    console.log('Eliminando todos os carros...');
+    for (const car of cars) {
+        car.aposentar();
+    }
 }

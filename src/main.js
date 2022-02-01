@@ -26,7 +26,7 @@ let nGeracao = 0;
 
 function setup() {
 
-    createCanvas(windowWidth, windowHeight-4);
+    createCanvas(windowWidth, windowHeight - 4);
 
     pista = new Pista();
 
@@ -38,9 +38,8 @@ function setup() {
 
 }
 function preload() {
-    spritesheet = getSpriteFundo();
+    spritesheet = getSpriteFundo2();
 }
-
 
 function draw() {
 
@@ -62,6 +61,9 @@ function draw() {
         carInputs.push(car.rays[4].savedDistance);
         carInputs.push(car.rays[5].savedDistance);
         carInputs.push(car.rays[6].savedDistance);
+        carInputs.push(car.rays[7].savedDistance);
+        carInputs.push(car.rays[8].savedDistance);
+        carInputs.push(car.rays[9].savedDistance);
 
         car.raciocinar(carInputs);
         car.demo(runDemo);
@@ -71,10 +73,10 @@ function draw() {
     pista.show();
 
     if (vivos == 0) {
-        
+
         nextGeneration();
     }
 
-    text(`Vivos: ${vivos}`,100,100);
+    text(`Vivos: ${vivos}`, 100, 100);
 
 }
