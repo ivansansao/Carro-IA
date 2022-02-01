@@ -1,20 +1,22 @@
 class Car {
 
-    constructor(marca = '?') {
+    constructor(marca = '?', inteligente = true) {
 
         // this.pos = createVector(width * 0.5, height * 0.5);
         // this.pos = createVector(1600, random(110, 170));
         this.pos = createVector(1600, 140);
-        this.heading = 110; random(0, PI * 2);
+        this.heading = radians(180); // random(0, PI * 2);
+        // this.heading = radians(0); // random(0, PI * 2);
         this.rotation = 0;
         this.marcha = 0;
+        this.lastMarcha = 0;
         this.cor = 'hsla(' + Math.floor(Math.random() * 360) + ',100%,50%,0.3)'
         this.volanteAngle = '';
         this.demoLado = '';
         this.rays = [];
         this.showSensorPoint = false;
         this.ia = new RedeNeural();
-        this.inteligente = true;
+        this.inteligente = inteligente;
         this.batido = false;
         this.showRays = false;
         this.km = 0;
@@ -24,16 +26,25 @@ class Car {
         this.marca = marca;
         this.updates = 0;
         this.showSensorValue = false;
+        this.qtdReh = 0;
+        this.ranhurasColetadas = [];
 
         // Sensores dianteiros.
-        for (let i = -1.2; i <= 1.4; i += 0.4) { // i<= 1.4
+        for (let i = -1.2; i <= 1.4; i += 0.4) { // -1.2, 1.4
             this.rays.push(new Ray(this.pos.copy(), 20, i, this.showRays));
         }
 
-        // Sensorea traseiros.
-        this.rays.push(new Ray(this.pos.copy(), 20, 3.15, this.showRays)); // Central.
-        this.rays.push(new Ray(this.pos.copy(), 20, 2.6, this.showRays)); 
-        this.rays.push(new Ray(this.pos.copy(), 20, 3.65, this.showRays));
+        // Sensores laterais.
+        this.rays.push(new Ray(this.pos.copy(), 20, -1.57, this.showRays));
+        this.rays.push(new Ray(this.pos.copy(), 20,  1.57, this.showRays));
+
+
+        // Sensores traseiros.       
+        this.rays.push(new Ray(this.pos.copy(), 20, radians(160), this.showRays)); // -2.6        
+        this.rays.push(new Ray(this.pos.copy(), 20, radians(180), this.showRays)); // Central.
+        this.rays.push(new Ray(this.pos.copy(), 20, -radians(160), this.showRays)); // -2.6        
+
+
 
     }
 
@@ -41,25 +52,38 @@ class Car {
 
         if (!this.batido && this.inteligente) {
 
-            let resposta = this.ia.pensar(inputs);
-            let maiorI = 0;
-            let maiorR = 0;
+            /*
+            0 - 1a Marcha
+            1 - Ré
+            2 - Direita
+            3 - Reto
+            4 - Esquerda
+            */
 
-            for (let i = 0; i < 4; i++) {
+            let resposta = this.ia.pensar(inputs);
+            let maiorI;
+            let maiorR;
+           
+            if (resposta[0] > resposta[1]) {
+                this.vaiPraFrente(); // Frente
+            } else {
+                this.vaiPraTras(); // Trás
+            }
+
+            maiorI = 0;
+            maiorR = -9;
+            for (let i = 2; i < 5; i++) {
                 if (resposta[i] > maiorR) {
-                    maiorR = resposta[i];
+                    maiorR = resposta[i]
                     maiorI = i
                 }
             }
-            this.marcha = 1
-            if (resposta[0] > resposta[1]) {
-                this.marcha = 1; // Frente
-            } else {
-                this.marcha = -1; // Trás
-            }
-            if (resposta[2] > resposta[3]) {
+
+            if (maiorI == 2) {
                 this.vaiPraDireita();
-            } else {
+            } else if (maiorI == 3) {
+                // Vai reto.
+            } else if (maiorI == 4) {
                 this.vaiPraEsquerda();
             }
 
@@ -68,11 +92,41 @@ class Car {
         }
     }
 
+    verificaColisaoRanhura(ranhuras) {
+
+        let hit;
+        let cir = this.pos.copy();
+        const irPara = p5.Vector.fromAngle(this.heading).mult(10);
+
+        cir.add(irPara);
+
+        circle(cir.x, cir.y,20);
+
+        for (let i = 0; i < ranhuras.length; i++) {
+
+            const r = ranhuras[i];
+            
+            hit = collideLineCircle(r.a,r.b,r.c,r.d, cir.x, cir.y, 20);          
+
+            if (hit) {
+         
+                if (!this.ranhurasColetadas.includes(i)) {
+                    console.log(`Adiciona ranhura ${i}`);
+                    this.ranhurasColetadas.push(i);
+                }
+            }
+        }
+
+    }
+
     vaiPraFrente() {
         this.marcha = 1;
+        this.lastMarcha = 1;
     }
     vaiPraTras() {
         this.marcha = -1;
+        this.lastMarcha = -1;
+        this.qtdReh++;
     }
 
     vaiPraDireita() {
@@ -105,13 +159,18 @@ class Car {
         this.pos.add(irPara);
 
         this.km += this.marcha;
+        
         this.marcha = 0;
         this.rotation = 0;
 
-        this.verificaEstagnacao();
-                
+        if (this.inteligente) {
+            this.verificaEstagnacao();
+        }
+
         // Raios.
         this.updateRays();
+        
+        if (vivos == 1) this.showRays = true;        
 
     }
 
@@ -128,8 +187,8 @@ class Car {
         }
 
         this.kmMMCount++;
-        
-        if (this.kmMMCount % 600 == 0) {
+
+        if (this.kmMMCount % 50 == 0) {
             console.log(this, 'Eliminado por falta de evolução de km!');
             this.aposentar();
         }
@@ -144,7 +203,7 @@ class Car {
 
     }
 
-    updateRays() {
+    updateRays() {        
 
         for (ray of this.rays) {
 
@@ -232,17 +291,17 @@ class Car {
 
     drawCar() {
         stroke(0);
-        
+
         push()
         strokeWeight(0);
         rotate(radians(90));
         textSize(8);
-        text(`${this.km}`,-8,-8);
-        text(`${this.marca}`,-3,-18);
+        text(`${this.km}`, -8, -8);
+        text(`${this.marca}`, -3, -18);
         pop();
 
         strokeWeight(2);
-        
+
         fill(0);
         rect(-6, -15, 6, 4, 1); // Roda traseira
         rect(-6, 11, 6, 4, 1); // Roda traseira

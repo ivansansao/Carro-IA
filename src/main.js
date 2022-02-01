@@ -13,6 +13,8 @@
 
 */
 
+let quantidade = 8;
+let vivos = 0;
 let runDemo = false;
 let cars = [];
 let walls = [];
@@ -21,8 +23,8 @@ let pista;
 let spritesheet;
 let colocacao = [];
 let evolucao = [];
-let vivos = 0;
 let nGeracao = 0;
+let selectedPista = 2;
 
 function setup() {
 
@@ -37,8 +39,17 @@ function setup() {
     firstGeneration();
 
 }
+
+function choicePista() {
+    if (selectedPista == 1) {
+        spritesheet = getSpriteFundo1();
+    } else if (selectedPista == 2) {        
+        spritesheet = getSpriteFundo2();
+    }
+}
+
 function preload() {
-    spritesheet = getSpriteFundo2();
+    this.choicePista();
 }
 
 function draw() {
@@ -54,6 +65,9 @@ function draw() {
         car.update();
         car.look(pista.walls);
 
+        // console.log(car.lastMarcha);
+
+        carInputs.push(car.lastMarcha);
         carInputs.push(car.rays[0].savedDistance);
         carInputs.push(car.rays[1].savedDistance);
         carInputs.push(car.rays[2].savedDistance);
@@ -64,10 +78,23 @@ function draw() {
         carInputs.push(car.rays[7].savedDistance);
         carInputs.push(car.rays[8].savedDistance);
         carInputs.push(car.rays[9].savedDistance);
+        carInputs.push(car.rays[10].savedDistance);
+        carInputs.push(car.rays[11].savedDistance);
 
         car.raciocinar(carInputs);
         car.demo(runDemo);
+        car.verificaColisaoRanhura(pista.ranhuras);
         car.show();
+
+        if (vivos == 1) {
+            if (!car.batido) {
+                if (car.marca == 'c') {
+                    if (cars.length > 1) {
+                        car.aposentar();
+                    }
+                }
+            }
+        }
 
     }
     pista.show();

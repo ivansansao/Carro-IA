@@ -2,9 +2,9 @@ class RedeNeural {
 
     constructor() {
 
-        const input_nodes = 10;
-        const hidden_nodes = 8;
-        const output_nodes = 4;
+        const input_nodes = 13;
+        const hidden_nodes = 10;
+        const output_nodes = 5;
         this.f1 = 'sigmoid'; // this.getAnyActivation();
         this.f2 = 'softmax'; // this.getAnyActivation();
 
