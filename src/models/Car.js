@@ -37,7 +37,7 @@ class Car {
 
         // Sensores laterais.
         this.rays.push(new Ray(this.pos.copy(), 20, -1.57, this.showRays));
-        this.rays.push(new Ray(this.pos.copy(), 20,  1.57, this.showRays));
+        this.rays.push(new Ray(this.pos.copy(), 20, 1.57, this.showRays));
 
 
         // Sensores traseiros.       
@@ -64,7 +64,7 @@ class Car {
             let resposta = this.ia.pensar(inputs);
             let maiorI;
             let maiorR;
-           
+
             if (resposta[0] > resposta[1]) {
                 this.vaiPraFrente(); // Frente
             } else {
@@ -102,18 +102,19 @@ class Car {
         cir.add(irPara);
 
         if (this.showSensorRanhura) {
-            circle(cir.x, cir.y,10);
+            circle(cir.x, cir.y, 10);
         }
 
         for (let i = 0; i < ranhuras.length; i++) {
 
             const r = ranhuras[i];
-            
-            hit = collideLineCircle(r.a,r.b,r.c,r.d, cir.x, cir.y, 20);          
+
+            hit = collideLineCircle(r.a, r.b, r.c, r.d, cir.x, cir.y, 20);
 
             if (hit) {
-         
+
                 if (!this.ranhurasColetadas.includes(i)) {
+                    r.m = 1;
                     this.ranhurasColetadas.push(i);
                 }
             }
@@ -161,7 +162,7 @@ class Car {
         this.pos.add(irPara);
 
         this.km += this.marcha;
-        
+
         this.marcha = 0;
         this.rotation = 0;
 
@@ -171,8 +172,8 @@ class Car {
 
         // Raios.
         this.updateRays();
-        
-        if (vivos == 1) this.showRays = true;        
+
+        if (vivos == 1) this.showRays = true;
 
     }
 
@@ -190,10 +191,17 @@ class Car {
 
         this.kmMMCount++;
 
-        if (this.kmMMCount % 100 == 0) {
+        let limite = 100;
+
+        if (this.km > 80) {
+            limite = 800;
+        }
+
+        if (this.kmMMCount % limite == 0) {
             // console.log('Eliminado por falta de evolução de km!');
             this.aposentar();
         }
+
     }
 
     getPontoAfrente(offset = 0) {
@@ -205,7 +213,7 @@ class Car {
 
     }
 
-    updateRays() {        
+    updateRays() {
 
         for (ray of this.rays) {
 
@@ -402,11 +410,11 @@ function matarKmBaixa() {
     let maiorKm = 0;
 
     for (const car of cars) {
-        if (car.km > maiorKm ) {
+        if (car.km > maiorKm) {
             maiorKm = car.km;
         }
     }
-    if (maiorKm > 100 ){
+    if (maiorKm > 100) {
         for (const car of cars) {
             if (car.km < 20) {
                 car.aposentar();

@@ -30,6 +30,12 @@
  12
  selu, sigmoid
 
+ TESTES:
+
+   linear, relu 
+   relu selu (tá dando bastante ré, bom tb e meteu um 10 de primeira)
+ X softplus, relu (ficou tentando entrar de frente, meteu um 11 de primeira)
+   relu, tanh (atingiu 14 na 4 geração)
  */
 
 class RedeNeural {
@@ -39,8 +45,8 @@ class RedeNeural {
         const input_nodes = 13;
         const hidden_nodes = 10;
         const output_nodes = 5;
-        this.f1 = "linear"; // this.getAnyActivation();
-        this.f2 = "linear"; // this.getAnyActivation();
+        this.f1 = "relu"; // this.getAnyActivation();
+        this.f2 = "selu"; // this.getAnyActivation();
 
         const input = tf.input({ shape: [input_nodes] });
         const denseLayer1 = tf.layers.dense({ units: hidden_nodes, activation: this.f1 }); // def. sigmoid
@@ -104,7 +110,7 @@ class RedeNeural {
                 let shape = weights[i].shape;
                 let values = tensor.dataSync().slice();
                 for (let j = 0; j < values.length; j++) {
-                    if (random(1) < rate) {
+                    if (random(2) < rate) { // random(1)
                         let w = values[j];
                         values[j] = w + randomGaussian();
                     }

@@ -61,6 +61,8 @@ function draw() {
 
     image(spritesheet, 0, 0);
 
+    pista.show();
+
     for (const car of cars) {
 
         const carInputs = [];
@@ -89,7 +91,7 @@ function draw() {
         car.verificaColisaoRanhura(pista.ranhuras);
         car.show();
 
-        if (car.km < 0) {
+        if (car.km < -20) {
             car.aposentar();
         }
 
@@ -106,7 +108,7 @@ function draw() {
         }
 
     }
-    pista.show();
+    
 
     if (vivos == 0) {
 
