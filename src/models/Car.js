@@ -15,6 +15,7 @@ class Car {
         this.demoLado = '';
         this.rays = [];
         this.showSensorPoint = false;
+        this.showSensorRanhura = false;
         this.ia = new RedeNeural();
         this.inteligente = inteligente;
         this.batido = false;
@@ -100,7 +101,9 @@ class Car {
 
         cir.add(irPara);
 
-        circle(cir.x, cir.y,20);
+        if (this.showSensorRanhura) {
+            circle(cir.x, cir.y,10);
+        }
 
         for (let i = 0; i < ranhuras.length; i++) {
 
@@ -111,7 +114,6 @@ class Car {
             if (hit) {
          
                 if (!this.ranhurasColetadas.includes(i)) {
-                    console.log(`Adiciona ranhura ${i}`);
                     this.ranhurasColetadas.push(i);
                 }
             }
@@ -188,8 +190,8 @@ class Car {
 
         this.kmMMCount++;
 
-        if (this.kmMMCount % 50 == 0) {
-            console.log(this, 'Eliminado por falta de evolução de km!');
+        if (this.kmMMCount % 100 == 0) {
+            // console.log('Eliminado por falta de evolução de km!');
             this.aposentar();
         }
     }
@@ -298,6 +300,8 @@ class Car {
         textSize(8);
         text(`${this.km}`, -8, -8);
         text(`${this.marca}`, -3, -18);
+        // text(`f1:${this.ia.f1} f2:${this.ia.f2}`, 10, 10);
+
         pop();
 
         strokeWeight(2);
@@ -391,4 +395,23 @@ function eliminarTodosCars() {
     for (const car of cars) {
         car.aposentar();
     }
+}
+
+function matarKmBaixa() {
+
+    let maiorKm = 0;
+
+    for (const car of cars) {
+        if (car.km > maiorKm ) {
+            maiorKm = car.km;
+        }
+    }
+    if (maiorKm > 100 ){
+        for (const car of cars) {
+            if (car.km < 20) {
+                car.aposentar();
+            }
+        }
+    }
+
 }

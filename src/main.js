@@ -13,7 +13,7 @@
 
 */
 
-let quantidade = 8;
+let quantidade = 80;
 let vivos = 0;
 let runDemo = false;
 let cars = [];
@@ -25,10 +25,13 @@ let colocacao = [];
 let evolucao = [];
 let nGeracao = 0;
 let selectedPista = 2;
+let foo;
 
 function setup() {
 
     createCanvas(windowWidth, windowHeight - 4);
+
+    foo = new p5.Speech();
 
     pista = new Pista();
 
@@ -85,6 +88,12 @@ function draw() {
         car.demo(runDemo);
         car.verificaColisaoRanhura(pista.ranhuras);
         car.show();
+
+        if (car.km < 0) {
+            car.aposentar();
+        }
+
+        matarKmBaixa();
 
         if (vivos == 1) {
             if (!car.batido) {

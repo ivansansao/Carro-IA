@@ -1,3 +1,37 @@
+/*
+  Foi até o final e tremeu na ré:
+  selu,elu
+  softsign, relu
+  linear, tanh
+  linear, softplus
+  sigmoid, linear
+  sigmoid, softsign
+
+  foi até a metada e voltou.
+  linear, softplus
+  linear, relu
+  linear, sigmoid
+  relu, relu,
+  softplus, softplus
+  selu, elu
+  relu, elu
+  
+  (voltou muito)
+  softplus, softplus
+  softplus, softsign
+  softplus, softplus
+  relu, linear 
+  softplus, linear
+  relu, softsign
+  selu, softsign
+
+  Foi até o final e deu uma rezinha:
+
+ 12
+ selu, sigmoid
+
+ */
+
 class RedeNeural {
 
     constructor() {
@@ -5,8 +39,8 @@ class RedeNeural {
         const input_nodes = 13;
         const hidden_nodes = 10;
         const output_nodes = 5;
-        this.f1 = 'sigmoid'; // this.getAnyActivation();
-        this.f2 = 'softmax'; // this.getAnyActivation();
+        this.f1 = "linear"; // this.getAnyActivation();
+        this.f2 = "linear"; // this.getAnyActivation();
 
         const input = tf.input({ shape: [input_nodes] });
         const denseLayer1 = tf.layers.dense({ units: hidden_nodes, activation: this.f1 }); // def. sigmoid

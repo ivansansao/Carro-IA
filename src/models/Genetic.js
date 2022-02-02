@@ -17,16 +17,21 @@ function nextGeneration() {
         return
     
     }
-    const melhor = colocacao[0]; // getQuemMaisDeuReh(3);
+    const melhor = getMelhorCarro(); // getQuemMaisDeuReh(3);
 
-    console.log('Nova geração com ',melhor.km, ' Marca: ',melhor.marca);
+    if (!melhor) {
+        return
+    }
+
+    console.log(`**** G: ${nGeracao}. MELHOR FOI: ${melhor.ranhurasColetadas.length} ran. Marca: ${melhor.marca}. KM: ${melhor.km} f1: ${melhor.ia.f1} f2: ${melhor.ia.f2} `);
+
+    if (melhor.ranhurasColetadas.length > 12) {
+        foo.speak('Atingiu mais que 12!'); 
+    }
 
     // evolucao.push(colocacao[0]);
     evolucao.push(melhor);
 
-    showStatistics();
-
-    console.log('Próxima geração!');
 
     nGeracao++;
     hue = 0;
@@ -64,33 +69,6 @@ function nextGeneration() {
     
 }
 
-
-
-function showStatistics() {
-    // for (let i = 0; i < evolucao.length;i++) {
-    //     console.log(`Geração ${i} km (max): ${evolucao[i].km}`);        
-    // }
-    const i = evolucao.length -1;
-    console.log(`Geração ${i} km (max): ${evolucao[i].km}`);        
-}
-
-// function getMelhores(qtd = 4) {
-
-//     calcColocacao()
-//     let melhores = [];
-
-//     for (let i = 0; i < colocacao.length; i++) {
-        
-//         if (i < qtd) {
-//             melhores.push(colocacao[i]);
-//         } 
-        
-//     }
-
-//     return melhores;
-
-// }
-
 function getQuemMaisDeuReh(qtd) {
 
     console.log(`Primeiro: ${colocacao[0].km}`);
@@ -123,4 +101,56 @@ function myRelu(v) {
         return 1
     }
     return 0;
+}
+
+function getMelhorCarro() {
+
+    // Captura quem tem mais ranhuras.
+
+    let maisRanhuras = 0;
+    let melhor = null;
+
+    for (const car of cars) {
+        
+        if (car.ranhurasColetadas.length > maisRanhuras) {
+            maisRanhuras = car.ranhurasColetadas.length;
+            melhor = car;
+        } 
+    }
+
+    // console.log('getMelhorCarro() -> ', melhor.km, ' maisRanhuras: ', maisRanhuras);
+    // fill(0,255,0);
+    // circle(melhor.pos.x,melhor.pos.y,8);
+    // noLoop();
+
+    // Se empate, verifica desses qual tem mais km.
+
+    let maisKm = 0;
+
+    for (const car of cars) {
+        if (car.ranhurasColetadas.length == maisRanhuras) {
+            if (car.km > maisKm) {
+                maisKm = car.km;
+                melhor = car;
+            }
+        }
+    }
+
+     // Se empate, soteia um.
+     for (const car of cars) {
+         if (car.ranhurasColetadas.length == maisRanhuras) {
+             if (random(1) > 0.5) {
+                 melhor = car;
+                 break;
+             }
+         }
+     }
+
+    // console.log('Mais KM() -> ', melhor.km, ' maisRanhuras: ', maisRanhuras, ' maisKm: ', maisKm);
+    // fill(0,0,255);
+    // circle(melhor.pos.x,melhor.pos.y,8);
+    // noLoop();
+
+
+    return melhor;
 }

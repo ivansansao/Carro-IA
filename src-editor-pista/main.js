@@ -27,7 +27,7 @@ function mouseReleased() {
 
         console.log(lastPoint);
 
-        const newPoint = { a: lastPoint[0].toFixed(0), b: lastPoint[1].toFixed(0), c: mouseX.toFixed(0), d: mouseY.toFixed(0) };
+        const newPoint = { a: lastPoint[0].toFixed(0), b: lastPoint[1].toFixed(0), c: mouseX.toFixed(0), d: mouseY.toFixed(0), m: 0 };
 
         walls.push(newPoint);
 
