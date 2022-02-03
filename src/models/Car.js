@@ -30,22 +30,10 @@ class Car {
         this.qtdReh = 0;
         this.ranhurasColetadas = [];
 
-        // Sensores dianteiros.
-        for (let i = -1.2; i <= 1.4; i += 0.4) { // -1.2, 1.4
-            this.rays.push(new Ray(this.pos.copy(), 20, i, this.showRays));
+        for (let i = 0; i < 360; i += 18) {
+            this.rays.push(new Ray(this.pos.copy(), 20, radians(i), this.showRays));
+
         }
-
-        // Sensores laterais.
-        this.rays.push(new Ray(this.pos.copy(), 20, -1.57, this.showRays));
-        this.rays.push(new Ray(this.pos.copy(), 20, 1.57, this.showRays));
-
-
-        // Sensores traseiros.       
-        this.rays.push(new Ray(this.pos.copy(), 20, radians(160), this.showRays)); // -2.6        
-        this.rays.push(new Ray(this.pos.copy(), 20, radians(180), this.showRays)); // Central.
-        this.rays.push(new Ray(this.pos.copy(), 20, -radians(160), this.showRays)); // -2.6        
-
-
 
     }
 
@@ -109,16 +97,33 @@ class Car {
 
             const r = ranhuras[i];
 
-            hit = collideLineCircle(r.a, r.b, r.c, r.d, cir.x, cir.y, 20);
+            if (r.t == 0) { // 0 Ranhuras que detectam qualquer direção.
 
-            if (hit) {
+                hit = collideLineCircle(r.a, r.b, r.c, r.d, cir.x, cir.y, 20);
 
-                if (!this.ranhurasColetadas.includes(i)) {
-                    r.m = 1;
-                    this.ranhurasColetadas.push(i);
+                if (hit) {
+
+                    if (!this.ranhurasColetadas.includes(i)) {
+                        r.m = 1;
+                        this.ranhurasColetadas.push(i);
+                    }
+                }
+            } else if (r.t == -1) { // -1 Ranhuras que aceitam/detectam apenas ré.
+
+                if (this.lastMarcha == -1) {
+                    hit = collideLineCircle(r.a, r.b, r.c, r.d, cir.x, cir.y, 20);
+
+                    if (hit) {
+
+                        if (!this.ranhurasColetadas.includes(i)) {
+                            r.m = 1;
+                            this.ranhurasColetadas.push(i);
+                        }
+                    }
                 }
             }
         }
+
 
     }
 
@@ -194,7 +199,7 @@ class Car {
         let limite = 100;
 
         if (this.km > 80) {
-            limite = 800;
+            limite = 300;
         }
 
         if (this.kmMMCount % limite == 0) {
@@ -238,6 +243,10 @@ class Car {
     }
 
     show() {
+
+        if (this.batido) {
+            return
+        }
 
         push();
         translate(this.pos.x, this.pos.y);

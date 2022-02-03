@@ -41,10 +41,20 @@ class Pista {
         for (const r of this.ranhuras) {
 
             if (r.m == 0) {
-                stroke(255);
+                if (r.t == 0)
+                    stroke(255);
+                else
+                    stroke(0, 255, 255);
+            } else {
+                if (r.t == 0)
+                    stroke(80, 80, 255);
+                else
+                    stroke(255, 80, 80);
+            }
+
+            if (r.m == 0) {
                 strokeWeight(1);
             } else {
-                stroke(80, 80, 255);
                 strokeWeight(4);
             }
             line(r.a, r.b, r.c, r.d);
@@ -262,27 +272,35 @@ function getRanhuras2() {
 
     const points = [];
 
-    points.push({a: 1557, b: 72, c: 1559, d: 198, m: 0});
-    points.push({a: 1518, b: 78, c: 1522, d: 191, m: 0});
-    points.push({a: 1488, b: 104, c: 1488, d: 141, m: 0});
-    points.push({a: 1452, b: 112, c: 1454, d: 131, m: 0});
-    points.push({a: 1422, b: 110, c: 1422, d: 133, m: 0});
-    points.push({a: 1389, b: 111, c: 1389, d: 135, m: 0});
-    points.push({a: 1356, b: 112, c: 1355, d: 131, m: 0});
-    points.push({a: 1325, b: 117, c: 1325, d: 135, m: 0});
-    points.push({a: 1300, b: 118, c: 1300, d: 136, m: 0});
-    points.push({a: 1265, b: 116, c: 1228, d: 113, m: 0});
-    points.push({a: 1350, b: 152, c: 1299, d: 168, m: 0});
-    points.push({a: 1362, b: 161, c: 1316, d: 180, m: 0});
-    points.push({a: 1376, b: 170, c: 1338, d: 192, m: 0});
-    points.push({a: 1393, b: 180, c: 1362, d: 205, m: 0});
-    points.push({a: 1415, b: 193, c: 1385, d: 216, m: 0});
-    points.push({a: 1441, b: 208, c: 1408, d: 229, m: 0});
-    points.push({a: 1472, b: 225, c: 1425, d: 239, m: 0});
-    points.push({a: 1440, b: 255, c: 1505, d: 247, m: 0});
-    points.push({a: 1435, b: 265, c: 1474, d: 293, m: 0});
-    points.push({a: 1409, b: 271, c: 1407, d: 300, m: 0});
-    points.push({a: 1364, b: 269, c: 1362, d: 295, m: 0});
-    points.push({a: 1327, b: 264, c: 1293, d: 289, m: 0});
+    points.push({ a: 1568, b: 72, c: 1569, d: 202, m: 0, t: 0 });
+    points.push({ a: 1530, b: 79, c: 1531, d: 196, m: 0, t: 0 });
+    points.push({ a: 1497, b: 101, c: 1498, d: 148, m: 0, t: 0 });
+    points.push({ a: 1462, b: 110, c: 1463, d: 136, m: 0, t: 0 });
+    points.push({ a: 1417, b: 113, c: 1417, d: 135, m: 0, t: 0 });
+    points.push({ a: 1375, b: 113, c: 1376, d: 133, m: 0, t: 0 });
+    points.push({ a: 1334, b: 113, c: 1334, d: 134, m: 0, t: 0 });
+    points.push({ a: 1240, b: 109, c: 1260, d: 109, m: 0, t: 0 });
+    points.push({ a: 1345, b: 161, c: 1335, d: 174, m: 0, t: 0 });
+    points.push({ a: 1359, b: 165, c: 1348, d: 180, m: 0, t: 0 });
+    points.push({ a: 1368, b: 172, c: 1358, d: 184, m: 0, t: 0 });
+    points.push({ a: 1378, b: 177, c: 1366, d: 192, m: 0, t: 0 });
+    points.push({ a: 1387, b: 181, c: 1374, d: 198, m: 0, t: 0 });
+    points.push({ a: 1402, b: 187, c: 1383, d: 205, m: 0, t: 0 });
+    points.push({ a: 1410, b: 193, c: 1394, d: 212, m: 0, t: 0 });
+    points.push({ a: 1424, b: 201, c: 1408, d: 220, m: 0, t: 0 });
+    points.push({ a: 1436, b: 209, c: 1420, d: 228, m: 0, t: 0 });
+    points.push({ a: 1450, b: 218, c: 1430, d: 235, m: 0, t: 0 });
+    points.push({ a: 1441, b: 244, c: 1463, d: 230, m: 0, t: 0 });
+    points.push({ a: 1447, b: 254, c: 1470, d: 254, m: 0, t: 0 });
+    points.push({ a: 1446, b: 265, c: 1456, d: 279, m: 0, t: 0 });
+    points.push({ a: 1428, b: 268, c: 1428, d: 286, m: 0, t: 0 });
+    points.push({ a: 1405, b: 267, c: 1402, d: 287, m: 0, t: 0 });
+    points.push({ a: 1365, b: 264, c: 1365, d: 286, m: 0, t: 0 });
+
+    points.push({ a: 1266, b: 112, c: 1233, d: 128, m: 0, t: -1 });
+    points.push({ a: 1282, b: 119, c: 1268, d: 156, m: 0, t: -1 });
+    points.push({ a: 1304, b: 126, c: 1289, d: 158, m: 0, t: -1 });
+    points.push({ a: 1325, b: 136, c: 1308, d: 164, m: 0, t: -1 });
+
     return points;
 }

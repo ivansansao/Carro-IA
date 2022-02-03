@@ -9,6 +9,7 @@ function keyPressed() {
 
         console.clear();
         console.log(walls);
+        imprimePontos(walls);
 
     }
     if (key == 'd') {
@@ -27,7 +28,7 @@ function mouseReleased() {
 
         console.log(lastPoint);
 
-        const newPoint = { a: lastPoint[0].toFixed(0), b: lastPoint[1].toFixed(0), c: mouseX.toFixed(0), d: mouseY.toFixed(0), m: 0 };
+        const newPoint = { a: lastPoint[0].toFixed(0), b: lastPoint[1].toFixed(0), c: mouseX.toFixed(0), d: mouseY.toFixed(0), m: 0, t: 0 };
 
         walls.push(newPoint);
 
@@ -75,4 +76,16 @@ function start() {
 
 function showAtalhos() {
     console.log('r - Reseta o último ponto\nd- Deleta a última linha\ns- Mostra os pontos no console')
+}
+
+function imprimePontos(pontos) {
+
+    let textPontos = '';
+
+    for (const p of pontos) {
+        textPontos += `    points.push({ a: ${p.a}, b: ${p.b}, c: ${p.c}, d: ${p.d}, m: ${p.m}, t: ${p.t} });\n`;
+    }
+
+    console.log(textPontos);
+
 }

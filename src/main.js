@@ -13,7 +13,7 @@
 
 */
 
-let quantidade = 80;
+let quantidade = 200;
 let vivos = 0;
 let runDemo = false;
 let cars = [];
@@ -24,7 +24,7 @@ let spritesheet;
 let colocacao = [];
 let evolucao = [];
 let nGeracao = 0;
-let selectedPista = 2;
+let selectedPista = 1;
 let foo;
 
 function setup() {
@@ -85,10 +85,21 @@ function draw() {
         carInputs.push(car.rays[9].savedDistance);
         carInputs.push(car.rays[10].savedDistance);
         carInputs.push(car.rays[11].savedDistance);
+        carInputs.push(car.rays[12].savedDistance);
+        carInputs.push(car.rays[13].savedDistance);
+        carInputs.push(car.rays[14].savedDistance);
+        carInputs.push(car.rays[15].savedDistance);
+        carInputs.push(car.rays[16].savedDistance);
+        carInputs.push(car.rays[17].savedDistance);
+        carInputs.push(car.rays[18].savedDistance);
+        carInputs.push(car.rays[19].savedDistance);
 
         car.raciocinar(carInputs);
         car.demo(runDemo);
-        car.verificaColisaoRanhura(pista.ranhuras);
+        if (selectedPista == 2) {
+            car.verificaColisaoRanhura(pista.ranhuras);
+
+        }
         car.show();
 
         if (car.km < -20) {
@@ -114,7 +125,7 @@ function draw() {
 
         nextGeneration();
     }
-
+    noStroke();
     text(`Vivos: ${vivos}`, 100, 100);
 
 }

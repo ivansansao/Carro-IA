@@ -42,8 +42,8 @@ class RedeNeural {
 
     constructor() {
 
-        const input_nodes = 13;
-        const hidden_nodes = 10;
+        const input_nodes = 21; // 20 sensores + 1 marcha.
+        const hidden_nodes = 5;
         const output_nodes = 5;
         this.f1 = "relu"; // this.getAnyActivation();
         this.f2 = "selu"; // this.getAnyActivation();
@@ -110,11 +110,12 @@ class RedeNeural {
                 let shape = weights[i].shape;
                 let values = tensor.dataSync().slice();
                 for (let j = 0; j < values.length; j++) {
-                    if (random(2) < rate) { // random(1)
+                    if (random(1) < rate) { // random(1)
                         let w = values[j];
                         values[j] = w + randomGaussian();
                     }
                 }
+                
                 let newTensor = tf.tensor(values, shape);
                 mutatedWeights[i] = newTensor;
             }

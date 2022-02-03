@@ -136,15 +136,15 @@ function getMelhorCarro() {
         }
     }
 
-     // Se empate, soteia um.
-     for (const car of cars) {
-         if (car.ranhurasColetadas.length == maisRanhuras) {
-             if (random(1) > 0.5) {
-                 melhor = car;
-                 break;
-             }
-         }
-     }
+    //  // Se empate, soteia um.
+    //  for (const car of cars) {
+    //      if (car.ranhurasColetadas.length == maisRanhuras) {
+    //          if (random(1) > 0.5) {
+    //              melhor = car;
+    //              break;
+    //          }
+    //      }
+    //  }
 
     // console.log('Mais KM() -> ', melhor.km, ' maisRanhuras: ', maisRanhuras, ' maisKm: ', maisKm);
     // fill(0,0,255);
