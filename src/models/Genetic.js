@@ -25,9 +25,12 @@ function nextGeneration() {
 
     console.log(`**** G: ${nGeracao}. MELHOR FOI: ${melhor.ranhurasColetadas.length} ran. Marca: ${melhor.marca}. KM: ${melhor.km} f1: ${melhor.ia.f1} f2: ${melhor.ia.f2} `);
 
-    if (melhor.ranhurasColetadas.length > 14) {
-        foo.speak('Atingiu mais que 14!'); 
+    if (melhor.ranhurasColetadas.length > record) {
+        foo.speak(`Atingiu ${melhor.ranhurasColetadas.length}!`); 
+        record = melhor.ranhurasColetadas.length;
     }
+
+    
 
     // evolucao.push(colocacao[0]);
     evolucao.push(melhor);

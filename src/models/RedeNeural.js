@@ -46,7 +46,7 @@ class RedeNeural {
         const hidden_nodes = 5;
         const output_nodes = 5;
         this.f1 = "relu"; // this.getAnyActivation();
-        this.f2 = "selu"; // this.getAnyActivation();
+        this.f2 = "relu"; // this.getAnyActivation();
 
         const input = tf.input({ shape: [input_nodes] });
         const denseLayer1 = tf.layers.dense({ units: hidden_nodes, activation: this.f1 }); // def. sigmoid

@@ -11,6 +11,9 @@
 
     https://www.base64-image.de/
 
+    [.WebGL-0x337c0274e300] GL_CONTEXT_LOST_KHR: Context has been lost.
+index.html:1 WebGL: CONTEXT_LOST_WEBGL: loseContext: context lost
+
 */
 
 let quantidade = 200;
@@ -24,23 +27,26 @@ let spritesheet;
 let colocacao = [];
 let evolucao = [];
 let nGeracao = 0;
-let selectedPista = 1;
+let selectedPista = 2;
 let foo;
+let showBackground = false;
+let record = 0;
 
 function setup() {
 
     createCanvas(windowWidth, windowHeight - 4);
-
+    tf.setBackend('cpu');
+    
     foo = new p5.Speech();
-
+    
     pista = new Pista();
-
+    
     for (let i = 0; i < 8; i++) {
         walls.push(new Wall());
     }
-
+    
     firstGeneration();
-
+    
 }
 
 function choicePista() {
@@ -59,7 +65,7 @@ function draw() {
 
     start();
 
-    image(spritesheet, 0, 0);
+    if (showBackground) image(spritesheet, 0, 0);
 
     pista.show();
 
@@ -98,7 +104,6 @@ function draw() {
         car.demo(runDemo);
         if (selectedPista == 2) {
             car.verificaColisaoRanhura(pista.ranhuras);
-
         }
         car.show();
 
@@ -106,7 +111,7 @@ function draw() {
             car.aposentar();
         }
 
-        matarKmBaixa();
+        matarAtrasados();
 
         if (vivos == 1) {
             if (!car.batido) {

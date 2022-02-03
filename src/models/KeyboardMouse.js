@@ -11,6 +11,8 @@ function keyPressed() {
         }
     } else if (key == 'm') { // Matar todos
         eliminarTodosCars();
+    } else if (key == 'b') { // Show Background 
+        showBackground = !showBackground;
     }
 }
 

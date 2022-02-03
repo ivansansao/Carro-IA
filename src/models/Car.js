@@ -4,7 +4,7 @@ class Car {
 
         // this.pos = createVector(width * 0.5, height * 0.5);
         // this.pos = createVector(1600, random(110, 170));
-        this.pos = createVector(1600, 140);
+        this.pos = createVector(1500, 120);
         this.heading = radians(180); // random(0, PI * 2);
         // this.heading = radians(0); // random(0, PI * 2);
         this.rotation = 0;
@@ -110,7 +110,7 @@ class Car {
                 }
             } else if (r.t == -1) { // -1 Ranhuras que aceitam/detectam apenas ré.
 
-                if (this.lastMarcha == -1) {
+                if (this.lastMarcha == -1 && this.qtdReh > 5) {
                     hit = collideLineCircle(r.a, r.b, r.c, r.d, cir.x, cir.y, 20);
 
                     if (hit) {
@@ -196,10 +196,14 @@ class Car {
 
         this.kmMMCount++;
 
-        let limite = 100;
+        let limite = 4;
 
         if (this.km > 80) {
-            limite = 300;
+            limite = 20;
+        }
+
+        if (this.km < 0) {
+            this.aposentar();
         }
 
         if (this.kmMMCount % limite == 0) {
@@ -414,7 +418,7 @@ function eliminarTodosCars() {
     }
 }
 
-function matarKmBaixa() {
+function matarAtrasados() {
 
     let maiorKm = 0;
 
@@ -423,9 +427,16 @@ function matarKmBaixa() {
             maiorKm = car.km;
         }
     }
-    if (maiorKm > 100) {
+    if (maiorKm > 30) {
         for (const car of cars) {
-            if (car.km < 20) {
+            if (car.km < 25) {
+                car.aposentar();
+            }
+        }
+    }
+    if (maiorKm > 70) {
+        for (const car of cars) {
+            if (car.km < 40) {
                 car.aposentar();
             }
         }
