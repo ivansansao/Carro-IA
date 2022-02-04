@@ -5,6 +5,8 @@ function keyPressed() {
     if (key == 'p') {
         console.log('Parei! Clique para continuar!');
         noLoop();
+    } else if (key == 'l') { // Mostrar sensores
+        showWalls = !showWalls;
     } else if (key == 's') { // Mostrar sensores
         for (const car of cars) {
             car.showRays = !car.showRays;

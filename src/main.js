@@ -1,4 +1,5 @@
-/* https://github.com/davenewt/p5-asteroids/blob/master/ship.js
+/* 
+  https://github.com/davenewt/p5-asteroids/blob/master/ship.js
 
   Colisão Line Line: https://editor.p5js.org/simontiger/sketches/S1kfupErZ
 
@@ -12,11 +13,10 @@
     https://www.base64-image.de/
 
     [.WebGL-0x337c0274e300] GL_CONTEXT_LOST_KHR: Context has been lost.
-index.html:1 WebGL: CONTEXT_LOST_WEBGL: loseContext: context lost
-
+    index.html:1 WebGL: CONTEXT_LOST_WEBGL: loseContext: context lost
 */
 
-let quantidade = 200;
+let quantidade = 800;
 let vivos = 0;
 let runDemo = false;
 let cars = [];
@@ -29,8 +29,11 @@ let evolucao = [];
 let nGeracao = 0;
 let selectedPista = 2;
 let foo;
-let showBackground = false;
+let showBackground = true;
+let showWalls = false;
 let record = 0;
+let monster;
+let monster2;
 
 function setup() {
 
@@ -38,8 +41,11 @@ function setup() {
     tf.setBackend('cpu');
     
     foo = new p5.Speech();
+    foo.setVoice('Google português do Brasil');
     
     pista = new Pista();
+    monster = new Monster(1561, 120, -0.7,0,1000);
+    monster2 = new Monster(1000, 0, 0.2, 0.1,3000);
     
     for (let i = 0; i < 8; i++) {
         walls.push(new Wall());
@@ -69,61 +75,71 @@ function draw() {
 
     pista.show();
 
+
     for (const car of cars) {
 
-        const carInputs = [];
+        if (!car.batido) {
+            
+            const carInputs = [];
+            
+            car.update();
+            car.look(pista.walls);
+            
+            // console.log(car.lastMarcha);
+            
+            carInputs.push(car.lastMarcha);
+            carInputs.push(car.rays[0].savedDistance);
+            carInputs.push(car.rays[1].savedDistance);
+            carInputs.push(car.rays[2].savedDistance);
+            carInputs.push(car.rays[3].savedDistance);
+            carInputs.push(car.rays[4].savedDistance);
+            carInputs.push(car.rays[5].savedDistance);
+            carInputs.push(car.rays[6].savedDistance);
+            carInputs.push(car.rays[7].savedDistance);
+            carInputs.push(car.rays[8].savedDistance);
+            carInputs.push(car.rays[9].savedDistance);
+            carInputs.push(car.rays[10].savedDistance);
+            carInputs.push(car.rays[11].savedDistance);
+            carInputs.push(car.rays[12].savedDistance);
+            carInputs.push(car.rays[13].savedDistance);
+            carInputs.push(car.rays[14].savedDistance);
+            carInputs.push(car.rays[15].savedDistance);
+            carInputs.push(car.rays[16].savedDistance);
+            carInputs.push(car.rays[17].savedDistance);
+            carInputs.push(car.rays[18].savedDistance);
+            carInputs.push(car.rays[19].savedDistance);
+            
+            car.raciocinar(carInputs);
+            car.demo(runDemo);
+            if (selectedPista == 2) {
+                car.verificaColisaoRanhura(pista.ranhuras);
+            }
+            car.show();
 
-        car.update();
-        car.look(pista.walls);
+            // matarAtrasados();
 
-        // console.log(car.lastMarcha);
-
-        carInputs.push(car.lastMarcha);
-        carInputs.push(car.rays[0].savedDistance);
-        carInputs.push(car.rays[1].savedDistance);
-        carInputs.push(car.rays[2].savedDistance);
-        carInputs.push(car.rays[3].savedDistance);
-        carInputs.push(car.rays[4].savedDistance);
-        carInputs.push(car.rays[5].savedDistance);
-        carInputs.push(car.rays[6].savedDistance);
-        carInputs.push(car.rays[7].savedDistance);
-        carInputs.push(car.rays[8].savedDistance);
-        carInputs.push(car.rays[9].savedDistance);
-        carInputs.push(car.rays[10].savedDistance);
-        carInputs.push(car.rays[11].savedDistance);
-        carInputs.push(car.rays[12].savedDistance);
-        carInputs.push(car.rays[13].savedDistance);
-        carInputs.push(car.rays[14].savedDistance);
-        carInputs.push(car.rays[15].savedDistance);
-        carInputs.push(car.rays[16].savedDistance);
-        carInputs.push(car.rays[17].savedDistance);
-        carInputs.push(car.rays[18].savedDistance);
-        carInputs.push(car.rays[19].savedDistance);
-
-        car.raciocinar(carInputs);
-        car.demo(runDemo);
-        if (selectedPista == 2) {
-            car.verificaColisaoRanhura(pista.ranhuras);
-        }
-        car.show();
-
-        if (car.km < -20) {
-            car.aposentar();
-        }
-
-        matarAtrasados();
-
-        if (vivos == 1) {
-            if (!car.batido) {
-                if (car.marca == 'c') {
-                    if (cars.length > 1) {
-                        car.aposentar();
+            if (vivos == 1) {
+                if (!car.batido) {
+                    if (car.marca == 'c') {                        
+                        car.aposentar();                      
                     }
                 }
             }
         }
 
     }
+
+    monster.update();
+    monster.show();
+    monster.collide(cars);
+    monster2.update();
+    monster2.show();
+    monster2.collide(cars);
+
+
+    // if (frameCount % 3000 == 0) {
+    //     eliminarTodosCars();
+    // }
     
 
     if (vivos == 0) {
@@ -131,6 +147,8 @@ function draw() {
         nextGeneration();
     }
     noStroke();
-    text(`Vivos: ${vivos}`, 100, 100);
+    fill(255);
+    textSize(10);
+    text(`Vivos: ${vivos}. FC: ${frameCount} `, 100, 100);
 
 }

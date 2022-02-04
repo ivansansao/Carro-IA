@@ -49,9 +49,11 @@ class Car {
             4 - Esquerda
             */
 
+
             let resposta = this.ia.pensar(inputs);
             let maiorI;
             let maiorR;
+
 
             if (resposta[0] > resposta[1]) {
                 this.vaiPraFrente(); // Frente
@@ -110,14 +112,18 @@ class Car {
                 }
             } else if (r.t == -1) { // -1 Ranhuras que aceitam/detectam apenas ré.
 
-                if (this.lastMarcha == -1 && this.qtdReh > 5) {
-                    hit = collideLineCircle(r.a, r.b, r.c, r.d, cir.x, cir.y, 20);
-
-                    if (hit) {
-
-                        if (!this.ranhurasColetadas.includes(i)) {
-                            r.m = 1;
-                            this.ranhurasColetadas.push(i);
+                // Se ele já tem o 7 (temporário!)
+                if (this.ranhurasColetadas.includes(5)) {
+                    
+                    if (this.lastMarcha == -1 && this.qtdReh > 5) {
+                        hit = collideLineCircle(r.a, r.b, r.c, r.d, cir.x, cir.y, 20);
+                        
+                        if (hit) {
+                            
+                            if (!this.ranhurasColetadas.includes(i)) {
+                                r.m = 1;
+                                this.ranhurasColetadas.push(i);
+                            }
                         }
                     }
                 }
@@ -127,9 +133,40 @@ class Car {
 
     }
 
+    verificaEstagnacao() {
+        
+        this.kmMMCount++;
+
+        if (this.km > this.kmMax) {
+            this.kmMax = this.km;
+            this.kmMMCount = 0;
+        }
+
+        if (this.km < this.kmMin) {
+            this.kmMin = this.km;
+            this.kmMMCount = 0;
+        }
+
+        // let limite = 4;
+
+        // if (this.km > 50) {
+        //     limite = 60;
+        // }
+
+        // if (this.ranhurasColetadas.length < 5) {
+        //     if (this.km < 0) {
+        //         this.aposentar();
+        //     }
+            
+        // }
+
+
+    }
+
     vaiPraFrente() {
         this.marcha = 1;
         this.lastMarcha = 1;
+
     }
     vaiPraTras() {
         this.marcha = -1;
@@ -182,36 +219,7 @@ class Car {
 
     }
 
-    verificaEstagnacao() {
 
-        if (this.km > this.kmMax) {
-            this.kmMax = this.km;
-            this.kmMMCount = 0;
-        }
-
-        if (this.km < this.kmMin) {
-            this.kmMin = this.km;
-            this.kmMMCount = 0;
-        }
-
-        this.kmMMCount++;
-
-        let limite = 4;
-
-        if (this.km > 80) {
-            limite = 20;
-        }
-
-        if (this.km < 0) {
-            this.aposentar();
-        }
-
-        if (this.kmMMCount % limite == 0) {
-            // console.log('Eliminado por falta de evolução de km!');
-            this.aposentar();
-        }
-
-    }
 
     getPontoAfrente(offset = 0) {
 
@@ -412,7 +420,7 @@ function calcColocacao() {
 
 
 function eliminarTodosCars() {
-    console.log('Eliminando todos os carros...');
+    // console.log('Eliminando todos os carros...');
     for (const car of cars) {
         car.aposentar();
     }
@@ -429,7 +437,7 @@ function matarAtrasados() {
     }
     if (maiorKm > 30) {
         for (const car of cars) {
-            if (car.km < 25) {
+            if (car.km < 10) {
                 car.aposentar();
             }
         }

@@ -1,4 +1,6 @@
 function firstGeneration() {
+    console.log('Primeira geração...');
+    cars = [];
     for (let i = 0; i < quantidade; i++) {
         cars.push(new Car());
     }
@@ -8,7 +10,10 @@ function firstGeneration() {
 
 }
 
-function nextGeneration() {    
+function nextGeneration() {
+    
+    monster.resetPos();
+    monster2.resetPos();
 
     calcColocacao();
     
@@ -18,12 +23,19 @@ function nextGeneration() {
     
     }
     const melhor = getMelhorCarro(); // getQuemMaisDeuReh(3);
-
+    
     if (!melhor) {
         return
     }
 
-    console.log(`**** G: ${nGeracao}. MELHOR FOI: ${melhor.ranhurasColetadas.length} ran. Marca: ${melhor.marca}. KM: ${melhor.km} f1: ${melhor.ia.f1} f2: ${melhor.ia.f2} `);
+    if (!melhor.ranhurasColetadas.includes(5)) {
+        firstGeneration();
+        return
+    }
+
+
+
+    console.log(`**** G: ${nGeracao+1}. MELHOR FOI: ${melhor.ranhurasColetadas.length} ran. Marca: ${melhor.marca}. KM: ${melhor.km} f1: ${melhor.ia.f1} f2: ${melhor.ia.f2} `);
 
     if (melhor.ranhurasColetadas.length > record) {
         foo.speak(`Atingiu ${melhor.ranhurasColetadas.length}!`); 
