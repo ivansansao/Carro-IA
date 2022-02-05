@@ -16,7 +16,7 @@
     index.html:1 WebGL: CONTEXT_LOST_WEBGL: loseContext: context lost
 */
 
-let quantidade = 600;
+let quantidade = 800;
 let vivos = 0;
 let runDemo = false;
 let cars = [];
@@ -41,6 +41,8 @@ function setup() {
 //   canvas.parent('canvas-holder');
 //   noStroke();
 
+    this.choicePista();
+
     createCanvas(windowWidth, windowHeight - 4);
     tf.setBackend('cpu');
     
@@ -57,6 +59,8 @@ function setup() {
     
     // firstGeneration();
      nextGeneration();
+
+     clear()
     
 }
 
@@ -68,9 +72,9 @@ function choicePista() {
     }
 }
 
-function preload() {
-    this.choicePista();
-}
+// function preload() {
+//     this.choicePista();
+// }
 
 function draw() {
 

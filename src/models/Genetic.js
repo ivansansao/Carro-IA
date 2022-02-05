@@ -1,4 +1,5 @@
 function firstGeneration() {
+    quantidade = 1200;
     console.log('Primeira geração...');
     cars = [];
     for (let i = 0; i < quantidade; i++) {
@@ -28,12 +29,12 @@ function nextGeneration() {
         return
     }
 
-    if (!melhor.ranhurasColetadas.includes(5) || !melhor.ranhurasColetadas.includes(22)) {
-        firstGeneration();
-        return
-    }
+    // if (!melhor.ranhurasColetadas.includes(20)) {
+    //     firstGeneration();
+    //     return
+    // }
 
-
+    quantidade = 600;
 
     console.log(`**** G: ${nGeracao+1}. MELHOR FOI: ${melhor.ranhurasColetadas.length} ran. Marca: ${melhor.marca}. KM: ${melhor.km} f1: ${melhor.ia.f1} f2: ${melhor.ia.f2} `);
 

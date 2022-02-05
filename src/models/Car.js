@@ -112,8 +112,8 @@ class Car {
                 }
             } else if (r.t == -1) { // -1 Ranhuras que aceitam/detectam apenas ré.
 
-                // Se ele já tem o 7 (temporário!)
-                if (this.ranhurasColetadas.includes(5) && this.ranhurasColetadas.includes(22)) {
+                // Se está em um ângulo com traseira pra baixo!
+                if (this.heading > 3.30 && this.heading < 4.5) {
                     
                     if (this.lastMarcha == -1 && this.qtdReh > 5) {
                         hit = collideLineCircle(r.a, r.b, r.c, r.d, cir.x, cir.y, 20);
@@ -322,6 +322,9 @@ class Car {
 
     drawCar() {
         stroke(0);
+        // noFill();
+        // textSize(12);
+        // text(`${this.heading.toFixed(2)}`, 0, 0);
 
         push()
         strokeWeight(0);
@@ -428,26 +431,26 @@ function eliminarTodosCars() {
 
 function matarAtrasados() {
 
-    let maiorKm = 0;
+    // let maiorKm = 0;
 
-    for (const car of cars) {
-        if (car.km > maiorKm) {
-            maiorKm = car.km;
-        }
-    }
-    if (maiorKm > 30) {
-        for (const car of cars) {
-            if (car.km < 10) {
-                car.aposentar();
-            }
-        }
-    }
-    if (maiorKm > 70) {
-        for (const car of cars) {
-            if (car.km < 40) {
-                car.aposentar();
-            }
-        }
-    }
+    // for (const car of cars) {
+    //     if (car.km > maiorKm) {
+    //         maiorKm = car.km;
+    //     }
+    // }
+    // if (maiorKm > 30) {
+    //     for (const car of cars) {
+    //         if (car.km < 10) {
+    //             car.aposentar();
+    //         }
+    //     }
+    // }
+    // if (maiorKm > 70) {
+    //     for (const car of cars) {
+    //         if (car.km < 40) {
+    //             car.aposentar();
+    //         }
+    //     }
+    // }
 
 }

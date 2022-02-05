@@ -45,6 +45,10 @@ class Monster {
 	}
 	collide(car) {
 
+		if (!this.ativo) {
+			return;
+		}
+
 		const hit = collideCircleCircle(car.pos.x, car.pos.y,20, this.pos.x, this.pos.y, this.r);
 		if (hit) {
 			car.aposentar();
