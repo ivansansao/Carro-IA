@@ -113,7 +113,7 @@ class Car {
             } else if (r.t == -1) { // -1 Ranhuras que aceitam/detectam apenas ré.
 
                 // Se ele já tem o 7 (temporário!)
-                if (this.ranhurasColetadas.includes(5)) {
+                if (this.ranhurasColetadas.includes(5) && this.ranhurasColetadas.includes(22)) {
                     
                     if (this.lastMarcha == -1 && this.qtdReh > 5) {
                         hit = collideLineCircle(r.a, r.b, r.c, r.d, cir.x, cir.y, 20);

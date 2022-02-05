@@ -28,7 +28,7 @@ function nextGeneration() {
         return
     }
 
-    if (!melhor.ranhurasColetadas.includes(5)) {
+    if (!melhor.ranhurasColetadas.includes(5) || !melhor.ranhurasColetadas.includes(22)) {
         firstGeneration();
         return
     }

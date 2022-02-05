@@ -16,7 +16,7 @@
     index.html:1 WebGL: CONTEXT_LOST_WEBGL: loseContext: context lost
 */
 
-let quantidade = 800;
+let quantidade = 600;
 let vivos = 0;
 let runDemo = false;
 let cars = [];
@@ -37,6 +37,10 @@ let monster2;
 
 function setup() {
 
+//   let canvas = createCanvas(windowWidth, windowHeight, WEBGL);
+//   canvas.parent('canvas-holder');
+//   noStroke();
+
     createCanvas(windowWidth, windowHeight - 4);
     tf.setBackend('cpu');
     
@@ -44,14 +48,15 @@ function setup() {
     foo.setVoice('Google português do Brasil');
     
     pista = new Pista();
-    monster = new Monster(1561, 120, -0.7,0,1000);
-    monster2 = new Monster(1000, 0, 0.2, 0.1,3000);
+    monster = new Monster(1561, 120, -0.7,0,500);
+    monster2 = new Monster(1000, 0, 0.2, 0.1,2700);
     
     for (let i = 0; i < 8; i++) {
         walls.push(new Wall());
     }
     
-    firstGeneration();
+    // firstGeneration();
+     nextGeneration();
     
 }
 
@@ -69,12 +74,14 @@ function preload() {
 
 function draw() {
 
-    start();
+    background(68, 170, 0);
+    handleKeyIsDown();
 
-    if (showBackground) image(spritesheet, 0, 0);
+    if (showBackground) {
+        image(spritesheet, 0, 0);
+    }
 
     pista.show();
-
 
     for (const car of cars) {
 
@@ -125,25 +132,23 @@ function draw() {
                     }
                 }
             }
+
+            monster.collide(car);
+            monster2.collide(car);
+            
         }
 
     }
 
     monster.update();
     monster.show();
-    monster.collide(cars);
     monster2.update();
     monster2.show();
-    monster2.collide(cars);
 
 
-    // if (frameCount % 3000 == 0) {
-    //     eliminarTodosCars();
-    // }
-    
+
 
     if (vivos == 0) {
-
         nextGeneration();
     }
     noStroke();

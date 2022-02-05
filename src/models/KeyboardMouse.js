@@ -7,13 +7,16 @@ function keyPressed() {
         noLoop();
     } else if (key == 'l') { // Mostrar sensores
         showWalls = !showWalls;
+    } else if (key == 'b') { // Mostrar sensores
+        monster.ativo = !monster.ativo;
+        monster2.ativo = !monster2.ativo;
     } else if (key == 's') { // Mostrar sensores
         for (const car of cars) {
             car.showRays = !car.showRays;
         }
     } else if (key == 'm') { // Matar todos
         eliminarTodosCars();
-    } else if (key == 'b') { // Show Background 
+    } else if (key == 'g') { // Show Background 
         showBackground = !showBackground;
     }
 }

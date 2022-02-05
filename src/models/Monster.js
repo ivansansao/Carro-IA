@@ -16,6 +16,7 @@ class Monster {
 		this.pos = createVector(this.a, this.b);
 		this.dir = createVector(this.c, this.d);
 		this.count = 0;
+	
 	}
 	update() {
 
@@ -26,7 +27,6 @@ class Monster {
 
 		if (this.count > this.resetEm ) {
 			this.resetPos();
-			this.ativo = false;
 		}
 		this.count++;
 	}
@@ -34,22 +34,21 @@ class Monster {
 		if (!this.ativo) {
 			return;
 		}
+
 		stroke(255,255,0);
 		strokeWeight(2);
-		fill(0,0,255,80);
-		noStroke();
+		noFill();
 		circle(this.pos.x, this.pos.y, this.r);
+		strokeWeight(1);
+		// text(`${this.pos.x} ${this.pos.y} ${this.count}`,this.pos.x, this.pos.y,);
 
 	}
-	collide(cars) {
-		for (const car of cars) {
-			if (!car.batido) {
-				const hit = collideCircleCircle(car.pos.x, car.pos.y,20, this.pos.x, this.pos.y, this.r);
-				if (hit) {
-					car.aposentar();
-				}
-			}
-			
+	collide(car) {
+
+		const hit = collideCircleCircle(car.pos.x, car.pos.y,20, this.pos.x, this.pos.y, this.r);
+		if (hit) {
+			car.aposentar();
 		}
+
 	} 
 }
