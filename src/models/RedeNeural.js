@@ -1,41 +1,9 @@
 /*
-  Foi até o final e tremeu na ré:
-  selu,elu
-  softsign, relu
-  linear, tanh
-  linear, softplus
-  sigmoid, linear
-  sigmoid, softsign
+    await cars[0].ia.model.save('localstorage://carro-ivan')
+    await cars[0].ia.model.save('indexeddb://caria-melhor')
 
-  foi até a metada e voltou.
-  linear, softplus
-  linear, relu
-  linear, sigmoid
-  relu, relu,
-  softplus, softplus
-  selu, elu
-  relu, elu
-  
-  (voltou muito)
-  softplus, softplus
-  softplus, softsign
-  softplus, softplus
-  relu, linear 
-  softplus, linear
-  relu, softsign
-  selu, softsign
+    cars[10].ia.model = await tf.loadLayersModel('indexeddb://caria-melhor')
 
-  Foi até o final e deu uma rezinha:
-
- 12
- selu, sigmoid
-
- TESTES:
-
-   linear, relu 
-   relu selu (tá dando bastante ré, bom tb e meteu um 10 de primeira)
- X softplus, relu (ficou tentando entrar de frente, meteu um 11 de primeira)
-   relu, tanh (atingiu 14 na 4 geração)
  */
 
 class RedeNeural {

@@ -2,10 +2,14 @@ function firstGeneration() {
     quantidade = 1200;
     console.log('Primeira geração...');
     cars = [];
+
+    funcCarregarCarroSalvo();
+    
     for (let i = 0; i < quantidade; i++) {
         cars.push(new Car());
     }
     // cars.push(new Car('y',false));
+    
     
     vivos = cars.length;
 
@@ -44,7 +48,6 @@ function nextGeneration() {
     }
 
     
-
     // evolucao.push(colocacao[0]);
     evolucao.push(melhor);
 
@@ -61,11 +64,11 @@ function nextGeneration() {
         weightCopies[i] = weights[i].clone();
     }
 
-    // Novo.
-    // cars.push(new Car('n'));
-
-    // Clonado (elitismo).
-    for (let i = 0; i < 1; i++) {
+    funcSalvarMelhorCarro(melhor);
+    funcCarregarCarroSalvo();    
+  
+    // Clonado (elitismo) clonar 3 pra garantir.
+    for (let i = 0; i < 3; i++) {
         let child = new Car('c');
         child.ia.model.setWeights(weightCopies);
         cars.push(child);
@@ -169,4 +172,24 @@ function getMelhorCarro() {
 
 
     return melhor;
+}
+
+async function funcSalvarMelhorCarro(melhor) {
+    if (salvarMelhorCarro) {
+        // console.log('Salvando carro...');
+        await melhor.ia.model.save('indexeddb://caria-melhor');
+        // await melhor.ia.model.save('localstorage://caria-melhor');
+    }
+}
+
+async function funcCarregarCarroSalvo() {
+    if (carregarCarroSalvo) {     
+        // console.log('Carregando carro salvo...');
+        let child = new Car('X');
+        child.ia.model = null;
+        child.ia.model = await tf.loadLayersModel('indexeddb://caria-melhor');
+        // child.ia.model = await tf.loadLayersModel('localstorage://caria-melhor');
+        cars.push(child);
+    }
+    
 }

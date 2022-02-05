@@ -34,6 +34,8 @@ let showWalls = false;
 let record = 0;
 let monster;
 let monster2;
+let carregarCarroSalvo = true;
+let salvarMelhorCarro = false;
 
 function setup() {
 
