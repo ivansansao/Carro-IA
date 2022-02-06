@@ -71,23 +71,21 @@ function nextGeneration() {
         weightCopies[i] = weights[i].clone();
     }
 
-
-  
-    // Clonado (elitismo) clonar 3 pra garantir.
-    for (let i = 0; i < 3; i++) {
-        let child = new Car('c');
-        child.ia.model.setWeights(weightCopies);
-        cars.push(child);
-    }
-
     // Clonado e mutado.
-    for (let i = cars.length; i < quantidade; i++) {
+    for (let i = 3; i < quantidade; i++) {
 
         let child = new Car('m');
         child.ia.model.setWeights(weightCopies);
         child.ia.mutate(0.1); // 0.1
         cars.push(child);
 
+    }
+
+    // Clonado (elitismo) clonar 3 pra garantir.
+    for (let i = 0; i < 3; i++) {
+        let child = new Car('c');
+        child.ia.model.setWeights(weightCopies);
+        cars.push(child);
     }
     
     vivos = cars.length;
@@ -150,13 +148,29 @@ function getMelhorCarro() {
 
     // Se empate, verifica desses qual tem mais km.
 
-    let maisKm = 0;
+    if (maisRanhuras < 6) {
 
-    for (const car of cars) {
-        if (car.ranhurasColetadas.length == maisRanhuras) {
-            if (car.km > maisKm) {
-                maisKm = car.km;
-                melhor = car;
+        let maiorHea = 0;
+
+        for (const car of cars) {
+            if (car.ranhurasColetadas.length == maisRanhuras) {
+                if (car.heading > maiorHea) {
+                    maiorHea = car.heading;
+                    melhor = car;
+                }
+            }
+        }
+
+    } else {
+        
+        let maisKm = 0;
+
+        for (const car of cars) {
+            if (car.ranhurasColetadas.length == maisRanhuras) {
+                if (car.km > maisKm) {
+                    maisKm = car.km;
+                    melhor = car;
+                }
             }
         }
     }

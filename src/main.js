@@ -18,7 +18,7 @@
     Rode um servidor facilmente com: python3 -m http.server
 */
 
-let quantidade = 800;
+let quantidade = 0;
 let vivos = 0;
 let runDemo = false;
 let cars = [];
@@ -168,5 +168,7 @@ function draw() {
     fill(255);
     textSize(10);
     text(`Vivos: ${vivos}. FC: ${frameCount} `, 100, 100);
+
+
 
 }

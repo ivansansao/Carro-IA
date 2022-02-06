@@ -13,8 +13,8 @@ class RedeNeural {
         const input_nodes = 21; // 20 sensores + 1 marcha.
         const hidden_nodes = 5;
         const output_nodes = 5;
-        this.f1 = "relu"; // this.getAnyActivation();
-        this.f2 = "relu"; // this.getAnyActivation();
+        this.f1 = "linear"; // this.getAnyActivation();
+        this.f2 = "selu"; // this.getAnyActivation();
 
         const input = tf.input({ shape: [input_nodes] });
         const denseLayer1 = tf.layers.dense({ units: hidden_nodes, activation: this.f1 }); // def. sigmoid

@@ -4,13 +4,14 @@ class Car {
 
         // this.pos = createVector(width * 0.5, height * 0.5);
         // this.pos = createVector(1600, random(110, 170));
+        // this.pos = createVector(random(width), random(height));
         this.pos = createVector(1500, 120);
-        this.heading = radians(180); // random(0, PI * 2);
         // this.heading = radians(0); // random(0, PI * 2);
+        this.heading = radians(180); // random(0, PI * 2);
         this.rotation = 0;
         this.marcha = 0;
         this.lastMarcha = 0;
-        this.cor = 'hsla(' + Math.floor(Math.random() * 360) + ',100%,50%,0.3)'
+        this.cor = 'hsla(' + Math.floor(Math.random() * 360) + ',100%,50%,0.3)';
         this.volanteAngle = '';
         this.demoLado = '';
         this.rays = [];
@@ -34,6 +35,8 @@ class Car {
             this.rays.push(new Ray(this.pos.copy(), 20, radians(i), this.showRays));
 
         }
+
+        this.setColor();
 
     }
 
@@ -62,7 +65,7 @@ class Car {
             }
 
             maiorI = 0;
-            maiorR = -9;
+            maiorR = -Infinity;
             for (let i = 2; i < 5; i++) {
                 if (resposta[i] > maiorR) {
                     maiorR = resposta[i]
@@ -163,12 +166,22 @@ class Car {
 
     }
 
+    setColor() {
+        if (this.marca == 'c') {
+            this.cor = 'hsl(216, 100%, 50%)'; // Azul
+        } else if (this.marca == 'm') {
+            this.cor = 'hsl(100, 100%, 70%)'; // Verde claro
+        }
+    }
+
     vaiPraFrente() {
+
         this.marcha = 1;
         this.lastMarcha = 1;
 
     }
     vaiPraTras() {
+
         this.marcha = -1;
         this.lastMarcha = -1;
         this.qtdReh++;
@@ -322,26 +335,15 @@ class Car {
     }
 
     drawCar() {
+
+
         stroke(0);
-        // noFill();
-        // textSize(12);
-        // text(`${this.heading.toFixed(2)}`, 0, 0);
-
-        push()
-        strokeWeight(0);
-        rotate(radians(90));
-        textSize(8);
-        text(`${this.km}`, -8, -8);
-        text(`${this.marca}`, -3, -18);
-        // text(`f1:${this.ia.f1} f2:${this.ia.f2}`, 10, 10);
-
-        pop();
 
         strokeWeight(2);
 
         fill(0);
-        rect(-6, -15, 6, 4, 1); // Roda traseira
-        rect(-6, 11, 6, 4, 1); // Roda traseira
+        rect(-6, -14, 6, 4, 1); // Roda traseira
+        rect(-6, 10, 6, 4, 1); // Roda traseira
 
         push();
         translate(23, -12);
@@ -360,10 +362,39 @@ class Car {
         fill(this.cor);
         rect(-8, -10, 40, 20, 5);
 
+      
+        // Ré.
+        if (this.lastMarcha ==-1) {
+
+
+            stroke(255,0,0);
+            strokeWeight(2);
+            // fill('hsl(0, 100%, 50%)'); 
+            fill(0);
+            rect(-9, 2, 3, 6, 4);
+            rect(-9, -8, 3, 6, 4);
+        }
+
         strokeWeight(6);
         stroke(255);
         point(28, -6);
         point(28, 6);
+
+        push()
+        fill(0);
+        strokeWeight(0);
+        rotate(radians(90));
+        textSize(8);
+        text(`${this.km}`, -8, -8);
+        text(`${this.marca}`, -3, -18);
+        // text(`f1:${this.ia.f1} f2:${this.ia.f2}`, 10, 10);
+        pop();
+
+
+        // strokeWeight(0);
+        // fill(0);
+        // textSize(16);
+        // text(`${this.heading.toFixed(2)}`, -6, 6);
     }
 
     demo(run) {
