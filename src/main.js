@@ -14,6 +14,8 @@
 
     [.WebGL-0x337c0274e300] GL_CONTEXT_LOST_KHR: Context has been lost.
     index.html:1 WebGL: CONTEXT_LOST_WEBGL: loseContext: context lost
+
+    Rode um servidor facilmente com: python3 -m http.server
 */
 
 let quantidade = 800;
@@ -35,7 +37,7 @@ let record = 0;
 let monster;
 let monster2;
 let carregarCarroSalvo = true;
-let salvarMelhorCarro = false;
+let salvarMelhorCarro = true;
 
 function setup() {
 
@@ -52,17 +54,17 @@ function setup() {
     foo.setVoice('Google português do Brasil');
     
     pista = new Pista();
-    monster = new Monster(1561, 120, -0.7,0,500);
-    monster2 = new Monster(1000, 0, 0.2, 0.1,2700);
+    monster = new Monster(1561, 120, -0.7,0,260);
+    monster2 = new Monster(1080, 18, 0.2, 0.1,2700);
     
     for (let i = 0; i < 8; i++) {
         walls.push(new Wall());
     }
     
     // firstGeneration();
-     nextGeneration();
+    nextGeneration();
 
-     clear()
+    clear()
     
 }
 
@@ -151,11 +153,16 @@ function draw() {
     monster2.update();
     monster2.show();
 
-
-
-
     if (vivos == 0) {
+
+        // console.log('Limpando...');
+        // for (const car of cars) {
+        //     tf.dispose(car.ia.model)
+        // }
+        // console.log('Feito!');
+
         nextGeneration();
+
     }
     noStroke();
     fill(255);

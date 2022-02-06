@@ -91,4 +91,79 @@ class RedeNeural {
         });
 
     }
+    showWeights() {
+
+        tf.tidy(() => {
+
+            const weights = this.model.getWeights();
+            let pesos = '';
+            let shapes = '';
+
+            for (let i = 0; i < weights.length; i++) {
+
+                let tensor = weights[i];
+                let shape = weights[i].shape;
+                let values = tensor.dataSync().slice();
+
+                if (pesos) pesos += ';';
+                if (shapes) shapes += ';';
+                           
+                pesos += values;
+                shapes += shape;
+
+            }
+
+            console.log(pesos);
+            console.log(shapes);
+            
+        });
+
+    }
+
+    setWeightsFromString(stringPesos,stringShapes) {   
+        
+        tf.tidy(() => {
+
+            const pesosCamadas = stringPesos.split(';');
+            const shapesCamadas = stringShapes.split(';');
+            const loadedWeights = [];
+            let numPesos = [];
+            let numShapes = [];
+
+            for (let i = 0 ; i < pesosCamadas.length ; i++) {
+                let pesos = pesosCamadas[i].split(',');
+                for (let j = 0 ; j < pesos.length ; j++) {
+                    numPesos.push(Number(pesos[j]));
+                }
+            }
+
+            console.log(numPesos);
+
+            for (let i = 0 ; i < shapesCamadas.length ; i++) {                            
+                    numShapes.push(shapesCamadas[i]);
+            }
+
+            console.log(numShapes);
+
+
+            for (let i = 0 ; i < numPesos.length ; i++) {
+                
+                try {
+
+                    const newTensor = tf.tensor(numPesos[i], numShapes[i]);
+                    loadedWeights[i] = newTensor;
+
+                } catch (err) {
+                    console.log(err);
+                }
+            }
+
+
+            console.log('loadedWeights');
+            console.log(loadedWeights);
+
+            this.model.setWeights(loadedWeights);
+        });
+
+    }
 }

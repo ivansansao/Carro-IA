@@ -250,7 +250,8 @@ class Car {
     aposentar() {
         if (!this.batido) {
             vivos--;
-            this.batido = true;
+            this.batido = true;      
+            
         }
     }
 

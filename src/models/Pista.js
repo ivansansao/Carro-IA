@@ -297,12 +297,25 @@ function getRanhuras2() {
     points.push({ a: 1424, b: 201, c: 1408, d: 220, m: 0, t: 0 });
     points.push({ a: 1436, b: 209, c: 1420, d: 228, m: 0, t: 0 });
     points.push({ a: 1450, b: 218, c: 1430, d: 235, m: 0, t: 0 });
-    points.push({ a: 1441, b: 244, c: 1463, d: 230, m: 0, t: 0 });
-    points.push({ a: 1447, b: 254, c: 1470, d: 254, m: 0, t: 0 });
-    points.push({ a: 1446, b: 265, c: 1456, d: 279, m: 0, t: 0 });
-    points.push({ a: 1428, b: 268, c: 1428, d: 286, m: 0, t: 0 });
-    points.push({ a: 1405, b: 267, c: 1402, d: 287, m: 0, t: 0 });
-    points.push({ a: 1365, b: 264, c: 1365, d: 286, m: 0, t: 0 });
+
+    points.push({ a: 1458, b: 219, c: 1432, d: 242, m: 0, t: 0 });
+    points.push({ a: 1468, b: 223, c: 1447, d: 245, m: 0, t: 0 });
+    points.push({ a: 1478, b: 231, c: 1463, d: 250, m: 0, t: 0 });
+    points.push({ a: 1489, b: 238, c: 1476, d: 255, m: 0, t: 0 });
+    points.push({ a: 1503, b: 247, c: 1503, d: 274, m: 0, t: 0 });
+    points.push({ a: 1518, b: 250, c: 1519, d: 284, m: 0, t: 0 });
+    points.push({ a: 1536, b: 252, c: 1537, d: 293, m: 0, t: 0 });
+    points.push({ a: 1554, b: 249, c: 1555, d: 300, m: 0, t: 0 });
+    points.push({ a: 1352, b: 265, c: 1352, d: 294, m: 0, t: 0 });
+    points.push({ a: 1328, b: 266, c: 1325, d: 292, m: 0, t: 0 });
+    points.push({ a: 1298, b: 260, c: 1270, d: 289, m: 0, t: 0 });
+        
+    // points.push({ a: 1441, b: 244, c: 1463, d: 230, m: 0, t: 0 });
+    // points.push({ a: 1447, b: 254, c: 1470, d: 254, m: 0, t: 0 });
+    // points.push({ a: 1446, b: 265, c: 1456, d: 279, m: 0, t: 0 });
+    // points.push({ a: 1428, b: 268, c: 1428, d: 286, m: 0, t: 0 });
+    // points.push({ a: 1405, b: 267, c: 1402, d: 287, m: 0, t: 0 });
+    // points.push({ a: 1365, b: 264, c: 1365, d: 286, m: 0, t: 0 });
     
     // points.push({ a: 1258, b: 131, c: 1309, d: 131, m: 0, t: -1 });
     // points.push({ a: 1281, b: 145, c: 1325, d: 143, m: 0, t: -1 });
