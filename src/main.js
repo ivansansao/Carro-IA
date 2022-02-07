@@ -155,12 +155,9 @@ function draw() {
 
     if (vivos == 0) {
 
-        // console.log('Limpando...');
-        // for (const car of cars) {
-        //     tf.dispose(car.ia.model)
-        // }
-        // console.log('Feito!');
-
+        tf.disposeVariables();
+        tf.dispose();
+        
         nextGeneration();
 
     }
