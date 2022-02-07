@@ -120,37 +120,30 @@ class RedeNeural {
 
     }
 
-    setWeightsFromString(stringPesos,stringShapes) {   
+    setWeightsFromString(sValues,sShapes) {   
         
-        tf.tidy(() => {
+       tf.tidy(() => {
 
-            const pesosCamadas = stringPesos.split(';');
-            const shapesCamadas = stringShapes.split(';');
+            const aValues = sValues.split(';');
+            const aShapes = sShapes.split(';');
             const loadedWeights = [];
-            let numPesos = [];
-            let numShapes = [];
-
-            for (let i = 0 ; i < pesosCamadas.length ; i++) {
-                let pesos = pesosCamadas[i].split(',');
-                for (let j = 0 ; j < pesos.length ; j++) {
-                    numPesos.push(Number(pesos[j]));
-                }
-            }
-
-            console.log(numPesos);
-
-            for (let i = 0 ; i < shapesCamadas.length ; i++) {                            
-                    numShapes.push(shapesCamadas[i]);
-            }
-
-            console.log(numShapes);
 
 
-            for (let i = 0 ; i < numPesos.length ; i++) {
+            for (let i = 0 ; i < aValues.length ; i++) {
                 
                 try {
 
-                    const newTensor = tf.tensor(numPesos[i], numShapes[i]);
+                    const anValues = aValues[i].split(',').map((e) => {return Number(e)});
+                    const newValues = new Float32Array(anValues);
+                    console.log(newValues);
+
+                    const newShapes = aShapes[i].split(',').map((e) => {return Number(e)});
+                    
+                    console.log(newShapes);
+                    
+                    const newTensor = tf.tensor(newValues, newShapes);
+                    console.log(newTensor);
+
                     loadedWeights[i] = newTensor;
 
                 } catch (err) {
@@ -158,12 +151,7 @@ class RedeNeural {
                 }
             }
 
-
-            console.log('loadedWeights');
-            console.log(loadedWeights);
-
             this.model.setWeights(loadedWeights);
         });
-
     }
 }

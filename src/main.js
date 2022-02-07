@@ -155,9 +155,14 @@ function draw() {
 
     if (vivos == 0) {
 
-        tf.disposeVariables();
-        tf.dispose();
-        
+        // try {
+        //     Trava o programa!!! Aff
+        //     tf.dispose();
+        //     tf.disposeVariables();
+        // } catch (err) {
+        //     console.log(err);
+        // }
+
         nextGeneration();
 
     }
