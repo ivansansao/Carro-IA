@@ -71,12 +71,16 @@ class RedeNeural {
     mutate(rate) {
 
         tf.tidy(() => {
+
             const weights = this.model.getWeights();
             const mutatedWeights = [];
+
             for (let i = 0; i < weights.length; i++) {
+
                 let tensor = weights[i];
                 let shape = weights[i].shape;
                 let values = tensor.dataSync().slice();
+
                 for (let j = 0; j < values.length; j++) {
                     if (random(1) < rate) { // random(1)
                         let w = values[j];
@@ -88,6 +92,7 @@ class RedeNeural {
                 mutatedWeights[i] = newTensor;
             }
             this.model.setWeights(mutatedWeights);
+
         });
 
     }
@@ -113,8 +118,8 @@ class RedeNeural {
 
             }
 
-            console.log(pesos);
-            console.log(shapes);
+            console.log(pesos);  // sValues for setWeightsFromString
+            console.log(shapes); // sShapes for setWeightsFromString
             
         });
 
@@ -128,30 +133,18 @@ class RedeNeural {
             const aShapes = sShapes.split(';');
             const loadedWeights = [];
 
-
             for (let i = 0 ; i < aValues.length ; i++) {
                 
-                try {
+                const anValues = aValues[i].split(',').map((e) => {return Number(e)});
+                const newValues = new Float32Array(anValues);
+                const newShapes = aShapes[i].split(',').map((e) => {return Number(e)});
 
-                    const anValues = aValues[i].split(',').map((e) => {return Number(e)});
-                    const newValues = new Float32Array(anValues);
-                    console.log(newValues);
+                loadedWeights[i] = tf.tensor(newValues, newShapes);
 
-                    const newShapes = aShapes[i].split(',').map((e) => {return Number(e)});
-                    
-                    console.log(newShapes);
-                    
-                    const newTensor = tf.tensor(newValues, newShapes);
-                    console.log(newTensor);
-
-                    loadedWeights[i] = newTensor;
-
-                } catch (err) {
-                    console.log(err);
-                }
             }
 
             this.model.setWeights(loadedWeights);
+            
         });
     }
 }
