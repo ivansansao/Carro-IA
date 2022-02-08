@@ -1,27 +1,83 @@
 class Pista {
     constructor() {
         this.walls = [];
-        this.make();
         this.showWalls = true;
-        this.ranhuras = getRanhuras2();
+        this.ranhuras = [];
+        this.selectedPista = 2;
+        this.spritesheet = null;
+        this.monsters = [];
+        this.make();
+        this.getSpriteFundo();
     }
 
     make() {
 
-        let pista
+        let wallsPista
+        this.ranhuras = [];
+        this.monsters = [];
+        this.monsters.push(new Monster(1600, 130, -0.7,0,300,150, true));
 
-        if (selectedPista == 1) {
-            pista = getPista1();
-        } else if (selectedPista == 2) {
-            pista = getPista2();
+        if (this.selectedPista == 1) {
+            wallsPista = getPista1();
+            this.monsters.push(new Monster(1600, 130, -0.7,0,300,150));
+            this.monsters.push(new Monster(1300, -200, 0 ,1  ,600, 150));
+        } else {
+            wallsPista = getPista2();
+            this.ranhuras = getRanhuras2()
+            this.monsters.push(new Monster(1561, 120, -0.7,0,260));
+            this.monsters.push(new Monster(1080, 18, 0.2, 0.1,2700));
         }
 
-        for (const w of pista) {
-            const wall = new Wall(createVector(w.a, w.b), createVector(w.c, w.d));
+        this.walls = [];
+
+        for (const w of wallsPista) {
+            const wall = new Wall(createVector(w.a, w.b), createVector(w.c, w.d));            
             this.walls.push(wall);
         }
 
     }
+
+    getSpriteFundo() {
+        if (this.selectedPista == 1) {
+            this.spritesheet = getSpriteFundo1();
+        } else if (this.selectedPista == 2) {        
+            this.spritesheet = getSpriteFundo2();
+        }
+    }
+    togglePista() {
+        if (this.selectedPista == 1) {
+            this.selectedPista = 2;
+        } else {
+            this.selectedPista = 1;
+        }
+        this.make();
+        this.getSpriteFundo()
+    }
+
+    monstersResetPos() {
+        for (const monster of this.monsters) {  
+            monster.resetPos();
+        }
+    }
+
+    monstersCollide(car) {
+        for (const monster of this.monsters) {     
+            monster.collide(car);
+        }
+
+    }
+    monstersUpdate() {
+        for (const monster of this.monsters) {            
+            monster.update();
+        }
+    }
+    monstersShow() {
+        for (const monster of this.monsters) {            
+            monster.show();
+        }
+    }
+
+    
 
     makeRandom() {
 

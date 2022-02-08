@@ -25,17 +25,13 @@ let cars = [];
 let walls = [];
 let ray;
 let pista;
-let spritesheet;
 let colocacao = [];
 let evolucao = [];
 let nGeracao = 0;
-let selectedPista = 2;
 let foo;
 let showBackground = true;
 let showWalls = false;
 let record = 0;
-let monster;
-let monster2;
 let carregarCarroSalvo = true;
 let salvarMelhorCarro = true;
 
@@ -45,8 +41,6 @@ function setup() {
 //   canvas.parent('canvas-holder');
 //   noStroke();
 
-    this.choicePista();
-
     createCanvas(windowWidth, windowHeight - 4);
     tf.setBackend('cpu');
     
@@ -54,8 +48,8 @@ function setup() {
     foo.setVoice('Google português do Brasil');
     
     pista = new Pista();
-    monster = new Monster(1561, 120, -0.7,0,260);
-    monster2 = new Monster(1080, 18, 0.2, 0.1,2700);
+    // monster = new Monster(1561, 120, -0.7,0,260);
+    // monster2 = new Monster(1080, 18, 0.2, 0.1,2700);
     
     for (let i = 0; i < 8; i++) {
         walls.push(new Wall());
@@ -67,15 +61,6 @@ function setup() {
     clear()
     
 }
-
-function choicePista() {
-    if (selectedPista == 1) {
-        spritesheet = getSpriteFundo1();
-    } else if (selectedPista == 2) {        
-        spritesheet = getSpriteFundo2();
-    }
-}
-
 // function preload() {
 //     this.choicePista();
 // }
@@ -86,7 +71,7 @@ function draw() {
     handleKeyIsDown();
 
     if (showBackground) {
-        image(spritesheet, 0, 0);
+        image(pista.spritesheet, 0, 0);
     }
 
     pista.show();
@@ -126,7 +111,7 @@ function draw() {
             
             car.raciocinar(carInputs);
             car.demo(runDemo);
-            if (selectedPista == 2) {
+            if (pista.selectedPista == 2) {
                 car.verificaColisaoRanhura(pista.ranhuras);
             }
             car.show();
@@ -141,17 +126,22 @@ function draw() {
                 }
             }
 
-            monster.collide(car);
-            monster2.collide(car);
+            pista.monstersCollide(car);
+
+            // monster.collide(car);
+            // monster2.collide(car);
             
         }
 
     }
 
-    monster.update();
-    monster.show();
-    monster2.update();
-    monster2.show();
+    pista.monstersUpdate();
+    pista.monstersShow();
+
+    // monster.update();
+    // monster.show();
+    // monster2.update();
+    // monster2.show();
 
     if (vivos == 0) {
 

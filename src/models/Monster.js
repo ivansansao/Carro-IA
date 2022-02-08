@@ -1,16 +1,17 @@
 class Monster {	
-	constructor(a,b,  c,d, resetEm) {
+	constructor(a,b,  c,d, resetEm, r = 100, useMouse = false) {
 		this.a = a;
 		this.b = b;
 		this.c = c;
 		this.d = d;
-		this.r = 100;
+		this.r = r;
 		this.pos = null;
 		this.dir = null;
 		this.count = null;
 		this.resetEm = resetEm;
-		this.resetPos();
 		this.ativo = true;
+		this.useMouse = useMouse;
+		this.resetPos();
 	}
 	resetPos() {
 		this.pos = createVector(this.a, this.b);
@@ -23,10 +24,16 @@ class Monster {
 		if (!this.ativo) {
 			return;
 		}
-		this.pos.add(this.dir)
 
-		if (this.count > this.resetEm ) {
-			this.resetPos();
+		if (this.useMouse) {
+			this.pos.x = mouseX;
+			this.pos.y = mouseY;
+		} else {
+			this.pos.add(this.dir)
+	
+			if (this.count > this.resetEm ) {
+				this.resetPos();
+			}
 		}
 		this.count++;
 	}

@@ -8,8 +8,9 @@ function keyPressed() {
     } else if (key == 'l') { // Mostrar sensores
         showWalls = !showWalls;
     } else if (key == 'b') { // Mostrar sensores
-        monster.ativo = !monster.ativo;
-        monster2.ativo = !monster2.ativo;
+        for (const monster of pista.monsters) {
+            monster.ativo = !monster.ativo;
+        }
     } else if (key == 's') { // Mostrar sensores
         for (const car of cars) {
             car.showRays = !car.showRays;
@@ -18,6 +19,8 @@ function keyPressed() {
         eliminarTodosCars();
     } else if (key == 'g') { // Show Background 
         showBackground = !showBackground;
+    } else if (key == 'c') { // Change pista.        
+        pista.togglePista();
     }
 }
 

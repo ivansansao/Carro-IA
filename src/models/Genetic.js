@@ -25,8 +25,7 @@ function firstGeneration() {
 
 function nextGeneration() {
     
-    monster.resetPos();
-    monster2.resetPos();
+    pista.monstersResetPos();
 
     calcColocacao();
     
@@ -148,12 +147,12 @@ function getMelhorCarro() {
     // noLoop();
 
     
-    if (maisRanhuras < 6) {
+    if (maisRanhuras < 6 && pista.selectedPista == 2) {
 
         // Se empate, verifica desses qual tem melhor ângulo.
         
         let maiorHea = 0;
-        
+
         for (const car of cars) {
             if (car.ranhurasColetadas.length == maisRanhuras) {
                 if (car.heading > maiorHea) {
