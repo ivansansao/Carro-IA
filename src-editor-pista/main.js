@@ -1,3 +1,5 @@
+let showBackground = true;
+
 
 function keyPressed() {
 
@@ -10,6 +12,11 @@ function keyPressed() {
         console.clear();
         console.log(walls);
         imprimePontos(walls);
+
+    }
+    if (key == 'b') {
+
+        showBackground = !showBackground;
 
     }
     if (key == 'd') {
@@ -45,7 +52,7 @@ function mouseReleased() {
 
 function preload() {
 
-    spritesheet = getSpriteFundo2();
+    spritesheet = getSpriteFundo3();
 }
 
 let lastPoint = [];
@@ -61,10 +68,19 @@ function setup() {
 function draw() {
 
     background(255);
-    image(spritesheet, 0, 0);
+    if (showBackground) {
+        image(spritesheet, 0, 0);
+    }
 
+    let i = 0;
     for (const wall of walls) {
+        if (i == 0) {
+            stroke(0,0,255);
+        } else {
+            stroke(255,0,0);
+        }
         line(wall.a, wall.b, wall.c, wall.d);
+        i++;
     }
 
 

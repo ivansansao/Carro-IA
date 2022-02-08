@@ -5,9 +5,10 @@ class Car {
         // this.pos = createVector(width * 0.5, height * 0.5);
         // this.pos = createVector(1600, random(110, 170));
         // this.pos = createVector(random(width), random(height));
-        this.pos = createVector(1500, 120);
+        this.pos = pista.localNascimento.copy();
         // this.heading = radians(0); // random(0, PI * 2);
-        this.heading = radians(180); // random(0, PI * 2);
+        // this.heading = radians(180); // random(0, PI * 2);
+        this.heading = pista.anguloNascimento;        
         this.rotation = 0;
         this.marcha = 0;
         this.lastMarcha = 0;
@@ -337,11 +338,11 @@ class Car {
     drawCar() {
 
 
-        stroke(0);
+        stroke(100);
 
         strokeWeight(2);
 
-        fill(0);
+        fill(100);
         rect(-6, -14, 6, 4, 1); // Roda traseira
         rect(-6, 10, 6, 4, 1); // Roda traseira
 
@@ -358,6 +359,9 @@ class Car {
         if (this.volanteAngle == 'r') rotate(0.3);
         rect(-3, -2, 6, 4, 1); // Roda dianteira        
         pop();
+
+
+        stroke(0);
 
         fill(this.cor);
         rect(-8, -10, 40, 20, 5);

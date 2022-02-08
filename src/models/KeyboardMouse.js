@@ -9,7 +9,9 @@ function keyPressed() {
         showWalls = !showWalls;
     } else if (key == 'b') { // Mostrar sensores
         for (const monster of pista.monsters) {
-            monster.ativo = !monster.ativo;
+             if (!monster.useMouse) {
+                 monster.ativo = !monster.ativo;
+             }
         }
     } else if (key == 's') { // Mostrar sensores
         for (const car of cars) {
@@ -21,6 +23,12 @@ function keyPressed() {
         showBackground = !showBackground;
     } else if (key == 'c') { // Change pista.        
         pista.togglePista();
+    } else if (key == 't') { // Mouse matador. 
+       for (const monster of pista.monsters) {            
+            if (monster.useMouse) {
+                monster.ativo = !monster.ativo;
+            }
+        }
     }
 }
 
