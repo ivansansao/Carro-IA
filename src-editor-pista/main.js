@@ -52,7 +52,7 @@ function mouseReleased() {
 
 function preload() {
 
-    spritesheet = getSpriteFundo3();
+    spritesheet = getSpriteFundo4();
 }
 
 let lastPoint = [];

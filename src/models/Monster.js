@@ -1,5 +1,5 @@
 class Monster {	
-	constructor(a,b,  c,d, resetEm, r = 100, useMouse = false) {
+	constructor(a,b,  c,d, resetEm, r = 100, useMouse = false, stop = false) {
 		this.a = a;
 		this.b = b;
 		this.c = c;
@@ -11,6 +11,7 @@ class Monster {
 		this.resetEm = resetEm;
 		this.ativo = true;
 		this.useMouse = useMouse;
+		this.stop = stop;
 		this.resetPos();
 	}
 	resetPos() {
@@ -32,7 +33,11 @@ class Monster {
 			this.pos.add(this.dir)
 	
 			if (this.count > this.resetEm ) {
-				this.resetPos();
+				if (this.stop) {
+					this.ativo = false;
+				} else {
+					this.resetPos();
+				}
 			}
 		}
 		this.count++;
