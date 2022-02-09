@@ -62,7 +62,7 @@ function nextGeneration() {
         firstGeneration();
         return
     
-    }
+    }    
     const melhor = getMelhorCarro(); // getQuemMaisDeuReh(3);
     
     if (!melhor) {
@@ -101,7 +101,7 @@ function nextGeneration() {
     }
 
     // Clonado e mutado.
-    for (let i = 3; i < quantidade; i++) {
+    for (let i = 1; i < quantidade; i++) {
 
         let child = new Car('m');
         child.ia.model.setWeights(weightCopies);
@@ -110,12 +110,10 @@ function nextGeneration() {
 
     }
 
-    // Clonado (elitismo) clonar 3 pra garantir.
-    for (let i = 0; i < 3; i++) {
-        let child = new Car('c');
-        child.ia.model.setWeights(weightCopies);
-        cars.push(child);
-    }
+    // Clonado (elitismo)
+    let child = new Car('c');
+    child.ia.model.setWeights(weightCopies);
+    cars.push(child);
     
     vivos = cars.length;
     

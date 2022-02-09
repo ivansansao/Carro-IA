@@ -44,7 +44,7 @@ class Pista {
             wallsPista = getPista4();
             this.localNascimento = createVector(400, 65);
             this.anguloNascimento = radians(180);
-            this.monsters.push(new Monster(600, 65, -1,0,600,320, false, true));
+            this.monsters.push(new Monster(580, 65, -2,0,600,320, false, true));
         }
 
         this.walls = [];

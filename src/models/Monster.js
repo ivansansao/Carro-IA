@@ -18,6 +18,9 @@ class Monster {
 		this.pos = createVector(this.a, this.b);
 		this.dir = createVector(this.c, this.d);
 		this.count = 0;
+		if (this.stop) {
+			this.ativo = true;
+		}
 	
 	}
 	update() {
