@@ -42,9 +42,12 @@ class Pista {
             this.monsters.push(new Monster(250, 720, 1.5,0,500,260));
         } else if (this.selectedPista == 4) {
             wallsPista = getPista4();
-            this.localNascimento = createVector(400, 65);
-            this.anguloNascimento = radians(180);
-            this.monsters.push(new Monster(580, 65, -2,0,600,320, false, true));
+            // this.localNascimento = createVector(400, 65);
+            // this.anguloNascimento = radians(180);
+            // this.monsters.push(new Monster(580, 65, -2,0,600,320, false, true));
+            this.localNascimento = createVector(1780, 600);
+            this.anguloNascimento = radians(270);
+            this.monsters.push(new Monster(1770, 660, 0,-2,600,100, false, true));
         }
 
         this.walls = [];

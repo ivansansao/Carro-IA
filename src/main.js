@@ -34,8 +34,11 @@ let showWalls = false;
 let record = 0;
 let carregarCarroSalvo = true;
 let salvarMelhorCarro = true;
+let timer = 0;
 
 function setup() {
+
+    
 
 //   let canvas = createCanvas(windowWidth, windowHeight, WEBGL);
 //   canvas.parent('canvas-holder');
@@ -69,6 +72,8 @@ function draw() {
 
     background(68, 170, 0);
     handleKeyIsDown();
+
+    timer++;
 
     if (showBackground) {
         image(pista.spritesheet, 0, 0);
@@ -138,13 +143,18 @@ function draw() {
     pista.monstersUpdate();
     pista.monstersShow();
 
+    if (timer > 3000) {
+        timer = 0;
+        eliminarTodosCars();
+    }
+
     // monster.update();
     // monster.show();
     // monster2.update();
     // monster2.show();
 
     if (vivos == 0) {
-
+        timer = 0;
         // try {
         //     Trava o programa!!! Aff
         //     tf.dispose();
@@ -159,7 +169,7 @@ function draw() {
     noStroke();
     fill(255);
     textSize(10);
-    text(`Vivos: ${vivos}. FC: ${frameCount} `, 100, 100);
+    text(`Vivos: ${vivos}. FC: ${frameCount} Timer: ${timer} `, 10, 20);
 
 
 
