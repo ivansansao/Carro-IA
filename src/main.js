@@ -143,7 +143,7 @@ function draw() {
     pista.monstersUpdate();
     pista.monstersShow();
 
-    if (timer > 3000) {
+    if (timer > 4000) {
         timer = 0;
         eliminarTodosCars();
     }
