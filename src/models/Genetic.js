@@ -1,5 +1,5 @@
 function firstGeneration() {
-    quantidade = 900;
+    quantidade = 300;
     console.log('Primeira geração...');
     cars = [];
 
