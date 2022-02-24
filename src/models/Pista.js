@@ -8,6 +8,7 @@ class Pista {
         this.monsters = [];
         this.localNascimento = createVector(0,0);
         this.anguloNascimento = radians(180);
+        this.carMajorDistance = 0;
 
         this.make();
         this.getSpriteFundo();
@@ -82,7 +83,22 @@ class Pista {
         this.make();
         this.getSpriteFundo();
         firstGeneration();
+
     }
+
+    reset() {
+        this.carMajorDistance = 0;
+        this.monstersResetPos();
+    }
+
+    setMajorDistance(distance) {
+
+        if (distance > this.carMajorDistance) {
+            this.carMajorDistance = distance;
+        }
+
+    }
+
 
     monstersResetPos() {
         for (const monster of this.monsters) {  

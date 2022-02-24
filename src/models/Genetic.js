@@ -53,7 +53,7 @@ function firstGeneration() {
 
 function nextGeneration() {
     
-    pista.monstersResetPos();
+    pista.reset();
 
     calcColocacao();
     

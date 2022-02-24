@@ -231,9 +231,20 @@ class Car {
 
         if (vivos == 1) this.showRays = true;
 
+        pista.setMajorDistance(this.km);
+
+        this.killLazier();
+
     }
 
+    killLazier() {
 
+        const distance = pista.carMajorDistance - this.km;
+        if (distance > 700) {
+            this.aposentar();
+        }
+
+    }
 
     getPontoAfrente(offset = 0) {
 

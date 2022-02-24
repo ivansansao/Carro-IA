@@ -3,4 +3,5 @@ temp/
 testes*.js
 .env
 .nuxt
+.eslintrc.*
 dist
