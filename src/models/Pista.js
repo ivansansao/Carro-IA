@@ -32,8 +32,8 @@ class Pista {
         } else if (this.selectedPista == 2) {
             wallsPista = getPista2();
             this.ranhuras = getRanhuras2()
-            this.monsters.push(new Monster(1561, 120, -0.7,0,260, false, true));
-            this.monsters.push(new Monster(1080, 18, 0.2, 0.1,2700, false, true));
+            this.monsters.push(new Monster(1561, 120, -0.7,0,260, 100, false, true));
+            this.monsters.push(new Monster(1080, 18, 0.2, 0.1,2700, 100, false, true));
             this.localNascimento = createVector(1500, 120);
             this.anguloNascimento = radians(180);
         } else if (this.selectedPista == 3) {

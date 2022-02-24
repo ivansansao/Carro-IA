@@ -240,7 +240,7 @@ class Car {
     killLazier() {
 
         const distance = pista.carMajorDistance - this.km;
-        if (distance > 700) {
+        if (distance > 300) {
             this.aposentar();
         }
 
