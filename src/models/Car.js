@@ -170,8 +170,8 @@ class Car {
     setColor() {
         if (this.marca == 'c') {
             this.cor = 'hsl(216, 100%, 50%)'; // Azul
-        } else if (this.marca == 'm') {
-            this.cor = 'hsl(100, 100%, 70%)'; // Verde claro
+        // } else if (this.marca == 'm') {
+        //     this.cor = 'hsl(100, 100%, 70%)'; // Verde claro
         }
     }
 
@@ -190,17 +190,17 @@ class Car {
 
     vaiPraDireita() {
         if (this.marcha > 0)
-            this.rotation = 0.1;
+            this.rotation = 0.15;
         else if (this.marcha < 0)
-            this.rotation = -0.1;
+            this.rotation = -0.15;
 
         this.volanteAngle = 'r';
     }
     vaiPraEsquerda() {
         if (this.marcha > 0)
-            this.rotation = -0.1;
+            this.rotation = -0.15;
         else if (this.marcha < 0)
-            this.rotation = 0.1;
+            this.rotation = 0.15;
 
         this.volanteAngle = 'l';
     }
@@ -240,7 +240,7 @@ class Car {
     killLazier() {
 
         const distance = pista.carMajorDistance - this.km;
-        if (distance > 300) {
+        if (distance > 400) {
             this.aposentar();
         }
 

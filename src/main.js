@@ -168,7 +168,7 @@ function draw() {
     }
     noStroke();
     fill(255);
-    textSize(10);
+    textSize(16);
     text(`Vivos: ${vivos}. FC: ${frameCount} Timer: ${timer} `, 10, 20);
 
 
