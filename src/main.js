@@ -116,9 +116,9 @@ function draw() {
             
             car.raciocinar(carInputs);
             car.demo(runDemo);
-            if (pista.selectedPista == 2) {
+            // if (pista.selectedPista == 2) {
                 car.verificaColisaoRanhura(pista.ranhuras);
-            }
+            // }
             car.show();
 
             // matarAtrasados();

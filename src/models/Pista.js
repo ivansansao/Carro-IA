@@ -43,6 +43,7 @@ class Pista {
             this.monsters.push(new Monster(250, 720, 1.5,0,500,260, false, true));
         } else if (this.selectedPista == 4) {
             wallsPista = getPista4();
+            this.ranhuras = getRanhuras3();
 
             if (random(1) > 0.5 || true) {
                 this.localNascimento = createVector(400, 65);
@@ -933,4 +934,21 @@ function getRanhuras2() {
     points.push({ a: 1345, b: 161, c: 1335, d: 174, m: 0, t: -1 });
 
     return points;
+}
+
+function getRanhuras3() {
+    
+    const points = [];
+
+    points.push({ a: 801, b: 482, c: 1017, d: 480, m: 0, t: 0});
+    points.push({ a: 731, b: 633, c: 731, d: 670, m: 0, t: 0 });
+    points.push({ a: 729, b: 828, c: 730, d: 881, m: 0, t: 0 });
+    points.push({ a: 1619, b: 348, c: 1668, d: 350, m: 0, t: 0 });
+    points.push({ a: 1534, b: 726, c: 1533, d: 775, m: 0, t: 0 });
+    points.push({ a: 1252, b: 513, c: 1320, d: 514, m: 0, t: 0 });
+    points.push({ a: 1204, b: 161, c: 1164, d: 196, m: 0, t: 0 });
+    points.push({ a: 1521, b: 176, c: 1556, d: 196, m: 0, t: 0 });
+
+    return points;
+
 }
