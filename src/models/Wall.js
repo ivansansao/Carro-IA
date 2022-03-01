@@ -2,6 +2,7 @@ class Wall {
     constructor(a, b) {
         this.a = a || createVector(random(width), random(height));
         this.b = b || createVector(random(width), random(height));
+        this.id = 0;
     }
 
     update() {

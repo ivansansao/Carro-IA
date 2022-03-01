@@ -38,34 +38,35 @@ let timer = 0;
 let timerOn = true;
 let showBatidos = false;
 let melhor = null;
+let collideCars = false;
 
 function setup() {
 
-    
 
-//   let canvas = createCanvas(windowWidth, windowHeight, WEBGL);
-//   canvas.parent('canvas-holder');
-//   noStroke();
+
+    //   let canvas = createCanvas(windowWidth, windowHeight, WEBGL);
+    //   canvas.parent('canvas-holder');
+    //   noStroke();
 
     createCanvas(windowWidth, windowHeight - 4);
     tf.setBackend('cpu');
-    
+
     foo = new p5.Speech();
     foo.setVoice('Google português do Brasil');
-    
+
     pista = new Pista();
     // monster = new Monster(1561, 120, -0.7,0,260);
     // monster2 = new Monster(1080, 18, 0.2, 0.1,2700);
-    
+
     for (let i = 0; i < 8; i++) {
         walls.push(new Wall());
     }
-    
+
     // firstGeneration();
     nextGeneration();
 
     clear()
-    
+
 }
 // function preload() {
 //     this.choicePista();
@@ -86,17 +87,65 @@ function draw() {
 
     pista.show();
 
+    const wallsAndCars = [...pista.walls];
+
+    if (collideCars) {
+
+        for (const car of cars) {
+
+            if (!car.batido && car.km > 100) {
+
+                const ptd = p5.Vector.fromAngle(car.heading + 90).mult(10).add(car.pos);
+                const pte = p5.Vector.fromAngle(car.heading - 90).mult(10).add(car.pos);
+                wallsAndCars.push({ a: ptd, b: pte, id: car.id });
+
+
+                const pdd = p5.Vector.fromAngle(car.heading + 0.25).mult(34).add(car.pos);
+                const pde = p5.Vector.fromAngle(car.heading - 0.25).mult(34).add(car.pos);
+                wallsAndCars.push({ a: pdd, b: pde, id: car.id });
+
+                wallsAndCars.push({ a: ptd, b: pdd, id: car.id });
+                wallsAndCars.push({ a: pte, b: pde, id: car.id });
+
+                // // Draw
+
+                // // Pontos traseiros.
+                // stroke(255,0,0)
+                // strokeWeight(2);
+                // fill(0,255,0);
+                // stroke(0,255,0)
+                // line(ptd.x, ptd.y, pte.x, pte.y);
+                // circle(ptd.x, ptd.y,4);
+                // stroke(0,0,255)
+                // fill(0,0,255);
+                // circle(pte.x, pte.y,4);
+
+                // // Pontos dianteiros.
+                // stroke(255,0,0)
+                // strokeWeight(2);
+                // fill(0,255,0);
+                // stroke(0,255,0)
+                // line(pdd.x, pdd.y, pde.x, pde.y);
+                // circle(pdd.x, pdd.y,4);
+                // stroke(0,0,255)
+                // fill(0,0,255);
+                // circle(pde.x, pde.y,4);
+
+            }
+        }
+    }
+
     for (const car of cars) {
 
         if (!car.batido) {
-            
+
             const carInputs = [];
-            
+
             car.update();
-            car.look(pista.walls);
-            
+            car.look(wallsAndCars);
+
             // console.log(car.lastMarcha);
-            
+
             carInputs.push(car.lastMarcha);
             carInputs.push(car.rays[0].savedDistance);
             carInputs.push(car.rays[1].savedDistance);
@@ -118,11 +167,11 @@ function draw() {
             carInputs.push(car.rays[17].savedDistance);
             carInputs.push(car.rays[18].savedDistance);
             carInputs.push(car.rays[19].savedDistance);
-            
+
             car.raciocinar(carInputs);
             car.demo(runDemo);
             // if (pista.selectedPista == 2) {
-                car.verificaColisaoRanhura(pista.ranhuras);
+            car.verificaColisaoRanhura(pista.ranhuras);
             // }
             car.show();
 
@@ -130,8 +179,8 @@ function draw() {
 
             if (vivos == 1) {
                 if (!car.batido) {
-                    if (car.marca == 'c') {                        
-                        car.aposentar();                      
+                    if (car.marca == 'c') {
+                        car.aposentar();
                     }
                 }
             }
@@ -140,7 +189,7 @@ function draw() {
 
             // monster.collide(car);
             // monster2.collide(car);
-            
+
         } else if (showBatidos) {
             car.show();
         }
@@ -148,12 +197,12 @@ function draw() {
     }
 
     // Centralizar carro dentro da área visível.
-    window.scrollTo(melhor.pos.x-200,melhor.pos.y-200);
+    window.scrollTo(melhor.pos.x - 200, melhor.pos.y - 200);
 
     pista.monstersUpdate();
     pista.monstersShow();
 
-   if (vivos < 30) {
+    if (vivos < 20) {
 
         const weights = melhor.ia.model.getWeights();
         const weightCopies = [];
@@ -161,22 +210,23 @@ function draw() {
             weightCopies[i] = weights[i].clone();
         }
 
-        let child = new Car('Y',true,true);
-        child.ia.model.setWeights(weightCopies);            
-        child.ia.mutate(0.05); 
+        let child = new Car('Y', true, true);
+        // pista.anguloNascimento = radians(random(0, 360));
+        child.ia.model.setWeights(weightCopies);
+        child.ia.mutate(0.05);
         cars.push(child);
         vivos++
     }
 
 
-    
+
     if (timer > 8000) {
         timer = 0;
         eliminarTodosCars();
     }
-    if (timer%500 == 0) {
-        melhor = getMelhorCarro();
-    }
+    // if (timer % 500 == 0) {
+    //     melhor = getMelhorCarro();
+    // }
 
     // monster.update();
     // monster.show();

@@ -21,6 +21,9 @@ function keyPressed() {
         }
     } else if (key == 't') { // Matar todos
         timerOn = !timerOn;
+    } else if (key == 'o') { // Colidir carros?
+        collideCars = !collideCars;
+        console.log('Colidir carros: ',collideCars)
     } else if (key == 'g') { // Show Background 
         showBackground = !showBackground;
     } else if (key == 'c') { // Change pista.        

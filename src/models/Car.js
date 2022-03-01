@@ -8,7 +8,7 @@ class Car {
         this.pos = pista.localNascimento.copy();
         // this.heading = radians(0); // random(0, PI * 2);
         // this.heading = radians(180); // random(0, PI * 2);
-        this.heading = pista.anguloNascimento;        
+        this.heading = pista.anguloNascimento;
         this.rotation = 0;
         this.marcha = 0;
         this.lastMarcha = 0;
@@ -32,6 +32,7 @@ class Car {
         this.qtdReh = 0;
         this.ranhurasColetadas = [];
         this.allowLazy = allowLazy;
+        this.id = Number(random(0, 9999).toFixed(0));
 
         for (let i = 0; i < 360; i += 18) {
             this.rays.push(new Ray(this.pos.copy(), 20, radians(i), this.showRays));
@@ -119,12 +120,12 @@ class Car {
 
                 // Se está em um ângulo com traseira pra baixo!
                 if (this.heading > 3.30 && this.heading < 4.5) {
-                    
+
                     if (this.lastMarcha == -1 && this.qtdReh > 5) {
                         hit = collideLineCircle(r.a, r.b, r.c, r.d, cir.x, cir.y, 20);
-                        
+
                         if (hit) {
-                            
+
                             if (!this.ranhurasColetadas.includes(i)) {
                                 r.m = 1;
                                 this.ranhurasColetadas.push(i);
@@ -139,7 +140,7 @@ class Car {
     }
 
     verificaEstagnacao() {
-        
+
         this.kmMMCount++;
 
         if (this.km > this.kmMax) {
@@ -162,7 +163,7 @@ class Car {
         //     if (this.km < 0) {
         //         this.aposentar();
         //     }
-            
+
         // }
 
 
@@ -171,8 +172,8 @@ class Car {
     setColor() {
         if (this.marca == 'c') {
             this.cor = 'hsl(216, 100%, 50%)'; // Azul
-        // } else if (this.marca == 'm') {
-        //     this.cor = 'hsl(100, 100%, 70%)'; // Verde claro
+            // } else if (this.marca == 'm') {
+            //     this.cor = 'hsl(100, 100%, 70%)'; // Verde claro
         }
     }
 
@@ -240,7 +241,7 @@ class Car {
 
     killLazier() {
 
-        if (!this.allowLazy) {            
+        if (!this.allowLazy) {
             const distance = pista.carMajorDistance - this.km;
             if (distance > 400) {
                 this.aposentar();
@@ -278,8 +279,8 @@ class Car {
     aposentar() {
         if (!this.batido) {
             vivos--;
-            this.batido = true;      
-            
+            this.batido = true;
+
         }
     }
 
@@ -310,13 +311,18 @@ class Car {
 
             for (const wall of walls) {
 
-                const hit = ray.cast(wall);
+                if (wall.id == this.id) {
+                   
+                } else {
 
-                if (hit) {
-                    const d = p5.Vector.dist(ray.pos, hit);
-                    if (d < maisPerto) {
-                        maisPerto = d;
-                        menorHit = hit;
+                    const hit = ray.cast(wall);
+
+                    if (hit) {
+                        const d = p5.Vector.dist(ray.pos, hit);
+                        if (d < maisPerto) {
+                            maisPerto = d;
+                            menorHit = hit;
+                        }
                     }
                 }
             }
@@ -326,8 +332,10 @@ class Car {
 
             if (menorHit && this.showRays) {
 
-                lineX(ray.pos.x, ray.pos.y, menorHit.x, menorHit.y, 'hsl(270, 100%, 70%)');
                 fill(255, 0, 0);
+                stroke(255, 0, 0);
+                strokeWeight(1);
+                lineX(ray.pos.x, ray.pos.y, menorHit.x, menorHit.y, 'hsl(0, 100%, 70%)');
                 circle(menorHit.x, menorHit.y, 10);
 
                 if (this.showSensorValue) {
@@ -376,12 +384,12 @@ class Car {
         fill(this.cor);
         rect(-8, -10, 40, 20, 5);
 
-      
+
         // Ré.
-        if (this.lastMarcha ==-1) {
+        if (this.lastMarcha == -1) {
 
 
-            stroke(255,0,0);
+            stroke(255, 0, 0);
             strokeWeight(2);
             // fill('hsl(0, 100%, 50%)'); 
             fill(0);
