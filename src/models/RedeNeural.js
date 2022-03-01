@@ -85,6 +85,7 @@ class RedeNeural {
                     if (random(1) < rate) { // random(1)
                         let w = values[j];
                         values[j] = w + randomGaussian();
+                        // values[j] = w + random(-1,1);
                     }
                 }
                 
@@ -96,10 +97,10 @@ class RedeNeural {
         });
 
     }
-    showWeights() {
+    showWeights(toReturn) {
 
-        tf.tidy(() => {
-
+        return tf.tidy(() => {
+            
             const weights = this.model.getWeights();
             let pesos = '';
             let shapes = '';
@@ -118,8 +119,12 @@ class RedeNeural {
 
             }
 
-            console.log(pesos);  // sValues for setWeightsFromString
-            console.log(shapes); // sShapes for setWeightsFromString
+            if (toReturn) {
+                return pesos;
+            } else {                
+                console.log(pesos);  // sValues for setWeightsFromString
+                console.log(shapes); // sShapes for setWeightsFromString
+            }
             
         });
 

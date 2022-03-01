@@ -1,6 +1,6 @@
 class Car {
 
-    constructor(marca = '?', inteligente = true) {
+    constructor(marca = '?', inteligente = true, allowLazy = false) {
 
         // this.pos = createVector(width * 0.5, height * 0.5);
         // this.pos = createVector(1600, random(110, 170));
@@ -31,6 +31,7 @@ class Car {
         this.showSensorValue = false;
         this.qtdReh = 0;
         this.ranhurasColetadas = [];
+        this.allowLazy = allowLazy;
 
         for (let i = 0; i < 360; i += 18) {
             this.rays.push(new Ray(this.pos.copy(), 20, radians(i), this.showRays));
@@ -190,17 +191,17 @@ class Car {
 
     vaiPraDireita() {
         if (this.marcha > 0)
-            this.rotation = 0.15;
+            this.rotation = 0.2;
         else if (this.marcha < 0)
-            this.rotation = -0.15;
+            this.rotation = -0.2;
 
         this.volanteAngle = 'r';
     }
     vaiPraEsquerda() {
         if (this.marcha > 0)
-            this.rotation = -0.15;
+            this.rotation = -0.2;
         else if (this.marcha < 0)
-            this.rotation = 0.15;
+            this.rotation = 0.2;
 
         this.volanteAngle = 'l';
     }
@@ -239,9 +240,11 @@ class Car {
 
     killLazier() {
 
-        const distance = pista.carMajorDistance - this.km;
-        if (distance > 400) {
-            this.aposentar();
+        if (!this.allowLazy) {            
+            const distance = pista.carMajorDistance - this.km;
+            if (distance > 400) {
+                this.aposentar();
+            }
         }
 
     }
@@ -281,10 +284,6 @@ class Car {
     }
 
     show() {
-
-        if (this.batido) {
-            return
-        }
 
         push();
         translate(this.pos.x, this.pos.y);
@@ -354,21 +353,21 @@ class Car {
         strokeWeight(2);
 
         fill(100);
-        rect(-6, -14, 6, 4, 1); // Roda traseira
-        rect(-6, 10, 6, 4, 1); // Roda traseira
+        rect(-6, -12, 6, 4, 1); // Roda traseira
+        rect(-6, 8, 6, 4, 1); // Roda traseira
 
         push();
         translate(23, -12);
-        if (this.volanteAngle == 'l') rotate(-0.3);
-        if (this.volanteAngle == 'r') rotate(0.3);
-        rect(-3, -2, 6, 4, 1); // Roda dianteira
+        if (this.volanteAngle == 'l') rotate(-0.5);
+        if (this.volanteAngle == 'r') rotate(0.5);
+        rect(-3, 0, 6, 4, 1); // Roda dianteira
         pop();
 
         push();
         translate(23, 12);
-        if (this.volanteAngle == 'l') rotate(-0.3);
-        if (this.volanteAngle == 'r') rotate(0.3);
-        rect(-3, -2, 6, 4, 1); // Roda dianteira        
+        if (this.volanteAngle == 'l') rotate(-0.5);
+        if (this.volanteAngle == 'r') rotate(0.5);
+        rect(-3, -4, 6, 4, 1); // Roda dianteira direita
         pop();
 
 

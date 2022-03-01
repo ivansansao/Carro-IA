@@ -7,6 +7,8 @@ function keyPressed() {
         noLoop();
     } else if (key == 'l') { // Mostrar sensores
         showWalls = !showWalls;
+    } else if (key == 'x') { // Mostrar sensores
+        showBatidos = !showBatidos;
     } else if (key == 'b') { // Mostrar sensores
         for (const monster of pista.monsters) {
              if (!monster.useMouse) {
@@ -17,13 +19,15 @@ function keyPressed() {
         for (const car of cars) {
             car.showRays = !car.showRays;
         }
-    } else if (key == 'm') { // Matar todos
-        eliminarTodosCars();
+    } else if (key == 't') { // Matar todos
+        timerOn = !timerOn;
     } else if (key == 'g') { // Show Background 
         showBackground = !showBackground;
     } else if (key == 'c') { // Change pista.        
         pista.togglePista();
-    } else if (key == 't') { // Mouse matador. 
+    } else if (key == 'm') {
+        eliminarTodosCars();
+    } else if (key == 'i') { // Mouse matador. 
        for (const monster of pista.monsters) {            
             if (monster.useMouse) {
                 monster.ativo = !monster.ativo;
@@ -50,8 +54,19 @@ function handleKeyIsDown() {
     }
 }
 
+function mouseClicked() {
+
+    let child = new Car('Y',false);
+    child.pos.x = mouseX;
+    child.pos.y = mouseY;
+    cars.push(child);
+    
+    vivos++;
+}
+
 function mousePressed() {
-    noLoop();
+  
+
 }
 
 function mouseReleased() {

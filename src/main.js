@@ -35,6 +35,9 @@ let record = 0;
 let carregarCarroSalvo = true;
 let salvarMelhorCarro = true;
 let timer = 0;
+let timerOn = true;
+let showBatidos = false;
+let melhor = null;
 
 function setup() {
 
@@ -73,7 +76,9 @@ function draw() {
     background(68, 170, 0);
     handleKeyIsDown();
 
-    timer++;
+    if (timerOn) {
+        timer++;
+    }
 
     if (showBackground) {
         image(pista.spritesheet, 0, 0);
@@ -136,16 +141,41 @@ function draw() {
             // monster.collide(car);
             // monster2.collide(car);
             
+        } else if (showBatidos) {
+            car.show();
         }
 
     }
 
+    // Centralizar carro dentro da área visível.
+    window.scrollTo(melhor.pos.x-200,melhor.pos.y-200);
+
     pista.monstersUpdate();
     pista.monstersShow();
 
-    if (timer > 4000) {
+   if (vivos < 30) {
+
+        const weights = melhor.ia.model.getWeights();
+        const weightCopies = [];
+        for (let i = 0; i < weights.length; i++) {
+            weightCopies[i] = weights[i].clone();
+        }
+
+        let child = new Car('Y',true,true);
+        child.ia.model.setWeights(weightCopies);            
+        child.ia.mutate(0.05); 
+        cars.push(child);
+        vivos++
+    }
+
+
+    
+    if (timer > 8000) {
         timer = 0;
         eliminarTodosCars();
+    }
+    if (timer%500 == 0) {
+        melhor = getMelhorCarro();
     }
 
     // monster.update();
@@ -169,7 +199,7 @@ function draw() {
     noStroke();
     fill(255);
     textSize(16);
-    text(`Vivos: ${vivos}. FC: ${frameCount} Timer: ${timer} `, 10, 20);
+    text(`Vivos: ${vivos}. FC: ${frameCount} Timer: ${timer} Melhor: ${melhor.km}`, 10, 20);
 
 
 

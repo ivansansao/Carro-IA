@@ -48,7 +48,10 @@ class Pista {
             if (random(1) > 0.5 || true) {
                 this.localNascimento = createVector(400, 65);
                 this.anguloNascimento = radians(180);
-                this.monsters.push(new Monster(580, 65, -2,0,600,300, false, true));
+                // this.localNascimento = createVector(1600, 150);
+                // this.anguloNascimento = radians(0);
+                // this.monsters.push(new Monster(580, 65, -2,0,600,100, false, false));
+                this.monsters.push(new Monster(1600, 65, -2,0,800,110, false, false));
             } else {
                 this.localNascimento = createVector(1780, 600);
                 this.anguloNascimento = radians(270);
