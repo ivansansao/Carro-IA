@@ -39,6 +39,7 @@ let timerOn = true;
 let showBatidos = false;
 let melhor = null;
 let collideCars = false;
+let showMousePoint = false;
 
 function setup() {
 
@@ -93,7 +94,7 @@ function draw() {
 
         for (const car of cars) {
 
-            if (!car.batido && car.km > 100) {
+            if (!car.batido && abs(car.km) > 100) {
 
                 const ptd = p5.Vector.fromAngle(car.heading + 90).mult(10).add(car.pos);
                 const pte = p5.Vector.fromAngle(car.heading - 90).mult(10).add(car.pos);
@@ -202,7 +203,7 @@ function draw() {
     pista.monstersUpdate();
     pista.monstersShow();
 
-    if (vivos < 20) {
+    if (vivos < 30) {
 
         const weights = melhor.ia.model.getWeights();
         const weightCopies = [];
@@ -210,7 +211,7 @@ function draw() {
             weightCopies[i] = weights[i].clone();
         }
 
-        let child = new Car('Y', true, true);
+        let child = new Car('Y', true, true, true);
         // pista.anguloNascimento = radians(random(0, 360));
         child.ia.model.setWeights(weightCopies);
         child.ia.mutate(0.05);
@@ -251,6 +252,15 @@ function draw() {
     textSize(16);
     text(`Vivos: ${vivos}. FC: ${frameCount} Timer: ${timer} Melhor: ${melhor.km}`, 10, 20);
 
+    ShowMousePoint()
 
+}
 
+function ShowMousePoint() {
+    if (showMousePoint) {
+        stroke(0)
+        strokeWeight(1);
+        fill(255);
+        text(`(${mouseX},${mouseY})`, mouseX, mouseY);
+    }
 }

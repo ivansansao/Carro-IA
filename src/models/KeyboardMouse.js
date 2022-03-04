@@ -7,6 +7,8 @@ function keyPressed() {
         noLoop();
     } else if (key == 'l') { // Mostrar sensores
         showWalls = !showWalls;
+    } else if (key == 'u') { 
+        showMousePoint = !showMousePoint;        
     } else if (key == 'x') { // Mostrar sensores
         showBatidos = !showBatidos;
     } else if (key == 'b') { // Mostrar sensores

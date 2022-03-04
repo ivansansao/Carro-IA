@@ -1,6 +1,6 @@
 class Car {
 
-    constructor(marca = '?', inteligente = true, allowLazy = false) {
+    constructor(marca = '?', inteligente = true, allowLazy = false, randomHeading = false) {
 
         // this.pos = createVector(width * 0.5, height * 0.5);
         // this.pos = createVector(1600, random(110, 170));
@@ -8,7 +8,7 @@ class Car {
         this.pos = pista.localNascimento.copy();
         // this.heading = radians(0); // random(0, PI * 2);
         // this.heading = radians(180); // random(0, PI * 2);
-        this.heading = pista.anguloNascimento;
+        this.heading =  randomHeading ? random(360) : pista.anguloNascimento;
         this.rotation = 0;
         this.marcha = 0;
         this.lastMarcha = 0;
@@ -114,6 +114,7 @@ class Car {
                     if (!this.ranhurasColetadas.includes(i)) {
                         r.m = 1;
                         this.ranhurasColetadas.push(i);
+                        ranhuras[i].w+=0.05;
                     }
                 }
             } else if (r.t == -1) { // -1 Ranhuras que aceitam/detectam apenas ré.
