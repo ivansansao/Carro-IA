@@ -281,7 +281,15 @@ class Car {
         if (!this.batido) {
             vivos--;
             this.batido = true;
-
+            
+            if (pista) {
+                const tmpMelhor = getMelhorCarro();
+                if (tmpMelhor) {                
+                    if (tmpMelhor.batido) {
+                        pista.setFlag(tmpMelhor.pos.x, tmpMelhor.pos.y, tmpMelhor.km);
+                    }
+                }
+            }
         }
     }
 

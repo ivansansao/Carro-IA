@@ -9,9 +9,16 @@ class Pista {
         this.localNascimento = createVector(0, 0);
         this.anguloNascimento = radians(180);
         this.carMajorDistance = 0;
+        this.recordFlag = new Flag();
 
         this.make();
         this.getSpriteFundo();
+    }
+
+    setFlag(x,y,text) {
+        this.recordFlag.setVisible(true);
+        this.recordFlag.setPos(x,y);
+        this.recordFlag.setText(text);
     }
 
     make() {
@@ -195,6 +202,8 @@ class Pista {
             textSize(9);
             text(i, r.a, r.b);
         }
+        
+        this.recordFlag.show();
     }
 }
 function getPista1() {
@@ -968,6 +977,13 @@ function getRanhuras3() {
     points.push({ a: 1204, b: 161, c: 1164, d: 196, m: 0, t: 0 });
     points.push({ a: 1521, b: 176, c: 1556, d: 196, m: 0, t: 0 });
 
+    points.push({ a: 1743, b: 106, c: 1790, d: 106, m: 0, t: 0 });
+    points.push({ a: 1744, b: 88, c: 1788, d: 88, m: 0, t: 0 });
+    points.push({ a: 1745, b: 73, c: 1785, d: 73, m: 0, t: 0 });
+    points.push({ a: 1743, b: 60, c: 1774, d: 60, m: 0, t: 0 });
+    points.push({ a: 1732, b: 48, c: 1757, d: 48, m: 0, t: 0 });
+    points.push({ a: 1687, b: 82, c: 1687, d: 39, m: 0, t: 0 });
+
     return points;
 
 }
@@ -1015,6 +1031,7 @@ function getRanhuras5() {
     points.push({ a: 881, b: 570, c: 883, d: 619, m: 0, t: 0, w: 1 });
 
     return points;
+
 }
 
 function getPista5() {

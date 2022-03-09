@@ -211,7 +211,7 @@ function draw() {
             weightCopies[i] = weights[i].clone();
         }
 
-        let child = new Car('Y', true, true, true);
+        let child = new Car('m2', true, true, false);
         // pista.anguloNascimento = radians(random(0, 360));
         child.ia.model.setWeights(weightCopies);
         child.ia.mutate(0.05);
