@@ -220,7 +220,7 @@ function draw() {
         vivos++
     }
 
-    if (timer > 20000) {
+    if (timer > pista.pistaTimeOut) {
         timer = 0;
         eliminarTodosCars();
     }
@@ -249,7 +249,7 @@ function draw() {
     noStroke();
     fill(255);
     textSize(16);
-    text(`Vivos: ${vivos}. FC: ${frameCount} Timer: ${timer} Melhor: ${melhor.km}`, 10, 20);
+    text(`Vivos: ${vivos}. FC: ${frameCount} Timer: ${timer} Melhor: ${melhor.km} Pista: ${pista.selectedPista}`, 10, 20);
 
     ShowMousePoint()
 

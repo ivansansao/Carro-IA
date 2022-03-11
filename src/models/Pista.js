@@ -14,6 +14,7 @@ class Pista {
 
         this.make();
         this.getSpriteFundo();
+        this.pistaTimeOut = 20000;
     }
 
     setFlag(x,y,text) {
@@ -32,24 +33,32 @@ class Pista {
         this.monsters[0].ativo = false;
 
         if (this.selectedPista == 1) {
+
             wallsPista = getPista1();
             this.monsters.push(new Monster(1600, 130, -0.7, 0, 300, 150, false, true));
             this.monsters.push(new Monster(1300, -200, 0, 1, 600, 150, false, true));
             this.localNascimento = createVector(1500, 120);
             this.anguloNascimento = radians(180);
+
         } else if (this.selectedPista == 2) {
+
             wallsPista = getPista2();
             this.ranhuras = getRanhuras2()
-            this.monsters.push(new Monster(1561, 120, -0.7, 0, 260, 100, false, true));
-            this.monsters.push(new Monster(1080, 18, 0.2, 0.1, 2700, 100, false, true));
+            // this.monsters.push(new Monster(1561, 120, -0.7, 0, 260, 100, false, true));
+            // this.monsters.push(new Monster(1080, 18, 0.2, 0.1, 2700, 100, false, true));
             this.localNascimento = createVector(1500, 120);
             this.anguloNascimento = radians(180);
+            this.pistaTimeOut = 800;
+
         } else if (this.selectedPista == 3) {
+
             wallsPista = getPista3();
             this.localNascimento = createVector(400, 720);
             this.anguloNascimento = radians(0);
             this.monsters.push(new Monster(250, 720, 1.5, 0, 500, 260, false, true));
+
         } else if (this.selectedPista == 4) {
+
             wallsPista = getPista4();
             this.ranhuras = getRanhuras4();
 
@@ -65,6 +74,7 @@ class Pista {
                 this.anguloNascimento = radians(270);
                 this.monsters.push(new Monster(1770, 660, 0, -2, 600, 100, false, true));
             }
+
         } else if (this.selectedPista == 5) {
 
             wallsPista = getPista5();
