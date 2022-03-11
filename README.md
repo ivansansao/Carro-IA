@@ -8,7 +8,7 @@ Pista mais fácil.
 Pista mais difícil.
 ![Alt text](src/assets/asset3.png?raw=true "Print da pista")
 
-Nesse print um carro pode enchergar o outro.
+Nesse print um carro pode enxergar o outro.
 ![Alt text](src/assets/asset4.png?raw=true "Print da pista")
 
 Teclas de comandos:
