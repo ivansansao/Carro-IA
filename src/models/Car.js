@@ -285,9 +285,7 @@ class Car {
             if (pista) {
                 const tmpMelhor = getMelhorCarro();
                 if (tmpMelhor) {                
-                    if (tmpMelhor.batido) {
-                        pista.setFlag(tmpMelhor.pos.x, tmpMelhor.pos.y, tmpMelhor.km);
-                    }
+                    pista.setFlag(tmpMelhor.pos.x, tmpMelhor.pos.y, tmpMelhor.km);
                 }
             }
         }
@@ -295,13 +293,19 @@ class Car {
 
     show() {
 
-        push();
-        translate(this.pos.x, this.pos.y);
-        rotate(this.heading);
-        this.drawCar();
-        pop();
+        if (this.batido) {
+            imageMode(CENTER);
+            image(pista.spriteRip,this.pos.x, this.pos.y);
+        } else {
 
-        this.volanteAngle = '';
+            push();
+            translate(this.pos.x, this.pos.y);
+            rotate(this.heading);
+            this.drawCar();
+            pop();
+
+            this.volanteAngle = '';
+        }
 
     }
 

@@ -83,6 +83,7 @@ function draw() {
     }
 
     if (showBackground) {
+        imageMode(CORNER);
         image(pista.spritesheet, 0, 0);
     }
 
@@ -198,12 +199,12 @@ function draw() {
     }
 
     // Centralizar carro dentro da área visível.
-    window.scrollTo(melhor.pos.x - 200, melhor.pos.y - 200);
+    // window.scrollTo(melhor.pos.x - 200, melhor.pos.y - 200);
 
     pista.monstersUpdate();
     pista.monstersShow();
 
-    if (vivos < 30) {
+    if (vivos < 25) {
 
         const weights = melhor.ia.model.getWeights();
         const weightCopies = [];

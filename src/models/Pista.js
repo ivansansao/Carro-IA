@@ -3,8 +3,9 @@ class Pista {
         this.walls = [];
         this.showWalls = true;
         this.ranhuras = [];
-        this.selectedPista = 5;
+        this.selectedPista = 4;
         this.spritesheet = null;
+        this.spriteRip = null;
         this.monsters = [];
         this.localNascimento = createVector(0, 0);
         this.anguloNascimento = radians(180);
@@ -50,7 +51,7 @@ class Pista {
             this.monsters.push(new Monster(250, 720, 1.5, 0, 500, 260, false, true));
         } else if (this.selectedPista == 4) {
             wallsPista = getPista4();
-            this.ranhuras = getRanhuras3();
+            this.ranhuras = getRanhuras4();
 
             if (random(1) > 0.5 || true) {
                 this.localNascimento = createVector(400, 65);
@@ -58,7 +59,7 @@ class Pista {
                 // this.localNascimento = createVector(1600, 150);
                 // this.anguloNascimento = radians(0);
                 // this.monsters.push(new Monster(580, 65, -2,0,600,100, false, false));
-                this.monsters.push(new Monster(1600, 65, -2, 0, 800, 110, false, false));
+                // this.monsters.push(new Monster(1600, 65, -2, 0, 800, 110, false, false));
             } else {
                 this.localNascimento = createVector(1780, 600);
                 this.anguloNascimento = radians(270);
@@ -94,6 +95,7 @@ class Pista {
         } else if (this.selectedPista == 5) {
             this.spritesheet = getSpriteFundo5();
         }
+        this.spriteRip = getSpriteRip1();
     }
     togglePista() {
 
@@ -963,7 +965,7 @@ function getRanhuras2() {
     return points;
 }
 
-function getRanhuras3() {
+function getRanhuras4() {
 
     const points = [];
 
@@ -981,7 +983,7 @@ function getRanhuras3() {
     points.push({ a: 1744, b: 88, c: 1788, d: 88, m: 0, t: 0 });
     points.push({ a: 1745, b: 73, c: 1785, d: 73, m: 0, t: 0 });
     points.push({ a: 1743, b: 60, c: 1774, d: 60, m: 0, t: 0 });
-    points.push({ a: 1732, b: 48, c: 1757, d: 48, m: 0, t: 0 });
+    // points.push({ a: 1732, b: 48, c: 1757, d: 48, m: 0, t: 0 });
     points.push({ a: 1687, b: 82, c: 1687, d: 39, m: 0, t: 0 });
 
     return points;
