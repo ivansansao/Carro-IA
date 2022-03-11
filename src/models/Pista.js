@@ -81,6 +81,8 @@ class Pista {
             this.walls.push(wall);
         }
 
+        timer = 0;
+
     }
 
     getSpriteFundo() {
@@ -104,8 +106,8 @@ class Pista {
         } else {
             this.selectedPista++;
         }
-
-        this.make();
+        
+        this.reset();
         this.getSpriteFundo();
         firstGeneration();
 
@@ -969,21 +971,19 @@ function getRanhuras4() {
 
     const points = [];
 
-    points.push({ a: 801, b: 482, c: 1017, d: 480, m: 0, t: 0 });
+    points.push({ a: 801, b: 482, c: 1017, d: 482, m: 0, t: 0 });
     points.push({ a: 731, b: 633, c: 731, d: 670, m: 0, t: 0 });
-    points.push({ a: 729, b: 828, c: 730, d: 881, m: 0, t: 0 });
-    points.push({ a: 1619, b: 348, c: 1668, d: 350, m: 0, t: 0 });
-    points.push({ a: 1534, b: 726, c: 1533, d: 775, m: 0, t: 0 });
-    points.push({ a: 1252, b: 513, c: 1320, d: 514, m: 0, t: 0 });
-    points.push({ a: 1116, b: 131, c: 1115, d: 185, m: 0, t: 0 });
+    points.push({ a: 729, b: 828, c: 729, d: 881, m: 0, t: 0 });
+    points.push({ a: 1619, b: 348, c: 1668, d: 348, m: 0, t: 0 });
+    points.push({ a: 1534, b: 726, c: 1534, d: 775, m: 0, t: 0 });
+    points.push({ a: 1252, b: 513, c: 1320, d: 513, m: 0, t: 0 });
+    points.push({ a: 1116, b: 131, c: 1116, d: 185, m: 0, t: 0 });
     points.push({ a: 1204, b: 161, c: 1164, d: 196, m: 0, t: 0 });
     points.push({ a: 1521, b: 176, c: 1556, d: 196, m: 0, t: 0 });
-
     points.push({ a: 1743, b: 106, c: 1790, d: 106, m: 0, t: 0 });
     points.push({ a: 1744, b: 88, c: 1788, d: 88, m: 0, t: 0 });
     points.push({ a: 1745, b: 73, c: 1785, d: 73, m: 0, t: 0 });
     points.push({ a: 1743, b: 60, c: 1774, d: 60, m: 0, t: 0 });
-    // points.push({ a: 1732, b: 48, c: 1757, d: 48, m: 0, t: 0 });
     points.push({ a: 1687, b: 82, c: 1687, d: 39, m: 0, t: 0 });
 
     return points;
@@ -994,43 +994,43 @@ function getRanhuras5() {
 
     const points = [];
 
-    points.push({ a: 378, b: 203, c: 430, d: 201, m: 0, t: 0, w: 1 });
-    points.push({ a: 570, b: 204, c: 636, d: 208, m: 0, t: 0, w: 1 });
+    points.push({ a: 378, b: 203, c: 430, d: 203, m: 0, t: 0, w: 1 });
+    points.push({ a: 570, b: 204, c: 636, d: 204, m: 1, t: 0, w: 1 });
     points.push({ a: 773, b: 209, c: 813, d: 209, m: 0, t: 0, w: 1 });
-    points.push({ a: 949, b: 208, c: 983, d: 206, m: 0, t: 0, w: 1 });
+    points.push({ a: 949, b: 208, c: 983, d: 208, m: 0, t: 0, w: 1 });
     points.push({ a: 1127, b: 205, c: 1164, d: 205, m: 0, t: 0, w: 1 });
     points.push({ a: 1311, b: 207, c: 1353, d: 207, m: 0, t: 0, w: 1 });
-    points.push({ a: 1513, b: 201, c: 1555, d: 204, m: 0, t: 0, w: 1 });
-    points.push({ a: 1510, b: 364, c: 1559, d: 366, m: 0, t: 0, w: 1 });
-    points.push({ a: 1502, b: 531, c: 1558, d: 529, m: 0, t: 0, w: 1 });
-    points.push({ a: 1502, b: 698, c: 1548, d: 700, m: 0, t: 0, w: 1 });
-    points.push({ a: 1309, b: 691, c: 1359, d: 701, m: 0, t: 0, w: 1 });
-    points.push({ a: 1130, b: 704, c: 1169, d: 697, m: 0, t: 0, w: 1 });
-    points.push({ a: 938, b: 696, c: 990, d: 700, m: 0, t: 0, w: 1 });
-    points.push({ a: 803, b: 696, c: 759, d: 697, m: 0, t: 0, w: 1 });
+    points.push({ a: 1513, b: 201, c: 1555, d: 201, m: 0, t: 0, w: 1 });
+    points.push({ a: 1510, b: 364, c: 1559, d: 364, m: 0, t: 0, w: 1 });
+    points.push({ a: 1502, b: 531, c: 1558, d: 531, m: 0, t: 0, w: 1 });
+    points.push({ a: 1502, b: 698, c: 1548, d: 698, m: 0, t: 0, w: 1 });
+    points.push({ a: 1309, b: 691, c: 1359, d: 691, m: 0, t: 0, w: 1 });
+    points.push({ a: 1130, b: 704, c: 1169, d: 704, m: 0, t: 0, w: 1 });
+    points.push({ a: 938, b: 696, c: 990, d: 696, m: 0, t: 0, w: 1 });
+    points.push({ a: 803, b: 696, c: 759, d: 696, m: 0, t: 0, w: 1 });
     points.push({ a: 617, b: 693, c: 569, d: 693, m: 0, t: 0, w: 1 });
-    points.push({ a: 430, b: 696, c: 383, d: 700, m: 0, t: 0, w: 1 });
-    points.push({ a: 304, b: 630, c: 303, d: 595, m: 0, t: 0, w: 1 });
+    points.push({ a: 430, b: 696, c: 383, d: 696, m: 0, t: 0, w: 1 });
+    points.push({ a: 304, b: 630, c: 304, d: 595, m: 0, t: 0, w: 1 });
     points.push({ a: 307, b: 471, c: 307, d: 430, m: 0, t: 0, w: 1 });
-    points.push({ a: 306, b: 300, c: 308, d: 263, m: 0, t: 0, w: 1 });
-    points.push({ a: 505, b: 270, c: 502, d: 304, m: 0, t: 0, w: 1 });
-    points.push({ a: 500, b: 431, c: 498, d: 463, m: 0, t: 0, w: 1 });
-    points.push({ a: 492, b: 596, c: 495, d: 628, m: 0, t: 0, w: 1 });
+    points.push({ a: 306, b: 300, c: 306, d: 263, m: 0, t: 0, w: 1 });
+    points.push({ a: 505, b: 270, c: 505, d: 304, m: 0, t: 0, w: 1 });
+    points.push({ a: 500, b: 431, c: 500, d: 463, m: 0, t: 0, w: 1 });
+    points.push({ a: 492, b: 596, c: 492, d: 628, m: 0, t: 0, w: 1 });
     points.push({ a: 1436, b: 635, c: 1436, d: 598, m: 0, t: 0, w: 1 });
-    points.push({ a: 1436, b: 467, c: 1435, d: 428, m: 0, t: 0, w: 1 });
-    points.push({ a: 1438, b: 304, c: 1435, d: 265, m: 0, t: 0, w: 1 });
+    points.push({ a: 1436, b: 467, c: 1436, d: 428, m: 0, t: 0, w: 1 });
+    points.push({ a: 1438, b: 304, c: 1438, d: 265, m: 0, t: 0, w: 1 });
     points.push({ a: 1631, b: 260, c: 1631, d: 301, m: 0, t: 0, w: 1 });
-    points.push({ a: 1632, b: 432, c: 1630, d: 466, m: 0, t: 0, w: 1 });
+    points.push({ a: 1632, b: 432, c: 1632, d: 466, m: 0, t: 0, w: 1 });
     points.push({ a: 1632, b: 593, c: 1632, d: 634, m: 0, t: 0, w: 1 });
-    points.push({ a: 374, b: 535, c: 425, d: 539, m: 0, t: 0, w: 1 });
+    points.push({ a: 374, b: 535, c: 425, d: 535, m: 0, t: 0, w: 1 });
     points.push({ a: 380, b: 368, c: 428, d: 368, m: 0, t: 0, w: 1 });
-    points.push({ a: 1074, b: 443, c: 1136, d: 438, m: 0, t: 0, w: 1 });
+    points.push({ a: 1074, b: 443, c: 1136, d: 443, m: 0, t: 0, w: 1 });
     points.push({ a: 1295, b: 384, c: 1361, d: 384, m: 0, t: 0, w: 1 });
-    points.push({ a: 1294, b: 510, c: 1363, d: 521, m: 0, t: 0, w: 1 });
-    points.push({ a: 1239, b: 571, c: 1238, d: 612, m: 0, t: 0, w: 1 });
+    points.push({ a: 1294, b: 510, c: 1363, d: 510, m: 0, t: 0, w: 1 });
+    points.push({ a: 1239, b: 571, c: 1239, d: 612, m: 0, t: 0, w: 1 });
     points.push({ a: 1225, b: 280, c: 1225, d: 322, m: 0, t: 0, w: 1 });
-    points.push({ a: 901, b: 270, c: 897, d: 317, m: 0, t: 0, w: 1 });
-    points.push({ a: 881, b: 570, c: 883, d: 619, m: 0, t: 0, w: 1 });
+    points.push({ a: 901, b: 270, c: 901, d: 317, m: 0, t: 0, w: 1 });
+    points.push({ a: 881, b: 570, c: 881, d: 619, m: 0, t: 0, w: 1 });
 
     return points;
 

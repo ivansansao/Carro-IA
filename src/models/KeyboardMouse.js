@@ -32,6 +32,8 @@ function keyPressed() {
         pista.togglePista();
     } else if (key == 'm') {
         eliminarTodosCars();
+    } else if (key == 'r') {
+        showRanhurasNormalized();
     } else if (key == 'i') { // Mouse matador. 
        for (const monster of pista.monsters) {            
             if (monster.useMouse) {

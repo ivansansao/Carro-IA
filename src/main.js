@@ -220,9 +220,7 @@ function draw() {
         vivos++
     }
 
-
-
-    if (timer > 8000) {
+    if (timer > 20000) {
         timer = 0;
         eliminarTodosCars();
     }
