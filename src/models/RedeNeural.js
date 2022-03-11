@@ -10,25 +10,29 @@ class RedeNeural {
 
     constructor() {
 
-        const input_nodes = 21; // 20 sensores + 1 marcha.
-        const hidden_nodes = 5;
-        const output_nodes = 5;
+        this.input_nodes = 21; // 20 sensores + 1 marcha.
+        this.hidden_nodes = 5;
+        this.output_nodes = 5;
         this.f1 = "linear"; // this.getAnyActivation();
         this.f2 = "selu"; // this.getAnyActivation();
 
-        const input = tf.input({ shape: [input_nodes] });
-        const denseLayer1 = tf.layers.dense({ units: hidden_nodes, activation: this.f1 }); // def. sigmoid
-        const denseLayer2 = tf.layers.dense({ units: output_nodes, activation: this.f2 }); // def. softmax
-        const output1 = denseLayer1.apply(input);
-        const output2 = denseLayer2.apply(output1);
-        this.model = tf.model({ inputs: input, outputs: [output1, output2] });
+        this.model = tf.sequential();
+        this.model.add(tf.layers.dense({units: this.hidden_nodes, inputShape: [this.input_nodes], activation: this.f1}));
+        this.model.add(tf.layers.dense({units: this.output_nodes, activation: this.f2}));        
 
-        this.firstLayer = [];
-        this.secondLayer = [];
-        this.savedInputs = [];
-        this.savedOutputs = [];
-        this.selectedOutput = -1;
-        this.maiorValueHidden = -1;
+        // const input = tf.input({ shape: [input_nodes] });
+        // const denseLayer1 = tf.layers.dense({ units: hidden_nodes, activation: this.f1 }); // def. sigmoid
+        // const denseLayer2 = tf.layers.dense({ units: output_nodes, activation: this.f2 }); // def. softmax
+        // const output1 = denseLayer1.apply(input);
+        // const output2 = denseLayer2.apply(output1);
+        // this.model = tf.model({ inputs: input, outputs: [output1, output2] });
+
+        // this.firstLayer = [];
+        // this.secondLayer = [];
+        // this.savedInputs = [];
+        // this.savedOutputs = [];
+        // this.selectedOutput = -1;
+        // this.maiorValueHidden = -1;
 
     }
 
@@ -43,15 +47,8 @@ class RedeNeural {
         return tf.tidy(() => {
 
             const xs = tf.tensor2d([inputs]);
-            const [firstLayer, secondLayer] = this.model.predict(xs);
-            const outputs = secondLayer.dataSync();
-
-            this.firstLayer = firstLayer.flatten().arraySync();
-            this.secondLayer = secondLayer.flatten().arraySync();
-            this.savedInputs = inputs;
-            this.savedOutputs = outputs;
-
-            this.saveMaiorHidput(this.firstLayer);
+            const ys = this.model.predict(xs);
+            const outputs = ys.dataSync();
 
             return outputs
         });
