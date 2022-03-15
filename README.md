@@ -17,6 +17,7 @@ Teclas de comandos:
 
 b - Mostra uma circuferência que elimina veículos
 c - Troca de pista       
+e - Ativa/destiva elitismo
 g - Mostra o fundo
 i - Ativa o eliminador de veículo na ponta do mouse
 l - Mostra os limites da pista
