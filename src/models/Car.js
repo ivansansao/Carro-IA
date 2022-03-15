@@ -2,12 +2,7 @@ class Car {
 
     constructor(marca = '?', inteligente = true, allowLazy = false, randomHeading = false) {
 
-        // this.pos = createVector(width * 0.5, height * 0.5);
-        // this.pos = createVector(1600, random(110, 170));
-        // this.pos = createVector(random(width), random(height));
         this.pos = pista.localNascimento.copy();
-        // this.heading = radians(0); // random(0, PI * 2);
-        // this.heading = radians(180); // random(0, PI * 2);
         this.heading = randomHeading ? random(360) : pista.anguloNascimento;
         this.rotation = 0;
         this.marcha = 0;
@@ -137,7 +132,6 @@ class Car {
             }
         }
 
-
     }
 
     verificaEstagnacao() {
@@ -153,20 +147,6 @@ class Car {
             this.kmMin = this.km;
             this.kmMMCount = 0;
         }
-
-        // let limite = 4;
-
-        // if (this.km > 50) {
-        //     limite = 60;
-        // }
-
-        // if (this.ranhurasColetadas.length < 5) {
-        //     if (this.km < 0) {
-        //         this.aposentar();
-        //     }
-
-        // }
-
 
     }
 
@@ -229,10 +209,7 @@ class Car {
             this.verificaEstagnacao();
         }
 
-        // Raios.
         this.updateRays();
-
-        if (vivos == 1) this.showRays = true;
 
         pista.setMajorDistance(this.km);
 
@@ -421,16 +398,11 @@ class Car {
         strokeWeight(0);
         rotate(radians(90));
         textSize(8);
+        text(`${this.ranhurasColetadas.length}`, -2, 0);
         text(`${this.km}`, -8, -8);
         text(`${this.marca}`, -3, -18);
-        // text(`f1:${this.ia.f1} f2:${this.ia.f2}`, 10, 10);
         pop();
 
-
-        // strokeWeight(0);
-        // fill(0);
-        // textSize(16);
-        // text(`${this.heading.toFixed(2)}`, -6, 6);
     }
 
     demo(run) {
