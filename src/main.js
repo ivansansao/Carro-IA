@@ -18,6 +18,7 @@
     Rode um servidor facilmente com: python3 -m http.server
 */
 
+let genetic = null;
 let quantidade = 0;
 let vivos = 0;
 let runDemo = false;
@@ -43,8 +44,6 @@ let showMousePoint = false;
 
 function setup() {
 
-
-
     //   let canvas = createCanvas(windowWidth, windowHeight, WEBGL);
     //   canvas.parent('canvas-holder');
     //   noStroke();
@@ -55,6 +54,8 @@ function setup() {
     foo = new p5.Speech();
     foo.setVoice('Google português do Brasil');
 
+    genetic = new Genetic();
+
     pista = new Pista();
     // monster = new Monster(1561, 120, -0.7,0,260);
     // monster2 = new Monster(1080, 18, 0.2, 0.1,2700);
@@ -64,7 +65,7 @@ function setup() {
     }
 
     // firstGeneration();
-    nextGeneration();
+    genetic.nextGeneration();
 
     clear()
 
@@ -199,14 +200,14 @@ function draw() {
     }
 
     // Centralizar carro dentro da área visível.
-    // window.scrollTo(melhor.pos.x - 200, melhor.pos.y - 200);
+    // window.scrollTo(genetic.melhor.pos.x - 200, genetic.melhor.pos.y - 200);
 
     pista.monstersUpdate();
     pista.monstersShow();
 
     if (vivos < 25) {
 
-        const weights = melhor.ia.model.getWeights();
+        const weights = genetic.melhor.ia.model.getWeights();
         const weightCopies = [];
         for (let i = 0; i < weights.length; i++) {
             weightCopies[i] = weights[i].clone();
@@ -243,13 +244,13 @@ function draw() {
         //     console.log(err);
         // }
 
-        nextGeneration();
+        genetic.nextGeneration();
 
     }
     noStroke();
     fill(255);
     textSize(16);
-    text(`Vivos: ${vivos}. FC: ${frameCount} Timer: ${timer} Melhor: ${melhor.km} Pista: ${pista.selectedPista}`, 10, 20);
+    text(`Vivos: ${vivos}. FC: ${frameCount} Timer: ${timer} Melhor: ${genetic.melhor.km} Pista: ${pista.selectedPista}`, 10, 20);
 
     ShowMousePoint()
 

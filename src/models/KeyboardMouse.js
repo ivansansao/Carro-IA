@@ -63,9 +63,10 @@ function handleKeyIsDown() {
 
 function mouseClicked() {
 
-    let child = new Car('Y',false);
+    let child = new Car('Y', true, true, false);
     child.pos.x = mouseX;
     child.pos.y = mouseY;
+    child.ia.setWeightsFromString(genetic.pesos[pista.selectedPista], genetic.shapes);
     cars.push(child);
     
     vivos++;

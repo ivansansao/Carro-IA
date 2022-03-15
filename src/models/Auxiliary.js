@@ -1,5 +1,3 @@
-
-
 function start() {
 
     background(68, 170, 0);
@@ -59,3 +57,9 @@ function showRanhurasNormalized() {
 
 }
 
+function myRelu(v) {
+    if (v > 0) {
+        return 1
+    }
+    return 0;
+}

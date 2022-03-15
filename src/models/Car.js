@@ -8,7 +8,7 @@ class Car {
         this.pos = pista.localNascimento.copy();
         // this.heading = radians(0); // random(0, PI * 2);
         // this.heading = radians(180); // random(0, PI * 2);
-        this.heading =  randomHeading ? random(360) : pista.anguloNascimento;
+        this.heading = randomHeading ? random(360) : pista.anguloNascimento;
         this.rotation = 0;
         this.marcha = 0;
         this.lastMarcha = 0;
@@ -114,7 +114,7 @@ class Car {
                     if (!this.ranhurasColetadas.includes(i)) {
                         r.m = 1;
                         this.ranhurasColetadas.push(i);
-                        ranhuras[i].w+=0.05;
+                        ranhuras[i].w += 0.05;
                     }
                 }
             } else if (r.t == -1) { // -1 Ranhuras que aceitam/detectam apenas ré.
@@ -278,13 +278,14 @@ class Car {
     }
 
     aposentar() {
+
         if (!this.batido) {
             vivos--;
             this.batido = true;
-            
+
             if (pista) {
-                const tmpMelhor = getMelhorCarro();
-                if (tmpMelhor) {                
+                const tmpMelhor = genetic.getMelhorCarro();
+                if (tmpMelhor) {
                     pista.setFlag(tmpMelhor.pos.x, tmpMelhor.pos.y, tmpMelhor.km);
                 }
             }
@@ -295,7 +296,7 @@ class Car {
 
         if (this.batido) {
             imageMode(CENTER);
-            image(pista.spriteRip,this.pos.x, this.pos.y);
+            image(pista.spriteRip, this.pos.x, this.pos.y);
         } else {
 
             push();
@@ -325,7 +326,7 @@ class Car {
             for (const wall of walls) {
 
                 if (wall.id == this.id) {
-                   
+
                 } else {
 
                     const hit = ray.cast(wall);

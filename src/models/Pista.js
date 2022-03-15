@@ -119,7 +119,7 @@ class Pista {
         
         this.reset();
         this.getSpriteFundo();
-        firstGeneration();
+        genetic.firstGeneration();
 
     }
 
