@@ -3,6 +3,7 @@ class Car {
     constructor(marca = '?', inteligente = true, allowLazy = false, randomHeading = false) {
 
         this.pos = pista.localNascimento.copy();
+        this.lastPos = createVector();
         this.heading = randomHeading ? random(360) : pista.anguloNascimento;
         this.rotation = 0;
         this.marcha = 0;
@@ -21,7 +22,9 @@ class Car {
         this.kmMax = 0;
         this.kmMin = 0;
         this.kmMMCount = 0;
+        this.lastKm = 0;
         this.marca = marca;
+        this.aliveTime = 0;
         this.updates = 0;
         this.showSensorValue = false;
         this.qtdReh = 0;
@@ -201,6 +204,7 @@ class Car {
         this.pos.add(irPara);
 
         this.km += this.marcha;
+        this.aliveTime++;
 
         this.marcha = 0;
         this.rotation = 0;
@@ -215,6 +219,24 @@ class Car {
 
         this.killLazier();
 
+        if (this.aliveTime % 200 == 0) {
+            this.onEachTime();
+        }
+
+
+    }
+
+    onEachTime() {
+        if (this.pos.x == this.lastPos.x && this.pos.y == this.lastPos.y) {
+            this.aposentar();
+        }
+
+        if (this.km == this.lastKm) {
+            this.aposentar();
+        }
+        this.lastPos.x = this.pos.x;
+        this.lastPos.y = this.pos.y;
+        this.lastKm = this.km;
     }
 
     killLazier() {
@@ -401,6 +423,7 @@ class Car {
         text(`${this.ranhurasColetadas.length}`, -2, 0);
         text(`${this.km}`, -8, -8);
         text(`${this.marca}`, -3, -18);
+
         pop();
 
     }
@@ -456,30 +479,4 @@ function eliminarTodosCars() {
     for (const car of cars) {
         car.aposentar();
     }
-}
-
-function matarAtrasados() {
-
-    // let maiorKm = 0;
-
-    // for (const car of cars) {
-    //     if (car.km > maiorKm) {
-    //         maiorKm = car.km;
-    //     }
-    // }
-    // if (maiorKm > 30) {
-    //     for (const car of cars) {
-    //         if (car.km < 10) {
-    //             car.aposentar();
-    //         }
-    //     }
-    // }
-    // if (maiorKm > 70) {
-    //     for (const car of cars) {
-    //         if (car.km < 40) {
-    //             car.aposentar();
-    //         }
-    //     }
-    // }
-
 }

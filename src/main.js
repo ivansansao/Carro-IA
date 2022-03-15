@@ -41,6 +41,8 @@ let showBatidos = false;
 let melhor = null;
 let collideCars = false;
 let showMousePoint = false;
+let elitism = true;
+let running = true;
 
 function setup() {
 
@@ -70,9 +72,6 @@ function setup() {
     clear()
 
 }
-// function preload() {
-//     this.choicePista();
-// }
 
 function draw() {
 
@@ -110,30 +109,6 @@ function draw() {
                 wallsAndCars.push({ a: ptd, b: pdd, id: car.id });
                 wallsAndCars.push({ a: pte, b: pde, id: car.id });
 
-                // // Draw
-
-                // // Pontos traseiros.
-                // stroke(255,0,0)
-                // strokeWeight(2);
-                // fill(0,255,0);
-                // stroke(0,255,0)
-                // line(ptd.x, ptd.y, pte.x, pte.y);
-                // circle(ptd.x, ptd.y,4);
-                // stroke(0,0,255)
-                // fill(0,0,255);
-                // circle(pte.x, pte.y,4);
-
-                // // Pontos dianteiros.
-                // stroke(255,0,0)
-                // strokeWeight(2);
-                // fill(0,255,0);
-                // stroke(0,255,0)
-                // line(pdd.x, pdd.y, pde.x, pde.y);
-                // circle(pdd.x, pdd.y,4);
-                // stroke(0,0,255)
-                // fill(0,0,255);
-                // circle(pde.x, pde.y,4);
-
             }
         }
     }
@@ -146,8 +121,6 @@ function draw() {
 
             car.update();
             car.look(wallsAndCars);
-
-            // console.log(car.lastMarcha);
 
             carInputs.push(car.lastMarcha);
             carInputs.push(car.rays[0].savedDistance);
@@ -173,9 +146,7 @@ function draw() {
 
             car.raciocinar(carInputs);
             car.demo(runDemo);
-            // if (pista.selectedPista == 2) {
             car.verificaColisaoRanhura(pista.ranhuras);
-            // }
             car.show();
 
             if (vivos == 1) {
@@ -190,17 +161,11 @@ function draw() {
 
             pista.monstersCollide(car);
 
-            // monster.collide(car);
-            // monster2.collide(car);
-
         } else if (showBatidos) {
             car.show();
         }
 
     }
-
-    // Centralizar carro dentro da área visível.
-    // window.scrollTo(genetic.melhor.pos.x - 200, genetic.melhor.pos.y - 200);
 
     pista.monstersUpdate();
     pista.monstersShow();
@@ -225,24 +190,9 @@ function draw() {
         timer = 0;
         eliminarTodosCars();
     }
-    // if (timer % 500 == 0) {
-    //     melhor = getMelhorCarro();
-    // }
-
-    // monster.update();
-    // monster.show();
-    // monster2.update();
-    // monster2.show();
 
     if (vivos == 0) {
         timer = 0;
-        // try {
-        //     Trava o programa!!! Aff
-        //     tf.dispose();
-        //     tf.disposeVariables();
-        // } catch (err) {
-        //     console.log(err);
-        // }
 
         genetic.nextGeneration();
 
@@ -250,7 +200,7 @@ function draw() {
     noStroke();
     fill(255);
     textSize(16);
-    text(`Vivos: ${vivos}. FC: ${frameCount} Timer: ${timer} Melhor: ${genetic.melhor.km} Pista: ${pista.selectedPista}`, 10, 20);
+    text(`Vivos: ${vivos}. FC: ${frameCount} Timer: ${timer} / ${pista.pistaTimeOut} Melhor: ${genetic.melhor.km} Pista: ${pista.selectedPista}`, 10, 20);
 
     ShowMousePoint()
 

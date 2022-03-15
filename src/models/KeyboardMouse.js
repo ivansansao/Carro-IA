@@ -4,18 +4,28 @@ function keyPressed() {
 
     if (key == 'p') {
         console.log('Parei! Clique para continuar!');
-        noLoop();
+        if (running) {
+            noLoop();
+        } else {
+            loop();
+        }
+
+        running = !running;
+        
     } else if (key == 'l') { // Mostrar sensores
         showWalls = !showWalls;
-    } else if (key == 'u') { 
-        showMousePoint = !showMousePoint;        
+    } else if (key == 'e') { // Toggle elitism
+        elitism = !elitism;
+        console.log('Elitism: ', elitism);
+    } else if (key == 'u') {
+        showMousePoint = !showMousePoint;
     } else if (key == 'x') { // Mostrar sensores
         showBatidos = !showBatidos;
     } else if (key == 'b') { // Mostrar sensores
         for (const monster of pista.monsters) {
-             if (!monster.useMouse) {
-                 monster.ativo = !monster.ativo;
-             }
+            if (!monster.useMouse) {
+                monster.ativo = !monster.ativo;
+            }
         }
     } else if (key == 's') { // Mostrar sensores
         for (const car of cars) {
@@ -25,7 +35,7 @@ function keyPressed() {
         timerOn = !timerOn;
     } else if (key == 'o') { // Colidir carros?
         collideCars = !collideCars;
-        console.log('Colidir carros: ',collideCars)
+        console.log('Colidir carros: ', collideCars)
     } else if (key == 'g') { // Show Background 
         showBackground = !showBackground;
     } else if (key == 'c') { // Change pista.        
@@ -35,7 +45,7 @@ function keyPressed() {
     } else if (key == 'r') {
         showRanhurasNormalized();
     } else if (key == 'i') { // Mouse matador. 
-       for (const monster of pista.monsters) {            
+        for (const monster of pista.monsters) {
             if (monster.useMouse) {
                 monster.ativo = !monster.ativo;
             }
@@ -68,12 +78,12 @@ function mouseClicked() {
     child.pos.y = mouseY;
     child.ia.setWeightsFromString(genetic.pesos[pista.selectedPista], genetic.shapes);
     cars.push(child);
-    
+
     vivos++;
 }
 
 function mousePressed() {
-  
+
 
 }
 
