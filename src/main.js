@@ -178,12 +178,12 @@ function draw() {
             // }
             car.show();
 
-            // matarAtrasados();
-
             if (vivos == 1) {
                 if (!car.batido) {
                     if (car.marca == 'c') {
-                        car.aposentar();
+                        if (car.km > 300) {
+                            car.aposentar();
+                        }
                     }
                 }
             }

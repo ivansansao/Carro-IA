@@ -450,17 +450,6 @@ class Car {
 
 
 }
-function calcColocacao() {
-    colocacao = [];
-    for (let car of cars) {
-        colocacao.push(car);
-    }
-    if (colocacao.length > 0) {
-        colocacao.sort(function (a, b) { return b.km - a.km });
-    }
-
-}
-
 
 function eliminarTodosCars() {
     // console.log('Eliminando todos os carros...');
