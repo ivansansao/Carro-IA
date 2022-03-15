@@ -2,8 +2,10 @@ IA dirigindo, veja abaixo prints com e sem os sensores.
 
 O algorítmo genético seleciona o primeiro colocado, clona para gerar a próxima geração além de manter o seu superior e adicionar um novo aleatório.
 
-YOUTUBE (Clique nessa imagem para abrir o vídeo no YouTube)
-[![IMAGE ALT TEXT HERE](src/assets/asset3.png)](https://youtu.be/-AE7YnHMn9E)
+[Clique aqui para assistir no YouTube](https://youtu.be/-AE7YnHMn9E)
+
+Print - Pista mais difícil.
+![Alt text](src/assets/asset3.png?raw=true "Print da pista")
 
 Print - Nesse print um carro pode enxergar o outro.
 ![Alt text](src/assets/asset4.png?raw=true "Print da pista")
