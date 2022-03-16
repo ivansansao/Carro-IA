@@ -1,7 +1,17 @@
 let showBackground = true;
-
+let selectedTrack = 1;
 
 function keyPressed() {
+
+    if (key == 'c') {
+        selectedTrack++;
+        try {
+            spritesheet = eval(`getSpriteFundo${selectedTrack}()`);
+        } catch (e) {
+            selectedTrack = 1;
+            spritesheet = getSpriteFundo1();
+        }
+    }
 
     if (key == 'r') {
         lastPoint = [];
@@ -22,8 +32,8 @@ function keyPressed() {
     if (key == 'd') {
 
         lastPoint = [];
-        lastPoint.push(Number(walls[walls.length-1].a));
-        lastPoint.push(Number(walls[walls.length-1].b));
+        lastPoint.push(Number(walls[walls.length - 1].a));
+        lastPoint.push(Number(walls[walls.length - 1].b));
         console.log(lastPoint);
         walls.pop();
 
@@ -75,23 +85,21 @@ function draw() {
     let i = 0;
     for (const wall of walls) {
         if (i == 0) {
-            stroke(0,0,255);
+            stroke(0, 0, 255);
         } else {
-            stroke(255,0,0);
+            stroke(255, 0, 0);
         }
         line(wall.a, wall.b, wall.c, wall.d);
         i++;
     }
 
-
 }
-
 
 function start() {
 }
 
 function showAtalhos() {
-    console.log('r - Reseta o último ponto\nd- Deleta a última linha\ns- Mostra os pontos no console')
+    console.log('c - Troca a pista\nr - Reseta o último ponto\nd- Deleta a última linha\ns- Mostra os pontos no console')
 }
 
 function imprimePontos(pontos) {
