@@ -170,7 +170,7 @@ function draw() {
     pista.monstersUpdate();
     pista.monstersShow();
 
-    if (vivos < 25) {
+    if (vivos < pista.population) {
 
         const weights = genetic.melhor.ia.model.getWeights();
         const weightCopies = [];

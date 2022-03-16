@@ -219,7 +219,7 @@ class Car {
 
         this.killLazier();
 
-        if (this.aliveTime % 200 == 0) {
+        if (this.aliveTime % 100 == 0) {
             this.onEachTime();
         }
 
