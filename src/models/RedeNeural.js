@@ -15,6 +15,7 @@ class RedeNeural {
         this.output_nodes = 5;
         this.f1 = "linear"; // this.getAnyActivation();
         this.f2 = "selu"; // this.getAnyActivation();
+        this.mutated = 0; // Number of genes mutateds, zero is not mutated
 
         this.model = tf.sequential();
         this.model.add(tf.layers.dense({units: this.hidden_nodes, inputShape: [this.input_nodes], activation: this.f1}));
@@ -83,6 +84,7 @@ class RedeNeural {
                         let w = values[j];
                         values[j] = w + randomGaussian();
                         // values[j] = w + random(-1,1);
+                        this.mutated++;
                     }
                 }
                 

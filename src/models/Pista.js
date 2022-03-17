@@ -37,34 +37,37 @@ class Pista {
         if (this.selectedPista == 1) {
 
             wallsPista = getPista1();
+            this.pistaTimeOut = 20000;
             this.monsters.push(new Monster(1600, 130, -0.7, 0, 300, 150, false, true));
             this.monsters.push(new Monster(1300, -200, 0, 1, 600, 150, false, true));
             this.localNascimento = createVector(1500, 120);
             this.anguloNascimento = radians(180);
-
+            
         } else if (this.selectedPista == 2) {
-
+            
             wallsPista = getPista2();
             this.ranhuras = getRanhuras2()
             this.pistaTimeOut = 2000;
-            this.population = 80;
+            this.population = 20;
             this.monsters.push(new Monster(1570, 120, 0, 0, this.pistaTimeOut, 100, false, true));
             // this.monsters.push(new Monster(1080, 18, 0.2, 0.1, 2700, 100, false, true));
             this.localNascimento = createVector(1500, 120);
             this.anguloNascimento = radians(180);
 
         } else if (this.selectedPista == 3) {
-
+            
             wallsPista = getPista3();
+            this.pistaTimeOut = 20000;
             this.localNascimento = createVector(400, 720);
             this.anguloNascimento = radians(0);
             this.monsters.push(new Monster(250, 720, 1.5, 0, 500, 260, false, true));
-
+            
         } else if (this.selectedPista == 4) {
-
+            
             wallsPista = getPista4();
             this.ranhuras = getRanhuras4();
-
+            this.pistaTimeOut = 20000;
+            
             if (random(1) > 0.5 || true) {
                 this.localNascimento = createVector(400, 65);
                 this.anguloNascimento = radians(180);
@@ -966,17 +969,14 @@ function getRanhuras2() {
     points.push({ a: 1328, b: 266, c: 1325, d: 292, m: 0, t: 0 });
     points.push({ a: 1298, b: 260, c: 1270, d: 289, m: 0, t: 0 });
 
-    // points.push({ a: 1441, b: 244, c: 1463, d: 230, m: 0, t: 0 });
-    // points.push({ a: 1447, b: 254, c: 1470, d: 254, m: 0, t: 0 });
-    // points.push({ a: 1446, b: 265, c: 1456, d: 279, m: 0, t: 0 });
-    // points.push({ a: 1428, b: 268, c: 1428, d: 286, m: 0, t: 0 });
-    // points.push({ a: 1405, b: 267, c: 1402, d: 287, m: 0, t: 0 });
-    // points.push({ a: 1365, b: 264, c: 1365, d: 286, m: 0, t: 0 });
 
-    // points.push({ a: 1258, b: 131, c: 1309, d: 131, m: 0, t: -1 });
-    // points.push({ a: 1281, b: 145, c: 1325, d: 143, m: 0, t: -1 });
     points.push({ a: 1304, b: 160, c: 1335, d: 153, m: 0, t: -1 });
     points.push({ a: 1345, b: 161, c: 1335, d: 174, m: 0, t: -1 });
+    points.push({ a: 970, b: 200, c: 920, d: 200, m: 0, t: 0 });
+    
+    points.push({ a: 437, b: 337, c: 482, d: 337, m: 0, t: 0 });
+    points.push({ a: 835, b: 455, c: 835, d: 490, m: 0, t: 0 });
+
 
     return points;
 }

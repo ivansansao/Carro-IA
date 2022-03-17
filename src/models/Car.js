@@ -31,6 +31,7 @@ class Car {
         this.ranhurasColetadas = [];
         this.allowLazy = allowLazy;
         this.id = Number(random(0, 9999).toFixed(0));
+        this.luzes = true;
 
         for (let i = 0; i < 360; i += 18) {
             this.rays.push(new Ray(this.pos.copy(), 20, radians(i), this.showRays));
@@ -154,10 +155,12 @@ class Car {
     }
 
     setColor() {
-        if (this.marca == 'c') {
-            this.cor = 'hsl(216, 100%, 50%)'; // Azul
-            // } else if (this.marca == 'm') {
-            //     this.cor = 'hsl(100, 100%, 70%)'; // Verde claro
+        if (this.marca.toLowerCase().includes('c') || this.marca.toLowerCase().includes('x')) {
+            // this.cor = 'hsl(216, 100%, 50%)'; // Azul
+            this.cor = 'rgb(255,255,255)';
+        } else {
+            // this.cor = 'hsla(' + Math.floor(this.ia.mutated / 10 * 360) + ',100%,50%,0.3)';
+            this.cor = 'hsla(' + Math.floor(this.ia.mutated / 10 * 360) + ',100%,50%,1)';
         }
     }
 
@@ -223,10 +226,10 @@ class Car {
             this.onEachTime();
         }
 
-
     }
 
     onEachTime() {
+
         if (this.pos.x == this.lastPos.x && this.pos.y == this.lastPos.y) {
             this.aposentar();
         }
@@ -234,9 +237,21 @@ class Car {
         if (this.km == this.lastKm) {
             this.aposentar();
         }
+
         this.lastPos.x = this.pos.x;
         this.lastPos.y = this.pos.y;
         this.lastKm = this.km;
+
+        if (random() > 0.5) {
+            this.luzes = !this.luzes;
+        }
+    }
+
+    mutate(rate) {
+        while (this.ia.mutated == 0) {
+            this.ia.mutate(rate);
+        }
+        this.setColor();
     }
 
     killLazier() {
@@ -279,19 +294,17 @@ class Car {
     aposentar() {
 
         if (!this.batido) {
+
             vivos--;
             this.batido = true;
+            genetic.setFlag();
 
-            if (pista) {
-                const tmpMelhor = genetic.getMelhorCarro();
-                if (tmpMelhor) {
-                    pista.setFlag(tmpMelhor.pos.x, tmpMelhor.pos.y, tmpMelhor.km);
-                }
-            }
         }
     }
 
     show() {
+
+        this.showInfoCar();
 
         if (this.batido) {
             imageMode(CENTER);
@@ -307,6 +320,32 @@ class Car {
             this.volanteAngle = '';
         }
 
+    }
+
+    showInfoCar() {
+
+        if (showInfoCar) {
+
+            let x = this.pos.x - 50;
+            let y = this.pos.y - 90;
+
+            stroke(0, 0, 255);
+            fill(255, 255, 255);
+            strokeWeight(1);
+            rect(x, y, 100, 50, 4);
+            line(this.pos.x, y + 50, this.pos.x, this.pos.y);
+
+            textSize(10);
+            fill(0, 0, 255);
+            noStroke();
+            strokeWeight(1);
+
+            text(`Genes mutados: ${this.ia.mutated}`, x += 4, y += 12);
+            text(`Ranhuras: ${this.ranhurasColetadas.length}`, x, y += 12);
+            text(`km: ${this.km}`, x, y += 12);
+            text(`Marca: ${this.marca}`, x, y += 12);
+
+        }
     }
 
     look(walls) {
@@ -368,9 +407,7 @@ class Car {
 
     drawCar() {
 
-
         stroke(100);
-
         strokeWeight(2);
 
         fill(100);
@@ -392,15 +429,22 @@ class Car {
         pop();
 
 
+        // Corpo do carro.
         stroke(0);
-
         fill(this.cor);
         rect(-8, -10, 40, 20, 5);
 
+        // Vidros.
+        noStroke();
+        fill(0);
+        rect(-8, -10, 28, 20, 4);
+
+        // Teto.
+        fill(this.cor);
+        rect(-2, -9, 14, 17, 4);
 
         // Ré.
         if (this.lastMarcha == -1) {
-
 
             stroke(255, 0, 0);
             strokeWeight(2);
@@ -410,21 +454,40 @@ class Car {
             rect(-9, -8, 3, 6, 4);
         }
 
+        // Faróis.
+
         strokeWeight(6);
         stroke(255);
         point(28, -6);
         point(28, 6);
 
-        push()
-        fill(0);
-        strokeWeight(0);
-        rotate(radians(90));
-        textSize(8);
-        text(`${this.ranhurasColetadas.length}`, -2, 0);
-        text(`${this.km}`, -8, -8);
-        text(`${this.marca}`, -3, -18);
+        if (luzes) {
 
-        pop();
+            if (this.luzes) {
+
+                // Feixo de luz perto.
+                noStroke();
+                fill(255, 255, 255, 40);
+                rect(60, -20, -30, 40, 10);
+                
+                // Feixo de luz longe.
+                noStroke();
+                fill(255, 255, 255, 40);
+                rect(80, -25, -50, 50, 10);
+
+            }
+
+        }
+
+        // push()
+        // fill(0);
+        // strokeWeight(0);
+        // rotate(radians(90));
+        // textSize(8);
+        // text(`${this.ranhurasColetadas.length}`, -2, 0);
+        // text(`${this.km}`, -8, -8);
+        // text(`${this.marca}`, -6, -18);
+        // pop();
 
     }
 

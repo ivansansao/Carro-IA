@@ -44,7 +44,11 @@ function keyPressed() {
         eliminarTodosCars();
     } else if (key == 'r') {
         showRanhurasNormalized();
-    } else if (key == 'i') { // Mouse matador. 
+    } else if (key == 'i') {        
+        showInfoCar = !showInfoCar;
+    } else if (key == 'z') {        
+        luzes = !luzes;
+    } else if (key == 'f') { // Mouse matador. 
         for (const monster of pista.monsters) {
             if (monster.useMouse) {
                 monster.ativo = !monster.ativo;

@@ -43,6 +43,8 @@ let collideCars = false;
 let showMousePoint = false;
 let elitism = true;
 let running = true;
+let showInfoCar = false;
+let luzes = true;
 
 function setup() {
 
@@ -181,7 +183,7 @@ function draw() {
         let child = new Car('m2', true, true, false);
         // pista.anguloNascimento = radians(random(0, 360));
         child.ia.model.setWeights(weightCopies);
-        child.ia.mutate(0.05);
+        child.mutate(Number(random(0.01,0.05).toFixed(15)));
         cars.push(child);
         vivos++
     }
@@ -197,6 +199,11 @@ function draw() {
         genetic.nextGeneration();
 
     }
+
+    if (pista.timer % 100 == 0) {
+        genetic.setFlag();
+    }
+
     noStroke();
     fill(255);
     textSize(16);
