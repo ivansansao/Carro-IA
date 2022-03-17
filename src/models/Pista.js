@@ -60,7 +60,7 @@ class Pista {
             this.pistaTimeOut = 20000;
             this.localNascimento = createVector(400, 720);
             this.anguloNascimento = radians(0);
-            this.monsters.push(new Monster(250, 720, 1.5, 0, 500, 260, false, true));
+            // this.monsters.push(new Monster(250, 720, 1.5, 0, 500, 260, false, true));
             
         } else if (this.selectedPista == 4) {
             
