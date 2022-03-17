@@ -184,7 +184,7 @@ function draw() {
         // pista.anguloNascimento = radians(random(0, 360));
         child.ia.model.setWeights(weightCopies);
         child.mutate(Number(random(0.01,0.05).toFixed(15)));
-        cars.push(child);
+        cars.unshift(child);
         vivos++
     }
 
@@ -200,7 +200,7 @@ function draw() {
 
     }
 
-    if (pista.timer % 100 == 0) {
+    if (timer % 100 == 0) {
         genetic.setFlag();
     }
 

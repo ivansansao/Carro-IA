@@ -32,6 +32,7 @@ class Car {
         this.allowLazy = allowLazy;
         this.id = Number(random(0, 9999).toFixed(0));
         this.luzes = true;
+        this.lapCount = 0;
 
         for (let i = 0; i < 360; i += 18) {
             this.rays.push(new Ray(this.pos.copy(), 20, radians(i), this.showRays));
@@ -136,6 +137,11 @@ class Car {
             }
         }
 
+        // Increase account lap.
+        if (hit) {
+            this.lapCount = floor(this.ranhurasColetadas.length / pista.ranhuras.length);
+        }
+
     }
 
     verificaEstagnacao() {
@@ -222,7 +228,7 @@ class Car {
 
         this.killLazier();
 
-        if (this.aliveTime % 100 == 0) {
+        if (this.aliveTime % pista.timeOutStopped == 0) {
             this.onEachTime();
         }
 
@@ -344,6 +350,7 @@ class Car {
             text(`Ranhuras: ${this.ranhurasColetadas.length}`, x, y += 12);
             text(`km: ${this.km}`, x, y += 12);
             text(`Marca: ${this.marca}`, x, y += 12);
+            // text(`Voltas: ${this.lapCount}`, x+50, y); // Não está funcionando ainda.
 
         }
     }
@@ -452,29 +459,43 @@ class Car {
             fill(0);
             rect(-9, 2, 3, 6, 4);
             rect(-9, -8, 3, 6, 4);
-        }
-
-        // Faróis.
-
-        strokeWeight(6);
-        stroke(255);
-        point(28, -6);
-        point(28, 6);
-
+        }        
+        
         if (luzes) {
-
+                        
             if (this.luzes) {
 
-                // Feixo de luz perto.
+                // Faróis dianteiros acesos.
+                strokeWeight(6);
+                stroke(255);
+                point(28, -6);
+                point(28, 6);
+                
                 noStroke();
+
+                // Feixo de luz perto.                
                 fill(255, 255, 255, 40);
                 rect(60, -20, -30, 40, 10);
-                
-                // Feixo de luz longe.
-                noStroke();
+
+                // Feixo de luz longe.                
                 fill(255, 255, 255, 40);
                 rect(80, -25, -50, 50, 10);
+                                
+            } else {
+                // Faróis dianteiros apagados.
+                strokeWeight(6);
+                stroke(80);
+                point(28, -6);
+                point(28, 6);
+                
+            }
 
+            noStroke();
+
+            // Feito de luz trazeiro.
+            if (this.lastMarcha == -1) {
+                fill(255, 0, 0, 100);
+                rect(-2, -12, -11, 24, 8);
             }
 
         }
