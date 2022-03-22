@@ -4,6 +4,11 @@ O algorítmo genético seleciona o primeiro colocado, clona para gerar a próxim
 
 [Clique aqui para assistir no YouTube](https://youtu.be/-AE7YnHMn9E)
 
+Rode na sua máquina:
+
+Clone ou baixe esse repositório e execute o arquivo src/index.html no seu navegador.
+Pressione 'c' para trocar de pista.
+
 Print - Pista mais difícil.
 ![Alt text](src/assets/asset3.png?raw=true "Print da pista")
 
