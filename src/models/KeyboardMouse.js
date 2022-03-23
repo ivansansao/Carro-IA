@@ -41,6 +41,7 @@ function keyPressed() {
     } else if (key == 'c') { // Change pista.        
         pista.togglePista();
     } else if (key == 'm') {
+        timer = pista.pistaTimeOut;
         eliminarTodosCars();
     } else if (key == 'r') {
         showRanhurasNormalized();
