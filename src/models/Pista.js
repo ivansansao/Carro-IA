@@ -979,6 +979,10 @@ function getRanhuras2() {
 
     points.push({ a: 1304, b: 160, c: 1335, d: 153, m: 0, t: -1 });
     points.push({ a: 1345, b: 161, c: 1335, d: 174, m: 0, t: -1 });
+
+    points.push({ a: 977, b: 177, c: 942, d: 164, m: 0, t: 0 });
+    points.push({ a: 970, b: 184, c: 939, d: 181, m: 0, t: 0 });
+    points.push({ a: 970, b: 191, c: 939, d: 188, m: 0, t: 0 });
     points.push({ a: 970, b: 200, c: 920, d: 200, m: 0, t: 0 });
     
     points.push({ a: 437, b: 337, c: 482, d: 337, m: 0, t: 0 });
