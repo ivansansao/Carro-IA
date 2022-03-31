@@ -50,7 +50,7 @@ class Pista {
             wallsPista = getPista2();
             this.ranhuras = getRanhuras2()
             this.pistaTimeOut = 3000;
-            this.timeOutStopped = 100;
+            this.timeOutStopped = 20;
             this.population = 20;
             this.monsters.push(new Monster(1570, 120, 0, 0, this.pistaTimeOut, 100, false, true));
             // this.monsters.push(new Monster(1080, 18, 0.2, 0.1, 2700, 100, false, true));
