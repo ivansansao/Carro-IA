@@ -41,6 +41,10 @@ class Car {
 
         this.setColor();
 
+        if (this.pos.x == -1) {
+            this.pos = createVector(random(20,1700),random(20,800));
+        }
+
     }
 
     raciocinar(inputs) {

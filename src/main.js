@@ -86,7 +86,9 @@ function draw() {
 
     if (showBackground) {
         imageMode(CORNER);
-        image(pista.spritesheet, 0, 0);
+        if (pista.spritesheet) {
+            image(pista.spritesheet, 0, 0);
+        }
     }
 
     pista.show();

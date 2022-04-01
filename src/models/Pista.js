@@ -37,6 +37,7 @@ class Pista {
 
         if (this.selectedPista == 1) {
 
+            collideCars = false;
             wallsPista = getPista1();
             this.pistaTimeOut = 20000;
             this.timeOutStopped = 100;
@@ -47,6 +48,7 @@ class Pista {
             
         } else if (this.selectedPista == 2) {
             
+            collideCars = false;
             wallsPista = getPista2();
             this.ranhuras = getRanhuras2()
             this.pistaTimeOut = 3000;
@@ -59,6 +61,7 @@ class Pista {
 
         } else if (this.selectedPista == 3) {
             
+            collideCars = false;
             wallsPista = getPista3();
             this.pistaTimeOut = 20000;
             this.timeOutStopped = 100;
@@ -68,6 +71,7 @@ class Pista {
             
         } else if (this.selectedPista == 4) {
             
+            collideCars = false;
             wallsPista = getPista4();
             this.ranhuras = getRanhuras4();
             this.pistaTimeOut = 20000;
@@ -88,11 +92,22 @@ class Pista {
 
         } else if (this.selectedPista == 5) {
 
+            collideCars = false;
             wallsPista = getPista5();
             this.ranhuras = getRanhuras5();
             this.pistaTimeOut = 20000;
             this.timeOutStopped = 100;            
             this.localNascimento = createVector(610, 450);
+            this.anguloNascimento = radians(-90);
+
+        } else if (this.selectedPista == 6) {
+
+            collideCars = true;
+            wallsPista = getPista6();
+            this.ranhuras = getRanhuras6();
+            this.pistaTimeOut = 5000;
+            this.timeOutStopped = 100;            
+            this.localNascimento = createVector(-1, -1);
             this.anguloNascimento = radians(-90);
 
         }
@@ -119,12 +134,14 @@ class Pista {
             this.spritesheet = getSpriteFundo4();
         } else if (this.selectedPista == 5) {
             this.spritesheet = getSpriteFundo5();
+        } else if (this.selectedPista == 6) {
+            this.spritesheet = null;
         }
         this.spriteRip = getSpriteRip1();
     }
     togglePista() {
 
-        if (this.selectedPista == 5) {
+        if (this.selectedPista == 6) {
             this.selectedPista = 1;
         } else {
             this.selectedPista++;
@@ -1174,6 +1191,55 @@ function getPista5() {
     points.push({ a: 1683, b: 641, c: 1685, d: 755, m: 0, t: 0 });
     points.push({ a: 1685, b: 755, c: 1569, d: 755, m: 0, t: 0 });
     points.push({ a: 1569, b: 755, c: 1570, d: 642, m: 0, t: 0 });    
+
+    return points;
+
+}
+
+function getPista6() {
+    
+    const points = [];
+    
+    points.push({ a: 1828, b: 20, c: 28, d: 20, m: 0, t: 0 });
+    points.push({ a: 28, b: 20, c: 28, d: 864, m: 0, t: 0 });
+    points.push({ a: 28, b: 864, c: 1828, d: 864, m: 0, t: 0 });
+    points.push({ a: 1828, b: 864, c: 1828, d: 20, m: 0, t: 0 });
+
+    return points;
+    
+}
+function getRanhuras6() {
+
+    const points = [];
+
+    points.push({ a: 100, b: 084, c: 1660, d:  94, m: 0, t: 0, w: 1 });
+    points.push({ a: 100, b: 157, c: 1660, d: 172, m: 0, t: 0, w: 1 });
+    points.push({ a: 100, b: 240, c: 1660, d: 251, m: 0, t: 0, w: 1 });
+    points.push({ a: 100, b: 319, c: 1660, d: 332, m: 0, t: 0, w: 1 });
+    points.push({ a: 100, b: 395, c: 1660, d: 403, m: 0, t: 0, w: 1 });
+    points.push({ a: 100, b: 469, c: 1660, d: 466, m: 0, t: 0, w: 1 });
+    points.push({ a: 100, b: 545, c: 1660, d: 546, m: 0, t: 0, w: 1 });
+    points.push({ a: 100, b: 623, c: 1660, d: 625, m: 0, t: 0, w: 1 });
+    points.push({ a: 100, b: 697, c: 1660, d: 697, m: 0, t: 0, w: 1 });
+    points.push({ a: 100, b: 769, c: 1660, d: 771, m: 0, t: 0, w: 1 });
+
+    points.push({ a:  107, b: 80, c:  102, d: 780, m: 0, t: 0, w: 1 });
+    points.push({ a:  196, b: 80, c:  191, d: 780, m: 0, t: 0, w: 1 });
+    points.push({ a:  275, b: 80, c:  276, d: 780, m: 0, t: 0, w: 1 });
+    points.push({ a:  351, b: 80, c:  361, d: 780, m: 0, t: 0, w: 1 });
+    points.push({ a:  439, b: 80, c:  447, d: 780, m: 0, t: 0, w: 1 });
+    points.push({ a:  530, b: 80, c:  534, d: 780, m: 0, t: 0, w: 1 });
+    points.push({ a:  624, b: 80, c:  626, d: 780, m: 0, t: 0, w: 1 });
+    points.push({ a:  733, b: 80, c:  718, d: 780, m: 0, t: 0, w: 1 });
+    points.push({ a:  829, b: 80, c:  813, d: 780, m: 0, t: 0, w: 1 });
+    points.push({ a:  931, b: 80, c:  926, d: 780, m: 0, t: 0, w: 1 });
+    points.push({ a: 1027, b: 80, c: 1025, d: 780, m: 0, t: 0, w: 1 });
+    points.push({ a: 1127, b: 80, c: 1131, d: 780, m: 0, t: 0, w: 1 });
+    points.push({ a: 1242, b: 80, c: 1234, d: 780, m: 0, t: 0, w: 1 });
+    points.push({ a: 1332, b: 80, c: 1332, d: 780, m: 0, t: 0, w: 1 });
+    points.push({ a: 1421, b: 80, c: 1430, d: 780, m: 0, t: 0, w: 1 });
+    points.push({ a: 1515, b: 80, c: 1524, d: 780, m: 0, t: 0, w: 1 });
+    points.push({ a: 1629, b: 80, c: 1643, d: 780, m: 0, t: 0, w: 1 });
 
     return points;
 
