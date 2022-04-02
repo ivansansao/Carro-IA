@@ -32,6 +32,7 @@ let nGeracao = 0;
 let foo;
 let showBackground = true;
 let showWalls = false;
+let showRanhuras = false;
 let record = 0;
 let carregarCarroSalvo = true;
 let salvarMelhorCarro = true;
@@ -77,7 +78,7 @@ function setup() {
 
 function draw() {
 
-    background(68, 170, 0);
+    background(pista.backcolor);
     handleKeyIsDown();
 
     if (timerOn) {

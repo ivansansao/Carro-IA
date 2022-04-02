@@ -42,7 +42,7 @@ class Car {
         this.setColor();
 
         if (this.pos.x == -1) {
-            this.pos = createVector(random(20,1700),random(20,800));
+            this.pos = createVector(random(20, 1700), random(20, 800));
         }
 
     }
@@ -141,10 +141,16 @@ class Car {
             }
         }
 
-        // Increase account lap.
-        if (hit) {
-            this.lapCount = floor(this.ranhurasColetadas.length / pista.ranhuras.length);
-        }
+        
+        // // Increase account lap.
+        // if (hit) {
+        //     if (ranhuras.length % this.ranhurasColetadas.length == 0) {
+        //         console.log('They are equals!');
+        //         this.ranhurasColetadas = [];
+        //         this.lapCount++;
+        //         console.log(this.ranhurasColetadas);
+        //     }            
+        // }
 
     }
 
@@ -463,10 +469,10 @@ class Car {
             fill(0);
             rect(-9, 2, 3, 6, 4);
             rect(-9, -8, 3, 6, 4);
-        }        
-        
+        }
+
         if (luzes) {
-                        
+
             if (this.luzes) {
 
                 // Faróis dianteiros acesos.
@@ -474,7 +480,7 @@ class Car {
                 stroke(255);
                 point(28, -6);
                 point(28, 6);
-                
+
                 noStroke();
 
                 // Feixo de luz perto.                
@@ -482,16 +488,16 @@ class Car {
                 rect(60, -20, -30, 40, 10);
 
                 // Feixo de luz longe.                
-                fill(255, 255, 255, 40);
+                fill(241, 255, 176, 40);
                 rect(80, -25, -50, 50, 10);
-                                
+
             } else {
                 // Faróis dianteiros apagados.
                 strokeWeight(6);
                 stroke(80);
                 point(28, -6);
                 point(28, 6);
-                
+
             }
 
             noStroke();

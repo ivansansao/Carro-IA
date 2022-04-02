@@ -34,5 +34,6 @@ r - Mostra uma lista de ranhuras da pista
 s - Mostrar sensores
 t - Pára o 'timer'
 u - Mostra coordenas no ponteiro do mouse
+w - Alternar mostragem das ranhuras
 x - Mostra veículos batidos
 z - Luzes

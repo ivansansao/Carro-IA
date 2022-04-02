@@ -14,15 +14,16 @@ class Pista {
         this.recordKm = 0;
         this.population = 25;
         this.timeOutStopped = 100;
+        this.backcolor = [68, 170, 0];
 
         this.make();
         this.getSpriteFundo();
         this.pistaTimeOut = 20000;
     }
 
-    setFlag(x,y,text) {
+    setFlag(x, y, text) {
         this.recordFlag.setVisible(true);
-        this.recordFlag.setPos(x,y);
+        this.recordFlag.setPos(x, y);
         this.recordFlag.setText(text);
     }
 
@@ -37,20 +38,21 @@ class Pista {
 
         if (this.selectedPista == 1) {
 
-            collideCars = false;
+            collideCars = true;
             wallsPista = getPista1();
+            this.ranhuras = getRanhuras1();
             this.pistaTimeOut = 20000;
             this.timeOutStopped = 100;
             // this.monsters.push(new Monster(1600, 130, -0.7, 0, 300, 150, false, true));
             // this.monsters.push(new Monster(1300, -200, 0, 1, 600, 150, false, true));
             this.localNascimento = createVector(1500, 120);
             this.anguloNascimento = radians(180);
-            
+
         } else if (this.selectedPista == 2) {
-            
+
             collideCars = false;
             wallsPista = getPista2();
-            this.ranhuras = getRanhuras2()
+            this.ranhuras = getRanhuras2();
             this.pistaTimeOut = 3000;
             this.timeOutStopped = 20;
             this.population = 20;
@@ -60,7 +62,7 @@ class Pista {
             this.anguloNascimento = radians(180);
 
         } else if (this.selectedPista == 3) {
-            
+
             collideCars = false;
             wallsPista = getPista3();
             this.pistaTimeOut = 20000;
@@ -68,15 +70,15 @@ class Pista {
             this.localNascimento = createVector(400, 720);
             this.anguloNascimento = radians(0);
             // this.monsters.push(new Monster(250, 720, 1.5, 0, 500, 260, false, true));
-            
+
         } else if (this.selectedPista == 4) {
-            
+
             collideCars = false;
             wallsPista = getPista4();
             this.ranhuras = getRanhuras4();
             this.pistaTimeOut = 20000;
             this.timeOutStopped = 200;
-            
+
             if (random(1) > 0.5 || true) {
                 this.localNascimento = createVector(400, 65);
                 this.anguloNascimento = radians(180);
@@ -96,7 +98,7 @@ class Pista {
             wallsPista = getPista5();
             this.ranhuras = getRanhuras5();
             this.pistaTimeOut = 20000;
-            this.timeOutStopped = 100;            
+            this.timeOutStopped = 100;
             this.localNascimento = createVector(610, 450);
             this.anguloNascimento = radians(-90);
 
@@ -106,9 +108,10 @@ class Pista {
             wallsPista = getPista6();
             this.ranhuras = getRanhuras6();
             this.pistaTimeOut = 5000;
-            this.timeOutStopped = 100;            
+            this.timeOutStopped = 100;
             this.localNascimento = createVector(-1, -1);
             this.anguloNascimento = radians(-90);
+            this.backcolor = [52, 126, 163];
 
         }
 
@@ -146,7 +149,7 @@ class Pista {
         } else {
             this.selectedPista++;
         }
-        
+
         this.reset();
         this.getSpriteFundo();
         genetic.firstGeneration();
@@ -213,41 +216,46 @@ class Pista {
                 }
             }
         }
-        for (let i = 0; i < this.ranhuras.length; i++) {
 
-            const r = this.ranhuras[i];
+        if (showRanhuras) {
 
-            if (r.m == 0) {
-                if (r.t == 0)
-                    stroke(255);
-                else
-                    stroke(0, 255, 255);
-            } else {
-                if (r.t == 0)
-                    stroke(80, 80, 255);
-                else
-                    stroke(255, 80, 80);
+
+            for (let i = 0; i < this.ranhuras.length; i++) {
+
+                const r = this.ranhuras[i];
+
+                if (r.m == 0) {
+                    if (r.t == 0)
+                        stroke(255);
+                    else
+                        stroke(0, 255, 255);
+                } else {
+                    if (r.t == 0)
+                        stroke(80, 80, 255);
+                    else
+                        stroke(255, 80, 80);
+                }
+
+                // if (r.m == 0) {
+                //     strokeWeight(1);
+                // } else {
+                //     strokeWeight(4);
+                // }
+
+                if (this.ranhuras[i].w) {
+                    strokeWeight(this.ranhuras[i].w);
+                } else {
+                    strokeWeight(1);
+                }
+
+                line(r.a, r.b, r.c, r.d);
+                noStroke();
+                fill(0, 0, 255);
+                textSize(9);
+                text(i, r.a, r.b);
             }
-
-            // if (r.m == 0) {
-            //     strokeWeight(1);
-            // } else {
-            //     strokeWeight(4);
-            // }
-
-            if (this.ranhuras[i].w) {
-                strokeWeight(this.ranhuras[i].w);
-            } else {
-                strokeWeight(1);
-            }
-
-            line(r.a, r.b, r.c, r.d);
-            noStroke();
-            fill(0, 0, 255);
-            textSize(9);
-            text(i, r.a, r.b);
         }
-        
+
         this.recordFlag.show();
     }
 }
@@ -959,6 +967,21 @@ function getPista4() {
     points.push({ a: 1722, b: 382, c: 1746, d: 396, m: 0, t: 0 });
 
     return points;
+
+}
+
+function getRanhuras1() {
+    
+    const points = [];
+
+    points.push({ a: 1237, b: 284, c: 1364, d: 284, m: 0, t: 0 });
+    points.push({ a: 253, b: 63, c: 253, d: 143, m: 0, t: 0 });
+    points.push({ a: 440, b: 801, c: 440, d: 885, m: 0, t: 0 });
+    points.push({ a: 890, b: 570, c: 890, d: 648, m: 0, t: 0 });
+    points.push({ a: 1447, b: 809, c: 1447, d: 881, m: 0, t: 0 });
+    points.push({ a: 1708, b: 331, c: 1807, d: 331, m: 0, t: 0 });    
+    return points;
+    
 }
 function getRanhuras2() {
 
@@ -1001,11 +1024,11 @@ function getRanhuras2() {
     points.push({ a: 970, b: 184, c: 939, d: 181, m: 0, t: 0 });
     points.push({ a: 970, b: 191, c: 939, d: 188, m: 0, t: 0 });
     points.push({ a: 970, b: 200, c: 920, d: 200, m: 0, t: 0 });
-    
+
     points.push({ a: 437, b: 337, c: 482, d: 337, m: 0, t: 0 });
     points.push({ a: 835, b: 455, c: 835, d: 490, m: 0, t: 0 });
 
-
+    
     return points;
 }
 
@@ -1190,29 +1213,29 @@ function getPista5() {
     points.push({ a: 1569, b: 642, c: 1683, d: 641, m: 0, t: 0 });
     points.push({ a: 1683, b: 641, c: 1685, d: 755, m: 0, t: 0 });
     points.push({ a: 1685, b: 755, c: 1569, d: 755, m: 0, t: 0 });
-    points.push({ a: 1569, b: 755, c: 1570, d: 642, m: 0, t: 0 });    
+    points.push({ a: 1569, b: 755, c: 1570, d: 642, m: 0, t: 0 });
 
     return points;
 
 }
 
 function getPista6() {
-    
+
     const points = [];
-    
+
     points.push({ a: 1828, b: 20, c: 28, d: 20, m: 0, t: 0 });
     points.push({ a: 28, b: 20, c: 28, d: 864, m: 0, t: 0 });
     points.push({ a: 28, b: 864, c: 1828, d: 864, m: 0, t: 0 });
     points.push({ a: 1828, b: 864, c: 1828, d: 20, m: 0, t: 0 });
 
     return points;
-    
+
 }
 function getRanhuras6() {
 
     const points = [];
 
-    points.push({ a: 100, b: 084, c: 1660, d:  94, m: 0, t: 0, w: 1 });
+    points.push({ a: 100, b: 084, c: 1660, d: 94, m: 0, t: 0, w: 1 });
     points.push({ a: 100, b: 157, c: 1660, d: 172, m: 0, t: 0, w: 1 });
     points.push({ a: 100, b: 240, c: 1660, d: 251, m: 0, t: 0, w: 1 });
     points.push({ a: 100, b: 319, c: 1660, d: 332, m: 0, t: 0, w: 1 });
@@ -1223,16 +1246,16 @@ function getRanhuras6() {
     points.push({ a: 100, b: 697, c: 1660, d: 697, m: 0, t: 0, w: 1 });
     points.push({ a: 100, b: 769, c: 1660, d: 771, m: 0, t: 0, w: 1 });
 
-    points.push({ a:  107, b: 80, c:  102, d: 780, m: 0, t: 0, w: 1 });
-    points.push({ a:  196, b: 80, c:  191, d: 780, m: 0, t: 0, w: 1 });
-    points.push({ a:  275, b: 80, c:  276, d: 780, m: 0, t: 0, w: 1 });
-    points.push({ a:  351, b: 80, c:  361, d: 780, m: 0, t: 0, w: 1 });
-    points.push({ a:  439, b: 80, c:  447, d: 780, m: 0, t: 0, w: 1 });
-    points.push({ a:  530, b: 80, c:  534, d: 780, m: 0, t: 0, w: 1 });
-    points.push({ a:  624, b: 80, c:  626, d: 780, m: 0, t: 0, w: 1 });
-    points.push({ a:  733, b: 80, c:  718, d: 780, m: 0, t: 0, w: 1 });
-    points.push({ a:  829, b: 80, c:  813, d: 780, m: 0, t: 0, w: 1 });
-    points.push({ a:  931, b: 80, c:  926, d: 780, m: 0, t: 0, w: 1 });
+    points.push({ a: 107, b: 80, c: 102, d: 780, m: 0, t: 0, w: 1 });
+    points.push({ a: 196, b: 80, c: 191, d: 780, m: 0, t: 0, w: 1 });
+    points.push({ a: 275, b: 80, c: 276, d: 780, m: 0, t: 0, w: 1 });
+    points.push({ a: 351, b: 80, c: 361, d: 780, m: 0, t: 0, w: 1 });
+    points.push({ a: 439, b: 80, c: 447, d: 780, m: 0, t: 0, w: 1 });
+    points.push({ a: 530, b: 80, c: 534, d: 780, m: 0, t: 0, w: 1 });
+    points.push({ a: 624, b: 80, c: 626, d: 780, m: 0, t: 0, w: 1 });
+    points.push({ a: 733, b: 80, c: 718, d: 780, m: 0, t: 0, w: 1 });
+    points.push({ a: 829, b: 80, c: 813, d: 780, m: 0, t: 0, w: 1 });
+    points.push({ a: 931, b: 80, c: 926, d: 780, m: 0, t: 0, w: 1 });
     points.push({ a: 1027, b: 80, c: 1025, d: 780, m: 0, t: 0, w: 1 });
     points.push({ a: 1127, b: 80, c: 1131, d: 780, m: 0, t: 0, w: 1 });
     points.push({ a: 1242, b: 80, c: 1234, d: 780, m: 0, t: 0, w: 1 });

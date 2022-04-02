@@ -14,6 +14,8 @@ function keyPressed() {
         
     } else if (key == 'l') { // Mostrar sensores
         showWalls = !showWalls;
+    } else if (key == 'w') { // Mostrar ranhuras
+        showRanhuras = !showRanhuras;
     } else if (key == 'e') { // Toggle elitism
         elitism = !elitism;
         console.log('Elitism: ', elitism);
