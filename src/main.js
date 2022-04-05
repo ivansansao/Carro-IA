@@ -176,7 +176,7 @@ function draw() {
     pista.monstersShow();
 
     // if (vivos < pista.population || getFrameRate() > 60) {
-    if (vivos < 5 || getFrameRate() > 60) {
+    if (vivos < 10 || getFrameRate() > 60) {
 
         const weights = genetic.melhor.ia.model.getWeights();
         const weightCopies = [];
