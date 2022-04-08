@@ -320,6 +320,16 @@ class Car {
 
     show() {
 
+        if (!showCarsDetais) {
+
+            strokeWeight(2);
+            fill(255, 0, 0);
+            stroke(255);
+            circle(this.pos.x, this.pos.y,10);
+
+            return false;
+        }
+
         this.showInfoCar();
 
         if (this.batido) {

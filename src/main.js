@@ -32,6 +32,7 @@ let nGeracao = 0;
 let foo;
 let showBackground = true;
 let showWalls = false;
+let showCarsDetais = true;
 let showRanhuras = false;
 let record = 0;
 let carregarCarroSalvo = true;
