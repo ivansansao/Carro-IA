@@ -20,6 +20,10 @@ class Flag {
     }
     show() {
 
+        if (!showFlag) {
+            return;
+        }
+
         if (this.visible) {
             const x = this.pos.x;
             const y = this.pos.y;

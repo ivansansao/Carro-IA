@@ -18,6 +18,7 @@
     Rode um servidor facilmente com: python3 -m http.server
 */
 
+let maxCar = 999;
 let genetic = null;
 let quantidade = 0;
 let vivos = 0;
@@ -46,6 +47,7 @@ let showMousePoint = false;
 let elitism = true;
 let running = true;
 let showInfoCar = false;
+let showFlag = false;
 let luzes = true;
 
 function setup() {
@@ -176,22 +178,13 @@ function draw() {
     pista.monstersUpdate();
     pista.monstersShow();
 
-    // if (vivos < pista.population || getFrameRate() > 60) {
-    if (vivos < 10 || getFrameRate() > 60) {
+    if (vivos <= maxCar) {
 
-        const weights = genetic.melhor.ia.model.getWeights();
-        const weightCopies = [];
-        for (let i = 0; i < weights.length; i++) {
-            weightCopies[i] = weights[i].clone();
+        if (vivos < 10 || getFrameRate() > 62) {
+            
+            addMoreCar();
+            
         }
-
-        let child = new Car('m2', true, true, false);
-        // pista.anguloNascimento = radians(random(0, 360));
-        child.ia.model.setWeights(weightCopies);
-        child.mutate(Number(random(0.01,0.05).toFixed(15)));    
-        cars.unshift(child);
-        vivos++
-
     }
 
     if (timer > pista.pistaTimeOut) {
@@ -226,4 +219,19 @@ function ShowMousePoint() {
         fill(255);
         text(`(${mouseX},${mouseY})`, mouseX, mouseY);
     }
+}
+
+function addMoreCar() {
+    const weights = genetic.melhor.ia.model.getWeights();
+    const weightCopies = [];
+    for (let i = 0; i < weights.length; i++) {
+        weightCopies[i] = weights[i].clone();
+    }
+
+    let child = new Car('m2', true, true, false);
+    // pista.anguloNascimento = radians(random(0, 360));
+    child.ia.model.setWeights(weightCopies);
+    child.mutate(Number(random(0.01,0.05).toFixed(15)));    
+    cars.unshift(child);
+    vivos++
 }

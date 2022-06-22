@@ -28,8 +28,9 @@ f - Ativa o eliminador de veículo na ponta do mouse
 g - Mostra o fundo
 i - Motra informações sobre o carro
 l - Mostra os limites da pista
-m - Elimina todos os veículos
 p - Pausa
+m - Elimina todos os veículos
+n - Show flag
 o - Ativa colisão entre os carros
 r - Mostra uma lista de ranhuras da pista
 s - Mostrar sensores

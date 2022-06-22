@@ -51,6 +51,8 @@ function keyPressed() {
         showRanhurasNormalized();
     } else if (key == 'i') {        
         showInfoCar = !showInfoCar;
+    } else if (key == 'n') {        
+        showFlag = !showFlag;
     } else if (key == 'z') {        
         luzes = !luzes;
     } else if (key == 'f') { // Mouse matador. 
