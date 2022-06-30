@@ -53,7 +53,7 @@ class Pista {
             collideCars = false;
             wallsPista = getPista2();
             this.ranhuras = getRanhuras2();
-            this.pistaTimeOut = 3000;
+            this.pistaTimeOut = 1000;
             this.timeOutStopped = 100;
             this.population = 20;
             this.monsters.push(new Monster(1570, 120, 0, 0, this.pistaTimeOut, 100, false, true));

@@ -358,7 +358,7 @@ class Car {
             stroke(0, 0, 255);
             fill(255, 255, 255);
             strokeWeight(1);
-            rect(x, y, 100, 50, 4);
+            rect(x, y, 120, 65, 4);
             line(this.pos.x, y + 50, this.pos.x, this.pos.y);
 
             textSize(10);
@@ -370,6 +370,7 @@ class Car {
             text(`Ranhuras: ${this.ranhurasColetadas.length}`, x, y += 12);
             text(`km: ${this.km}`, x, y += 12);
             text(`Marca: ${this.marca}`, x, y += 12);
+            text(`CRC RNA: ${crc32(this.ia.showWeights(true))}`, x, y += 12);
             // text(`Voltas: ${this.lapCount}`, x+50, y); // Não está funcionando ainda.
 
         }
