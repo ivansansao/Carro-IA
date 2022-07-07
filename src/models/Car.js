@@ -314,6 +314,9 @@ class Car {
             vivos--;
             this.batido = true;
             genetic.setFlag();
+            if (pista.recordRanhuras > 0 && this.ranhurasColetadas.length == pista.recordRanhuras) {
+                console.log(`Carro ${this.id} morreu em: km ${this.km} (x,y) ${this.pos.x},${this.pos.y}`);
+            }
 
         }
     }
@@ -323,7 +326,7 @@ class Car {
         if (!showCarsDetais) {
 
             strokeWeight(2);
-            fill(255, 0, 0);
+            fill(this.cor);
             stroke(255);
             circle(this.pos.x, this.pos.y,10);
 
@@ -333,8 +336,12 @@ class Car {
         this.showInfoCar();
 
         if (this.batido) {
-            imageMode(CENTER);
-            image(pista.spriteRip, this.pos.x, this.pos.y);
+            // imageMode(CENTER);
+            // image(pista.spriteRip, this.pos.x, this.pos.y);
+            strokeWeight(1);
+            fill(0, 0, 255);
+            stroke(255);
+            circle(this.pos.x, this.pos.y,5);
         } else {
 
             push();

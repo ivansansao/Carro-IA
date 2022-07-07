@@ -12,6 +12,7 @@ class Pista {
         this.carMajorDistance = 0;
         this.recordFlag = new Flag();
         this.recordKm = 0;
+        this.recordRanhuras = 0;
         this.population = 25;
         this.timeOutStopped = 100;
         this.backcolor = [68, 170, 0];
@@ -53,8 +54,8 @@ class Pista {
             collideCars = false;
             wallsPista = getPista2();
             this.ranhuras = getRanhuras2();
-            this.pistaTimeOut = 1000;
-            this.timeOutStopped = 100;
+            this.pistaTimeOut = 1800;
+            this.timeOutStopped = 2;
             this.population = 20;
             this.monsters.push(new Monster(1570, 120, 0, 0, this.pistaTimeOut, 100, false, true));
             // this.monsters.push(new Monster(1080, 18, 0.2, 0.1, 2700, 100, false, true));
@@ -252,7 +253,7 @@ class Pista {
                 noStroke();
                 fill(0, 0, 255);
                 textSize(9);
-                text(i, r.a, r.b);
+                text(i+1, r.a, r.b);
             }
         }
 
@@ -992,8 +993,7 @@ function getRanhuras2() {
     points.push({ a: 1462, b: 110, c: 1463, d: 136, m: 0, t: 0 });
     points.push({ a: 1417, b: 113, c: 1417, d: 135, m: 0, t: 0 });
     points.push({ a: 1375, b: 113, c: 1376, d: 133, m: 0, t: 0 });
-    points.push({ a: 1334, b: 113, c: 1334, d: 134, m: 0, t: 0 });
-    // points.push({ a: 1240, b: 109, c: 1260, d: 109, m: 0, t: 0 });
+    points.push({ a: 1334, b: 113, c: 1334, d: 134, m: 0, t: 0 });    
     points.push({ a: 1359, b: 165, c: 1348, d: 180, m: 0, t: 0 });
     points.push({ a: 1368, b: 172, c: 1358, d: 184, m: 0, t: 0 });
     points.push({ a: 1378, b: 177, c: 1366, d: 192, m: 0, t: 0 });
@@ -1027,9 +1027,29 @@ function getRanhuras2() {
     points.push({ a: 981, b: 170, c: 951, d: 165, m: 0, t: 0 });    
 
     points.push({ a: 977, b: 177, c: 942, d: 164, m: 0, t: 0 });
-    points.push({ a: 970, b: 184, c: 939, d: 181, m: 0, t: 0 });
-    points.push({ a: 970, b: 191, c: 939, d: 188, m: 0, t: 0 });
-    points.push({ a: 970, b: 200, c: 920, d: 200, m: 0, t: 0 });
+
+    points.push({ a: 990, b: 184, c: 939, d: 184, m: 0, t: 0 }); // 33
+    points.push({ a: 990, b: 185, c: 939, d: 185, m: 0, t: 0 }); 
+    points.push({ a: 990, b: 186, c: 939, d: 186, m: 0, t: 0 }); 
+    points.push({ a: 990, b: 187, c: 939, d: 187, m: 0, t: 0 }); 
+    points.push({ a: 990, b: 188, c: 939, d: 188, m: 0, t: 0 }); 
+    points.push({ a: 990, b: 189, c: 939, d: 189, m: 0, t: 0 }); 
+    points.push({ a: 990, b: 190, c: 939, d: 190, m: 0, t: 0 });
+    points.push({ a: 990, b: 191, c: 939, d: 191, m: 0, t: 0 });
+    points.push({ a: 990, b: 192, c: 939, d: 192, m: 0, t: 0 });    
+    
+    points.push({ a: 990, b: 194, c: 939, d: 194, m: 0, t: 0 });    
+    points.push({ a: 990, b: 196, c: 939, d: 196, m: 0, t: 0 });    
+    points.push({ a: 990, b: 198, c: 939, d: 198, m: 0, t: 0 });    
+    points.push({ a: 990, b: 200, c: 939, d: 200, m: 0, t: 0 });    
+
+    points.push({ a: 990, b: 205, c: 939, d: 205, m: 0, t: 0 });    
+    points.push({ a: 990, b: 210, c: 939, d: 210, m: 0, t: 0 });    
+    points.push({ a: 990, b: 215, c: 939, d: 215, m: 0, t: 0 });    
+    points.push({ a: 990, b: 220, c: 939, d: 220, m: 0, t: 0 });    
+    points.push({ a: 990, b: 225, c: 939, d: 225, m: 0, t: 0 });    
+
+    
 
     points.push({ a: 437, b: 337, c: 482, d: 337, m: 0, t: 0 });
     points.push({ a: 835, b: 455, c: 835, d: 490, m: 0, t: 0 });
