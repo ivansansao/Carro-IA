@@ -2,7 +2,8 @@ class World {
 
     constructor() {
 
-        this.cars = []
+        this.cars = [];
+        this.demo = false;
 
     }
 }

@@ -31,34 +31,64 @@ class Car {
         this.showInfo = false;
         this.speed = 0;
         this.gear = 1; // -1 Reverse, 1 Dinamic
-        this.breaking = false;
+        this.braking = false;
         this.speedingUp = false;
+        this.demo = new Demo();
 
         if (this.pos.x == -1) {
             this.pos = createVector(random(20, 1700), random(20, 800));
         }
 
+
+    }
+
+    randomizePos() {
+        this.pos = createVector(random(20, windowWidth), random(20, windowHeight));;
     }
 
     speedUp() {
-        this.speed += 0.04;
-        if (this.speed > 2) {
-            this.speed = 1;
+        this.speed += 0.005;
+
+        if (this.gear == 1) {            
+            // Limita a velocidade pra frente em 2
+            if (this.speed > 2) {
+                this.speed = 2;
+            }        
+        } else {
+
+            // Limita a velocidade da ré em 0.5
+            if (this.speed > 0.5) {
+                this.speed = 0.5;
+            }        
         }
-        this.breaking = false;
+
+        this.speedingUp = true;
+        this.braking = false;
     }
 
-    break() {
+    freeSpeedUp() {
+        if (this.speed > 0) {
+            this.speed -= 0.004;
+            if (this.speed < 0) {
+                this.speed = 0;
+            }
+        }
+        this.speedingUp = false;
+        
+    }
+
+    brake() {
+
         this.speed -= 0.04;
         if (this.speed < 0) {
             this.speed = 0;
         }
-        this.breaking = true;
+        this.braking = true;
 
     }
 
     vaiPraDireita() {
-        
+
         if (this.speed > 0) {
 
             if (this.gear == 1)
@@ -85,14 +115,12 @@ class Car {
         if (this.speed == 0) {
             this.gear = 1;
         }
-        this.breaking = false;
     }
 
     engageReverse() {
         if (this.speed == 0) {
             this.gear = -1;
         }
-        this.breaking = false;
     }
 
     update() {
@@ -100,7 +128,6 @@ class Car {
         if (this.batido) {
             return false;
         }
-
         this.heading += this.rotation * 0.3;
 
         let irPara = p5.Vector.fromAngle(this.heading).mult(3).mult(this.gear == -1 ? -this.speed : this.speed);
@@ -112,14 +139,6 @@ class Car {
 
         this.marcha = 0;
         this.rotation = 0;
-
-        if (this.speed > 0) {
-            this.speed -= 0.005;
-            if (this.speed < 0) {
-                this.speed = 0;
-            }
-        }
-
         this.speed = Number(this.speed.toFixed(3));
 
     }
@@ -146,6 +165,8 @@ class Car {
             this.volanteAngle = '';
         }
 
+        this.braking = false;
+
     }
 
     showInfoCar() {
@@ -158,17 +179,19 @@ class Car {
             stroke(0, 0, 255);
             fill(255, 255, 255);
             strokeWeight(1);
-            rect(x, y, 120, 65, 4);
             line(this.pos.x, y + 50, this.pos.x, this.pos.y);
+            rect(x, y, 130, 65, 4);
 
             textSize(10);
             fill(0, 0, 255);
             noStroke();
             strokeWeight(1);
 
-            text(`km: ${this.km}`, x, y += 12);
-            text(`Gear: ${this.gear}`, x, y += 12);
-            text(`Speed: ${this.speed}`, x, y += 12);
+            text(`km: ${this.km}`, x + 2, y += 12);
+            text(`Marcha: ${this.gear == 1 ? 'Auto' : 'Ré'}`, x + 2, y += 12);
+            text(`Velocidade: ${this.speed}`, x + 2, y += 12);
+            text(`Acelerador: ${this.speedingUp ? 'Acelerou' : 'Aliviou'}`, x + 2, y += 12);
+            text(`Freio: ${this.braking ? 'Freiou' : 'Aliviou'}`, x + 2, y += 12);
 
         }
     }
@@ -212,7 +235,7 @@ class Car {
         rect(-2, -9, 14, 17, 4);
 
         // Ré.
-        if (this.breaking) {
+        if (this.braking) {
 
             stroke(255, 0, 0);
             strokeWeight(2);
@@ -267,67 +290,33 @@ class Car {
 
     }
 
-    demo(run) {
+    runDemo(run) {
 
         if (!run) return
 
-        if (this.speed == 0) {
-            const rand = Number(random(0,2).toFixed(0));
-            if (rand == 0) {
-                this.gear = -1;
-            } else if (rand == 1) {
-                this.gear = 1;
-            }
-
-        }
-
         if (frameCount % 50 == 0) {
 
-            const rand = Number(random(0,2).toFixed(0))
-
-            if (rand == 0) {
-                this.speedingUp = true;
-            } else if (rand == 1) {
-                this.speedingUp = false;
-            }
+            this.demo.think();
+            
         }
-
-        if (this.speedingUp) {
+        if (this.demo.brake) {
+            this.brake();
+        }
+        if (this.demo.speedUp) {
             this.speedUp();
-        }
-        if (frameCount % 50 == 0) {
-
-            const rand = Number(random(0,2).toFixed(0))
-
-            if (rand == 0) {
-                this.breaking = true;
-            } else if (rand == 1) {
-                this.breaking = false;
-            }
+        } else if (this.demo.freeSpeedUp) {
+            this.freeSpeedUp();
         }
 
-        if (this.breaking) {
-            this.break();
+        if (this.demo.gear == -1) {
+            this.engageReverse();
+        } else if (this.demo.gear == 1) {
+            this.engageDinamic();
         }
 
-        if (frameCount % 50 == 0) {
-
-            const lado = Number(random(0,2).toFixed(0))
-
-            if (lado == 0) {
-                this.demoLado = ''
-            } else if (lado == 1) {
-                this.demoLado = 'r'
-            } else if (lado == 2) {
-                this.demoLado = 'l'
-            }
-        }
-        
-
-
-        if (this.demoLado == 'r')
+        if (this.demo.side == 'r')
             this.vaiPraDireita();
-        else if (this.demoLado == 'l')
+        else if (this.demo.side == 'l')
             this.vaiPraEsquerda();
 
         if (this.pos.x > width)

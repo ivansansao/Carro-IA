@@ -5,7 +5,7 @@ function handleKeyIsDown(car) {
     if (keyIsDown(UP_ARROW)) {
         car.speedUp();
     } else if (keyIsDown(DOWN_ARROW)) {
-        car.break();
+        car.freeSpeedUp();
     }
     if (keyIsDown(RIGHT_ARROW)) {
         car.vaiPraDireita();
@@ -19,11 +19,23 @@ function handleKeyIsDown(car) {
     if (keyIsDown(68)) { // d
         car.engageDinamic();
     }
-
+    if (keyIsDown(66)) { // b
+        car.brake();
+    }
 
 }
 
 function keyPressed() {
+
+    if (key == 'e') {
+        world.demo = !world.demo;
+    }
+    if (key == 'i') {
+        for (const car of world.cars) {
+            car.showInfo = !car.showInfo;
+        }
+
+    }
 
 
 }
@@ -31,8 +43,11 @@ function setup() {
 
     createCanvas(windowWidth, windowHeight-4);
 
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 8; i++) {
         world.cars.push(new Car());
+    }
+    for (const car of world.cars) {
+        car.randomizePos();
     }
 
 }
@@ -44,9 +59,14 @@ function draw() {
     for (const car of world.cars) {
 
         handleKeyIsDown(car);
-        car.demo(true);
+
+        car.runDemo(world.demo);
         car.update();
         car.show();
+
+        if (!world.demo) {
+            break;
+        }
 
     }
 
