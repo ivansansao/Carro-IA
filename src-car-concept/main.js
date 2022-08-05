@@ -36,13 +36,16 @@ function keyPressed() {
         }
 
     }
+    if (key == 't') {
+        world.showTrails = !world.showTrails;
+    }
 
 }
 function setup() {
 
     createCanvas(windowWidth, windowHeight-4);
 
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 10; i++) {
         world.cars.push(new Car());
     }
     for (const car of world.cars) {
@@ -55,8 +58,10 @@ function draw() {
 
     background(200,200,200);
 
-    for (const car of world.cars) {
-        car.drawTrail();
+    if (world.showTrails) {
+        for (const car of world.cars) {
+            car.drawTrail();
+        }
     }
 
     for (const car of world.cars) {

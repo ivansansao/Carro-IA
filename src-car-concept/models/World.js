@@ -4,6 +4,7 @@ class World {
 
         this.cars = [];
         this.demo = false;
+        this.showTrails = false;
 
     }
 }
