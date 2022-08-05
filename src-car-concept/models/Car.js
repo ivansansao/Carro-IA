@@ -34,6 +34,7 @@ class Car {
         this.braking = false;
         this.speedingUp = false;
         this.demo = new Demo();
+        this.trail = [];
 
         if (this.pos.x == -1) {
             this.pos = createVector(random(20, 1700), random(20, 800));
@@ -49,17 +50,17 @@ class Car {
     speedUp() {
         this.speed += 0.005;
 
-        if (this.gear == 1) {            
+        if (this.gear == 1) {
             // Limita a velocidade pra frente em 2
             if (this.speed > 2) {
                 this.speed = 2;
-            }        
+            }
         } else {
 
             // Limita a velocidade da ré em 0.5
             if (this.speed > 0.5) {
                 this.speed = 0.5;
-            }        
+            }
         }
 
         this.speedingUp = true;
@@ -74,7 +75,7 @@ class Car {
             }
         }
         this.speedingUp = false;
-        
+
     }
 
     brake() {
@@ -84,6 +85,9 @@ class Car {
             this.speed = 0;
         }
         this.braking = true;
+        if (this.speed > 0.5) {
+            this.trail.push({pos: this.pos.copy(), rotate: this.heading});
+        }
 
     }
 
@@ -91,10 +95,17 @@ class Car {
 
         if (this.speed > 0) {
 
-            if (this.gear == 1)
-                this.rotation = 0.1; // this.speed * 0.4
-            else if (this.gear == -1)
-                this.rotation = -0.1;
+            if (this.speed < 0.1) {
+                if (this.gear == 1)
+                    this.rotation = this.speed * 0.4; // this.speed * 0.4
+                else if (this.gear == -1)
+                    this.rotation = -this.speed * 0.4;
+            } else {
+                if (this.gear == 1)
+                    this.rotation = 0.1; // this.speed * 0.4
+                else if (this.gear == -1)
+                    this.rotation = -0.1;
+            }
 
         }
         this.volanteAngle = 'r';
@@ -102,10 +113,17 @@ class Car {
     vaiPraEsquerda() {
         if (this.speed > 0) {
 
-            if (this.gear == 1)
-                this.rotation = -0.1;
-            else if (this.gear == -1)
-                this.rotation = 0.1;
+            if (this.speed < 0.1) {
+                if (this.gear == 1)
+                    this.rotation = -this.speed * 0.4;
+                else if (this.gear == -1)
+                    this.rotation = this.speed * 0.4;
+            } else {
+                if (this.gear == 1)
+                    this.rotation = -0.1;
+                else if (this.gear == -1)
+                    this.rotation = 0.1;
+            }
 
         }
         this.volanteAngle = 'l';
@@ -128,6 +146,7 @@ class Car {
         if (this.batido) {
             return false;
         }
+
         this.heading += this.rotation * 0.3;
 
         let irPara = p5.Vector.fromAngle(this.heading).mult(3).mult(this.gear == -1 ? -this.speed : this.speed);
@@ -147,6 +166,7 @@ class Car {
 
         this.showInfoCar();
 
+
         if (this.batido) {
             // imageMode(CENTER);
             // image(pista.spriteRip, this.pos.x, this.pos.y);
@@ -160,8 +180,9 @@ class Car {
             translate(this.pos.x, this.pos.y);
             rotate(this.heading);
             this.drawCar();
+            
             pop();
-
+            
             this.volanteAngle = '';
         }
 
@@ -174,7 +195,7 @@ class Car {
         if (this.showInfo) {
 
             let x = this.pos.x - 50;
-            let y = this.pos.y - 90;
+            let y = this.pos.y - 100;
 
             stroke(0, 0, 255);
             fill(255, 255, 255);
@@ -191,8 +212,21 @@ class Car {
             text(`Marcha: ${this.gear == 1 ? 'Auto' : 'Ré'}`, x + 2, y += 12);
             text(`Velocidade: ${this.speed}`, x + 2, y += 12);
             text(`Acelerador: ${this.speedingUp ? 'Acelerou' : 'Aliviou'}`, x + 2, y += 12);
-            text(`Freio: ${this.braking ? 'Freiou' : 'Aliviou'}`, x + 2, y += 12);
+            text(`Freio: ${this.braking ? 'Freiou' : 'Soltou'}`, x + 2, y += 12);
 
+        }
+    }
+
+    drawTrail() {
+        if (this.trail.length > 0) {
+            
+            strokeWeight(0);
+            fill(0, 0, 0,20);
+            stroke(255);
+            this.trail.forEach(element => {
+                circle(element.pos.x-4, element.pos.y-4, 8);
+                circle(element.pos.x+4, element.pos.y+4, 8);
+            });
         }
     }
 
@@ -297,7 +331,7 @@ class Car {
         if (frameCount % 50 == 0) {
 
             this.demo.think();
-            
+
         }
         if (this.demo.brake) {
             this.brake();
