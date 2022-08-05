@@ -59,7 +59,14 @@ class Genetic {
         }
 
         let child = new Car('X');
-        const pesos = this.pesos[pista.selectedPista];
+        let pesos;
+        if (pesosForcados != undefined) {
+            pesos = this.pesos[pesosForcados];
+            console.log(`Pesos da pista ${pesosForcados}`);
+        } else {
+            pesos = this.pesos[pista.selectedPista];
+        }
+
         if (pesos) {
             child.ia.setWeightsFromString(pesos, this.shapes);
         }
