@@ -32,6 +32,7 @@ class Car {
         this.speed = 0;
         this.gear = 1; // -1 Reverse, 1 Dinamic
         this.breaking = false;
+        this.speedingUp = false;
 
         if (this.pos.x == -1) {
             this.pos = createVector(random(20, 1700), random(20, 800));
@@ -40,7 +41,7 @@ class Car {
     }
 
     speedUp() {
-        this.speed += 0.1;
+        this.speed += 0.04;
         if (this.speed > 2) {
             this.speed = 1;
         }
@@ -48,7 +49,7 @@ class Car {
     }
 
     break() {
-        this.speed -= 0.03;
+        this.speed -= 0.04;
         if (this.speed < 0) {
             this.speed = 0;
         }
@@ -57,12 +58,13 @@ class Car {
     }
 
     vaiPraDireita() {
+        
         if (this.speed > 0) {
 
             if (this.gear == 1)
-                this.rotation = this.speed * 0.1;
+                this.rotation = 0.1; // this.speed * 0.4
             else if (this.gear == -1)
-                this.rotation = -this.speed * 0.1;
+                this.rotation = -0.1;
 
         }
         this.volanteAngle = 'r';
@@ -71,9 +73,9 @@ class Car {
         if (this.speed > 0) {
 
             if (this.gear == 1)
-                this.rotation = -this.speed * 0.1;
+                this.rotation = -0.1;
             else if (this.gear == -1)
-                this.rotation = this.speed * 0.1;
+                this.rotation = 0.1;
 
         }
         this.volanteAngle = 'l';
@@ -117,6 +119,8 @@ class Car {
                 this.speed = 0;
             }
         }
+
+        this.speed = Number(this.speed.toFixed(3));
 
     }
 
@@ -234,10 +238,10 @@ class Car {
         if (this.luzes) {
 
             // Faróis dianteiros acesos.
-            strokeWeight(6);
-            stroke(255);
-            point(28, -6);
-            point(28, 6);
+            // strokeWeight(6);
+            // stroke(255);
+            // point(28, -6);
+            // point(28, 6);
 
             noStroke();
 
@@ -267,35 +271,64 @@ class Car {
 
         if (!run) return
 
-        let movimento = Number((Math.random() * (100 - 1)).toFixed(0));
-        this.marcha = 1
+        if (this.speed == 0) {
+            const rand = Number(random(0,2).toFixed(0));
+            if (rand == 0) {
+                this.gear = -1;
+            } else if (rand == 1) {
+                this.gear = 1;
+            }
 
-        if (movimento > 50) {
-            this.speedUp()
-        } else {
-            this.break()
         }
 
-        if (frameCount % 4 == 0) {
+        if (frameCount % 50 == 0) {
 
-            const lado = Math.floor(random(0.0, 0.4) * 10)
+            const rand = Number(random(0,2).toFixed(0))
+
+            if (rand == 0) {
+                this.speedingUp = true;
+            } else if (rand == 1) {
+                this.speedingUp = false;
+            }
+        }
+
+        if (this.speedingUp) {
+            this.speedUp();
+        }
+        if (frameCount % 50 == 0) {
+
+            const rand = Number(random(0,2).toFixed(0))
+
+            if (rand == 0) {
+                this.breaking = true;
+            } else if (rand == 1) {
+                this.breaking = false;
+            }
+        }
+
+        if (this.breaking) {
+            this.break();
+        }
+
+        if (frameCount % 50 == 0) {
+
+            const lado = Number(random(0,2).toFixed(0))
 
             if (lado == 0) {
                 this.demoLado = ''
             } else if (lado == 1) {
                 this.demoLado = 'r'
-                this.vaiPraDireita();
             } else if (lado == 2) {
                 this.demoLado = 'l'
-                this.vaiPraEsquerda();
             }
         }
+        
 
 
-        // if (this.demoLado == 'r')
-        //     this.vaiPraDireita();
-        // else if (this.demoLado == 'l')
-        //     this.vaiPraEsquerda();
+        if (this.demoLado == 'r')
+            this.vaiPraDireita();
+        else if (this.demoLado == 'l')
+            this.vaiPraEsquerda();
 
         if (this.pos.x > width)
             this.pos.x = 0;

@@ -29,23 +29,22 @@ function keyPressed() {
 }
 function setup() {
 
-    createCanvas(windowWidth, windowHeight - 4);
+    createCanvas(windowWidth, windowHeight-4);
 
-    for (let i = 0; i < 1; i++) {
+    for (let i = 0; i < 10; i++) {
         world.cars.push(new Car());
     }
 
-    background(255);
 }
 
 function draw() {
 
-    text(`Car X`, 10, 10);
+    background(200,200,200,255);
 
     for (const car of world.cars) {
 
         handleKeyIsDown(car);
-        // car.demo(true);
+        car.demo(true);
         car.update();
         car.show();
 
